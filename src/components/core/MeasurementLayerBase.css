@@ -1,0 +1,264 @@
+/*---------- General Layout ----------*/
+
+.measurement-layer-base {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  outline: none;  
+}
+
+.line-measurement,
+.circle-measurement,
+.text-annotation,
+.measurement-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/*---------- Colors ----------*/
+
+.line-measurement .line,
+.circle-measurement .circle,
+.text-annotation .arrow-line {
+  stroke: yellow;
+}
+
+.text-annotation .arrow-head,
+.measurement-layer-base .text-anchor .text-box:hover .delete-button:hover .delete-button-background {
+  fill: yellow;  
+}
+
+.measurement-text,
+.text-annotation .text {
+  color: yellow;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.measurement-layer-base .text-box:hover .delete-button {
+  background-color: rgb(255, 220, 0);
+  border-color: black;
+}
+
+.measurement-layer-base .text-box:hover .delete-button-graphic {
+  stroke: black;
+}
+
+/*---------- General Measurement & Text Styling ----------*/
+
+.line-measurement .line,
+.circle-measurement .circle,
+.text-annotation .arrow-line {
+  stroke-width: 2px;
+  stroke-linecap: butt;
+  pointer-events: none;
+  fill: none;
+}
+
+.text-annotation .arrow-head {
+  stroke: none;
+}
+
+.measurement-text {
+  position: relative;
+  padding: 1px 4px 2px 4px;
+  white-space: pre;
+  cursor: default;
+  user-select: none;
+  /* Use color transitions rather than opacity, which blurs text for some reason. */
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.text-anchor.just-created .measurement-text {
+  color: transparent;
+  background-color: transparent;
+}
+
+.text-annotation .text {
+  position: relative;
+  padding: 1px 4px 2px 4px;
+}
+
+.line-measurement .grabber-group:hover .line,
+.line-measurement.mid-hover .grabber-group .line,
+.line-measurement .line.dragged,
+.circle-measurement .grabber-group:hover .circle,
+.circle-measurement .circle.dragged,
+.text-annotation .arrow-line.hover,
+.text-annotation .arrow-line.dragged {
+  stroke-width: 3px;
+}
+
+.text-annotation .public-DraftEditor-content {
+  /* Ensures the blinking cursor is always visible when the text is editable but empty. */
+  min-width: 1px; 
+}
+
+.text-annotation .public-DraftStyleDefault-block {
+  white-space: pre;
+  text-align: center;
+}
+
+.text-annotation.no-text .text-anchor {
+  visibility: hidden;
+}
+
+.text-annotation.no-text.editable .text-anchor {
+  visibility: visible;
+}
+
+/*---------- Grabbers ----------*/
+
+.line-measurement .grabber,
+.text-annotation .arrow-line-grabber {
+  stroke: transparent;
+  stroke-width: 11px;
+  stroke-linecap: butt;
+ }
+ 
+.circle-measurement .stroke-grabber {
+  stroke: transparent;
+  stroke-width: 11px;
+  fill: none;
+}
+ 
+.circle-measurement .fill-grabber {
+  fill: transparent;
+  stroke: none;
+}
+
+.text-annotation .arrow-head-grabber {
+  stroke: transparent;
+  fill: transparent;
+}
+
+/*---------- Text Anchor & Delete Button ----------*/
+
+.measurement-layer-base .text-anchor {
+  /* Zero-size flexbox allows us to center text without using transforms, which can lead to sub-pixel positioning (blurry lines). */
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0px;
+  height: 0px;
+}
+
+.measurement-layer-base .text-box {
+  position: relative;
+  display: flex;
+}
+
+.measurement-layer-base .delete-button-box {
+  position: absolute;
+  right: -20px;
+  background-color: transparent;
+  width: 20px;
+  height: 100%;
+}
+
+.measurement-layer-base .delete-button,
+.measurement-layer-base.any-dragged .text-box:hover .delete-button,
+.measurement-layer-base.any-mode-on .text-box:hover .delete-button {
+  position: absolute;
+  background-color: transparent;
+  width: 11px;
+  height: 11px;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px 1px 1px 0px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.measurement-layer-base .text-box:hover .delete-button {
+  transition-delay: 0.5s;
+}
+
+.measurement-layer-base .delete-button-background {
+  stroke: none;
+  fill: transparent;
+  transition: fill 0.2s;
+  width: 100%;
+  height: 100%;
+}
+
+.measurement-layer-base .text-anchor .text-box:hover .delete-button .delete-button-background {
+  fill: transparent;
+}
+
+.measurement-layer-base .delete-button-graphic,
+.measurement-layer-base.any-dragged .text-box:hover .delete-button-graphic,
+.measurement-layer-base.any-mode-on .text-box:hover .delete-button-graphic {
+  stroke: transparent;
+  stroke-width: 2px;
+  stroke-linecap: round;  
+  fill: none;
+  transition: stroke 0.2s;
+}
+
+.measurement-layer-base .text-box:hover .delete-button-graphic {
+  transition-delay: 0.5s;
+}
+
+/*---------- Cursors ----------*/
+
+.line-measurement .mid-grabber,
+.circle-measurement .fill-grabber,
+.text-annotation .arrow-line-grabber,
+.measurement-layer-base.line-mid-dragged,
+.measurement-layer-base.circle-fill-dragged,
+.measurement-layer-base.arrow-line-dragged {
+  cursor: move;
+}
+
+.line-measurement .start-grabber,
+.line-measurement .end-grabber,
+.circle-measurement .stroke-grabber,
+.text-annotation .text,
+.text-annotation .arrow-head-grabber,
+.measurement-layer-base.line-start-dragged,
+.measurement-layer-base.line-end-dragged,
+.measurement-layer-base.circle-stroke-dragged,
+.measurement-layer-base.arrow-head-dragged,
+.measurement-layer-base.text-dragged,
+.measurement-layer-base .delete-button {
+  cursor: pointer;
+}
+
+.text-annotation.editable .text {
+  cursor: text;
+}
+
+/*---------- Pointer Events & Drag ----------*/
+
+.measurement-layer-base .grabber-group {
+  pointer-events: painted;
+}
+
+.text-annotation .text,
+.text-annotation .arrow-head-grabber,
+.text-annotation .arrow-line-grabber,
+.measurement-layer-base .text-box,
+.measurement-layer-base .text-anchor.button-showing .text-box:hover .delete-button {
+  pointer-events: auto;
+}
+
+.measurement-layer-base.any-dragged .grabber-group,
+.measurement-layer-base.any-dragged .text-annotation .text,
+.measurement-layer-base.any-dragged .text-annotation .arrow-head-grabber,
+.measurement-layer-base.any-dragged .text-annotation .arrow-line-grabber,
+.measurement-layer-base.any-dragged .text-box,
+.measurement-layer-base.any-dragged .text-box:hover .delete-button,
+.measurement-layer-base.any-mode-on .grabber-group,
+.measurement-layer-base.any-mode-on .text-annotation .text,
+.measurement-layer-base.any-mode-on .text-annotation .arrow-head-grabber,
+.measurement-layer-base.any-mode-on .text-annotation .arrow-line-grabber,
+.measurement-layer-base.any-mode-on .text-box,
+.measurement-layer-base.any-mode-on .text-box:hover .delete-button,
+.measurement-layer-base .text-anchor .delete-button,
+.measurement-layer-base .text-anchor .text-box:hover .delete-button {
+  pointer-events: none;
+}
