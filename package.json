@@ -28,5 +28,6 @@
   "scripts": {
     "test": "",
     "build": "webpack"
-  }
+  },
+  "files": []
 }
