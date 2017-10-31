@@ -29,5 +29,7 @@
     "test": "",
     "build": "webpack"
   },
-  "files": []
+  "files": [
+    "build/index.js"
+  ]
 }
