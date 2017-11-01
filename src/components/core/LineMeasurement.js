@@ -61,6 +61,9 @@ class LineMeasurement extends PureComponent {
 
     return (
       <div className={rootClassName} ref={e => this.root = e}>
+        <TextAnchor x={textX} y={textY} rotate={textRotate} onDeleteButtonClick={this.onDeleteButtonClick}>
+          <div className='measurement-text' ref={e => this.text = e}>{text}</div>
+        </TextAnchor>
         <svg className='measurement-svg'>
           <g className='grabber-group'>
             <line className='grabber mid-grabber' x1={startX} y1={startY} x2={endX} y2={endY} ref={e => this.midGrabber = e} />
@@ -75,9 +78,6 @@ class LineMeasurement extends PureComponent {
             <line className='line end-line' x1={endX - edgeX} y1={endY + edgeY} x2={endX + edgeX} y2={endY - edgeY} ref={e => this.endLine = e} />
           </g>
         </svg>
-        <TextAnchor x={textX} y={textY} rotate={textRotate} onDeleteButtonClick={this.onDeleteButtonClick}>
-          <div className='measurement-text' ref={e => this.text = e}>{text}</div>
-        </TextAnchor>
       </div>
     );
   }
