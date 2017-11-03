@@ -1,10 +1,10 @@
 {
-  "name": "react-image-measurements",
+  "name": "react-measurements",
   "version": "0.1.4",
   "description": "A React component for measuring & annotating images.",
   "main": "build/index.js",
   "author": "Robert Fisher",
-  "repository": "https://github.com/rmfisher/react-image-measurements",
+  "repository": "https://github.com/rmfisher/react-measurements",
   "license": "MIT",
   "peerDependencies": {
     "react": "^16.0.0",
