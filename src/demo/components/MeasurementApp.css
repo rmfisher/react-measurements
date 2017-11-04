@@ -37,6 +37,7 @@ body {
 .measurements-body p {
   padding: 10px;
   font-size: 9pt;
+  font-weight: bold;
   text-align: center;
   margin: 0;
   width: 100%;
