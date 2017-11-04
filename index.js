@@ -12635,7 +12635,7 @@ var createInitialState = exports.createInitialState = function createInitialStat
     "arrowX": 0.482,
     "arrowY": 0.739, "textX": 0.532,
     "textY": 0.809,
-    "editorState": _draftJs.EditorState.createWithContent(_draftJs.ContentState.createFromText("Pollen Grains"))
+    "editorState": _draftJs.EditorState.createWithContent(_draftJs.ContentState.createFromText("Pollen Grain"))
   }];
 };
 
