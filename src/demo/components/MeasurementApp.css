@@ -85,3 +85,9 @@ img {
     max-width: 600px;
   }
 }
+
+@media all and (max-width: 400px) {
+  .content {
+    padding: 10px;
+  }
+}

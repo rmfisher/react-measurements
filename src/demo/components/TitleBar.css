@@ -50,7 +50,11 @@
   text-decoration: underline;
 }
 
-@media all and (max-width: 350px) {
+@media all and (max-width: 400px) {
+  .title-bar-background {
+    padding: 12px 10px;
+  }
+
   .title-text {
     font-size: 10pt;
   }
@@ -60,6 +64,6 @@
   }
 
   .title-links a {
-    margin-left: 10px;
+    margin-left: 8px;
   }
 }
