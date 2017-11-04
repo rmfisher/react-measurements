@@ -12786,15 +12786,11 @@ var TitleBar = function TitleBar() {
     _react2.default.createElement(
       'div',
       { className: 'title-bar' },
+      _react2.default.createElement(ReactMeasurementsIcon, null),
       _react2.default.createElement(
-        'span',
-        { className: 'title' },
-        _react2.default.createElement(ReactMeasurementsIcon, null),
-        _react2.default.createElement(
-          'span',
-          { className: 'title-text' },
-          'React Measurements'
-        )
+        'div',
+        { className: 'title-text' },
+        'React Measurements'
       ),
       _react2.default.createElement(
         'div',
@@ -14385,7 +14381,7 @@ exports = module.exports = __webpack_require__(21)(undefined);
 
 
 // module
-exports.push([module.i, ".title-bar-background {\r\n  position: relative;\r\n  width: 100%;\r\n  padding: 12px 20px;\r\n  background-color: rgb(250, 250, 250);\r\n  border-color: rgb(235, 235, 232);  \r\n  border-width: 0 0 1px 0;\r\n  border-style: solid;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.title-bar {\r\n  position: relative;\r\n  margin: 0 auto;\r\n  width: 100%;\r\n  display: flex;\r\n  align-items: center;\r\n  line-height: 100%;\r\n}\r\n\r\n.title {\r\n  display: flex;\r\n  cursor: default;\r\n}\r\n\r\n.title-text {\r\n  padding-left: 7px;\r\n  font-size: 12pt;\r\n}\r\n\r\n.react-measurements-icon-path {\r\n  stroke: none;\r\n  fill: #436060;\r\n}\r\n\r\n.title-links {\r\n  flex-grow: 1;\r\n  display: flex;\r\n  flex-direction: row-reverse;\r\n  font-size: 10pt;\r\n}\r\n\r\n.title-links a {\r\n  color: darkslategrey;\r\n  margin-left: 15px;\r\n  text-decoration: none;\r\n}\r\n\r\n.title-links a:hover {\r\n  text-decoration: underline;\r\n}\r\n\r\n@media all and (max-width: 400px) {\r\n  .title-bar-background {\r\n    padding: 12px 10px;\r\n  }\r\n\r\n  .title-text {\r\n    padding-left: 5px;\r\n    font-size: 11pt;\r\n  }\r\n\r\n  .title-links {\r\n    font-size: 9pt;\r\n  }\r\n\r\n  .title-links a {\r\n    margin-left: 8px;\r\n  }\r\n}", ""]);
+exports.push([module.i, ".title-bar-background {\r\n  position: relative;\r\n  width: 100%;\r\n  padding: 10px 20px;\r\n  background-color: rgb(250, 250, 250);\r\n  border-color: rgb(235, 235, 232);  \r\n  border-width: 0 0 1px 0;\r\n  border-style: solid;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.title-bar {\r\n  position: relative;\r\n  margin: 0 auto;\r\n  width: 100%;\r\n  height: 21px;\r\n  display: flex;\r\n  align-items: center;\r\n  line-height: 1;\r\n}\r\n\r\n.title {\r\n  display: flex;\r\n  cursor: default;\r\n}\r\n\r\n.title-text {\r\n  margin: 0;  \r\n  padding: 0 0 2px 0;\r\n  padding-left: 7px;\r\n  font-size: 12pt;\r\n}\r\n\r\n.react-measurements-icon-path {\r\n  stroke: none;\r\n  fill: #436060;\r\n}\r\n\r\n.title-links {\r\n  flex-grow: 1;\r\n  display: flex;\r\n  flex-direction: row-reverse;\r\n  font-size: 10pt;\r\n}\r\n\r\n.title-links a {\r\n  margin-left: 15px;\r\n  color: darkslategrey;  \r\n  text-decoration: none;\r\n}\r\n\r\n.title-links a:hover {\r\n  text-decoration: underline;\r\n}\r\n\r\n@media all and (max-width: 400px) {\r\n  .title-bar-background {\r\n    padding: 12px 10px;\r\n  }\r\n\r\n  .title-text {\r\n    padding-left: 5px;\r\n    font-size: 11pt;\r\n  }\r\n\r\n  .title-links {\r\n    font-size: 9pt;\r\n  }\r\n\r\n  .title-links a {\r\n    margin-left: 8px;\r\n  }\r\n}", ""]);
 
 // exports
 
