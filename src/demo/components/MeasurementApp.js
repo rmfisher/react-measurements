@@ -7,9 +7,9 @@ class MeasurementApp extends PureComponent {
 
   render() {
     return (
-      <div class='container'>
+      <div className='container'>
         <TitleBar />
-        <div class='content'>
+        <div className='content'>
           <div className='measurements-body'>
             <PollenImage />
             <p>Fig. 1: Pollen grains under an electron microscope.</p>

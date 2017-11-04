@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { MeasurementLayer, measureLine, measureCircle } from 'react-image-measurements';
+import MeasurementLayer from '../../lib/components/MeasurementLayer';
+import { measureLine, measureCircle } from '../../lib/logic/MeasurementUtils';
 import pollenImage from '../images/pollen.jpg';
 
 class PollenImage extends PureComponent {
