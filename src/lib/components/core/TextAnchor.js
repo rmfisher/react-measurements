@@ -18,7 +18,7 @@ class TextAnchor extends PureComponent {
       if (this.mounted) {
         this.setState({ ...this.state, justCreated: false })
       }
-    }, 100);
+    }, 200);
   }
 
   componentWillUnmount() {

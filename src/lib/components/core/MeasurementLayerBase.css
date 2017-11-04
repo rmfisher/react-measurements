@@ -72,7 +72,8 @@
   transition: color 0.3s, background-color 0.3s;
 }
 
-.text-anchor.just-created .measurement-text {
+.measurement-layer-base.line-end-dragged .text-anchor.just-created .measurement-text,
+.measurement-layer-base.circle-stroke-dragged .text-anchor.just-created .measurement-text {
   color: transparent;
   background-color: transparent;
 }
