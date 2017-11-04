@@ -21334,7 +21334,7 @@ module.exports = global.setImmediate;
 /* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "demo/71235b11e134100360a21d86c43c1796.jpg";
+module.exports = __webpack_require__.p + "71235b11e134100360a21d86c43c1796.jpg";
 
 /***/ }),
 /* 180 */
