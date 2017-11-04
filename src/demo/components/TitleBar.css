@@ -2,11 +2,10 @@
   position: relative;
   width: 100%;
   padding: 12px 20px;
-  background-color: rgb(247, 249, 251);
-  border-width: 1px 0px 1px 0px;
-  margin: -1px 0px 0px 0px;
+  background-color: rgb(250, 250, 250);
+  border-color: rgb(235, 235, 232);  
+  border-width: 0 0 1px 0;
   border-style: solid;
-  border-color: rgb(225, 228, 232);
   box-sizing: border-box;
 }
 
@@ -25,7 +24,7 @@
 }
 
 .title-text {
-  padding-left: 6px;
+  padding-left: 7px;
   font-size: 12pt;
 }
 
