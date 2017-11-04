@@ -11,7 +11,9 @@ class MeasurementApp extends PureComponent {
         <TitleBar />
         <div className='content'>
           <div className='measurements-body'>
-            <PollenImage />
+            <div>
+              <PollenImage />
+            </div>
             <p>Fig. 1: Pollen grains under an electron microscope.</p>
           </div>
         </div>
