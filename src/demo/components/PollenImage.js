@@ -2,12 +2,13 @@ import React, { PureComponent } from 'react';
 import MeasurementLayer from '../../lib/components/MeasurementLayer';
 import { measureLine, measureCircle } from '../../lib/logic/MeasurementUtils';
 import pollenImage from '../images/pollen.jpg';
+import { createInitialState } from './InitialMeasurements';
 
 class PollenImage extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { measurements: [], width: 0, height: 0 };
+    this.state = { measurements: createInitialState(), width: 0, height: 0 };
     this.onChange = measurements => this.setState({ ...this.state, measurements });
   }
 
