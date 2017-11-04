@@ -49,3 +49,17 @@
 .title-links a:hover {
   text-decoration: underline;
 }
+
+@media all and (max-width: 350px) {
+  .title-text {
+    font-size: 10pt;
+  }
+
+  .title-links {
+    font-size: 9pt;
+  }
+
+  .title-links a {
+    margin-left: 10px;
+  }
+}

@@ -79,7 +79,7 @@ img {
   }
 }
 
-@media all and (min-height: 730px) {
+@media all and (min-height: 750px) {
   .measurements-body,
   .title-bar {
     max-width: 600px;
