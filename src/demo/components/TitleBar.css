@@ -1,0 +1,53 @@
+.title-bar-background {
+  position: relative;
+  width: 100%;
+  padding: 12px 20px;
+  background-color: rgb(247, 249, 251);
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: rgb(225, 228, 232);
+  box-sizing: border-box;
+}
+
+.title-bar {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  line-height: 100%;
+}
+
+.title {
+  display: flex;
+  cursor: default;
+}
+
+.title-text {
+  padding-left: 6px;
+  font-weight: 500;
+  font-size: 12pt;
+}
+
+.react-measurements-icon-path {
+  stroke: none;
+  fill: #436060;
+}
+
+.title-links {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 10pt;
+}
+
+.title-links a {
+  color: darkslategrey;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+.title-links a:hover {
+  text-decoration: underline;
+}

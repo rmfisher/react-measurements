@@ -1,0 +1,80 @@
+html,
+body,
+.root {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
+  font-size: 10pt;
+  color: darkslategrey;  
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 640px) {
+  .container {
+    min-height: 92%;
+  }
+}
+
+.content {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.measurements-body {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 600px;
+}
+
+.measurements-body p {
+  padding: 10px;
+  font-size: 9pt;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgb(235, 238, 240);
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  border-color: rgb(207, 211, 214);
+}
+
+/* The goal is that the child div is always square, i.e. the height is equal to the width. */
+.square-parent {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  height: 0;
+}
+
+.square-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  user-select: none;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
