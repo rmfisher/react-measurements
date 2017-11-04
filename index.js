@@ -12788,7 +12788,7 @@ var TitleBar = function TitleBar() {
       { className: 'title-bar' },
       _react2.default.createElement(ReactMeasurementsIcon, null),
       _react2.default.createElement(
-        'span',
+        'div',
         { className: 'title-text' },
         'React Measurements'
       ),
@@ -14381,7 +14381,7 @@ exports = module.exports = __webpack_require__(21)(undefined);
 
 
 // module
-exports.push([module.i, ".title-bar-background {\r\n  position: relative;\r\n  width: 100%;\r\n  padding: 10px 20px;\r\n  background-color: rgb(250, 250, 250);\r\n  border-color: #ebebe8;\r\n  border-width: 0 0 1px 0;\r\n  border-style: solid;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.title-bar {\r\n  position: relative;\r\n  margin: 0 auto;\r\n  width: 100%;\r\n  display: flex;\r\n  align-items: center;\r\n  line-height: 21px;\r\n}\r\n\r\n.title-text {\r\n  margin: 0;\r\n  padding-left: 7px;\r\n  font-size: 11pt;\r\n  cursor: default;\r\n}\r\n\r\n.react-measurements-icon-path {\r\n  stroke: none;\r\n  fill: #666666;\r\n}\r\n\r\n.title-links {\r\n  flex-grow: 1;\r\n  display: flex;\r\n  flex-direction: row-reverse;\r\n}\r\n\r\n.title-links a {\r\n  margin-left: 15px;\r\n  color: #333;  \r\n  text-decoration: none;\r\n}\r\n\r\n.title-links a:hover {\r\n  text-decoration: underline;\r\n}\r\n\r\n@media all and (max-width: 400px) {\r\n  .title-bar-background {\r\n    padding: 12px 10px;\r\n  }\r\n\r\n  .title-text {\r\n    font-size: 10pt;\r\n    padding-left: 5px;\r\n  }\r\n\r\n  .title-links a {\r\n    margin-left: 10px;\r\n  }\r\n}", ""]);
+exports.push([module.i, ".title-bar-background {\r\n  position: relative;\r\n  width: 100%;\r\n  padding: 10px 20px;\r\n  background-color: rgb(250, 250, 250);\r\n  border-color: #ebebe8;\r\n  border-width: 0 0 1px 0;\r\n  border-style: solid;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.title-bar {\r\n  position: relative;\r\n  margin: 0 auto;\r\n  width: 100%;\r\n  line-height: 21px;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.title-text {\r\n  padding-left: 7px;\r\n  cursor: default;\r\n}\r\n\r\n.react-measurements-icon-path {\r\n  stroke: none;\r\n  fill: #666666;\r\n}\r\n\r\n.title-links {\r\n  flex-grow: 1;\r\n  display: flex;\r\n  flex-direction: row-reverse;\r\n}\r\n\r\n.title-links a {\r\n  margin-left: 15px;\r\n  color: #333;  \r\n  text-decoration: none;\r\n}\r\n\r\n.title-links a:hover {\r\n  text-decoration: underline;\r\n}\r\n\r\n@media all and (max-width: 400px) {\r\n  .title-bar-background {\r\n    padding: 12px 10px;\r\n  }\r\n\r\n  .title-text {\r\n    padding-left: 5px;\r\n  }\r\n\r\n  .title-links a {\r\n    margin-left: 10px;\r\n  }\r\n}", ""]);
 
 // exports
 
