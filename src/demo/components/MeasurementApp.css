@@ -6,9 +6,9 @@ body,
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans', sans-serif;
   font-size: 10pt;
-  color: darkslategrey;  
+  color: #333;
   margin: 0;
 }
 
@@ -42,7 +42,6 @@ body {
 .measurements-body p {
   padding: 10px;
   font-size: 9pt;
-  font-weight: bold;
   text-align: center;
   margin: 0;
   width: 100%;

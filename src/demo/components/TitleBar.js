@@ -4,10 +4,8 @@ import './TitleBar.css';
 const TitleBar = () => (
   <div className='title-bar-background'>
     <div className='title-bar'>
-      <span className='title'>
-        <ReactMeasurementsIcon />
-        <span className='title-text'>React Measurements</span>
-      </span>
+      <ReactMeasurementsIcon />
+      <div className='title-text'>React Measurements</div>
       <div className='title-links'>
         <a href='https://github.com/rmfisher/react-measurements'>GitHub</a>
         <a href='https://www.npmjs.com/packages/react-measurements'>NPM</a>
