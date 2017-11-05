@@ -13772,8 +13772,8 @@ var MeasurementLayerBase = function (_PureComponent) {
       if (_this.props.mode === 'text') {
         var id = _this.getNextId();
         var rect = _this.root.getBoundingClientRect();
-        var arrowX = (event.clientX - rect.x) / _this.props.width;
-        var arrowY = (event.clientY - rect.y) / _this.props.height;
+        var arrowX = (event.clientX - rect.left) / _this.props.width;
+        var arrowY = (event.clientY - rect.top) / _this.props.height;
         var xOffsetDirection = arrowX < 0.8 ? 1 : -1;
         var yOffsetDirection = arrowY < 0.8 ? 1 : -1;
         var textX = arrowX + xOffsetDirection * 0.05;
