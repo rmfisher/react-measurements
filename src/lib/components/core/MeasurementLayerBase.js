@@ -81,7 +81,7 @@ class MeasurementLayerBase extends PureComponent {
   }
 
   onMouseDown = event => {
-    this.root.focus();
+    this.finishAnyTextEditing();
     if (event.button === 0) {
       event.preventDefault();
       if (this.props.mode === 'line') {
@@ -195,6 +195,13 @@ class MeasurementLayerBase extends PureComponent {
   delete = m => this.props.onChange(this.props.measurements.filter(n => n.id !== m.id));
 
   clamp = value => Math.min(1, Math.max(0, value));
+
+  finishAnyTextEditing = () => {
+    const editable = this.props.measurements.filter(m => m.type === 'text' && m.editable)[0];
+    if (editable) {
+      this.props.onChange(this.props.measurements.map(m => m === editable ? { ...m, editable: false } : m));
+    }
+  }
 }
 
 MeasurementLayerBase.propTypes = {

@@ -27,6 +27,7 @@
 
 .measurement-layer .button-bar button {
   background-color: rgba(0, 0, 0, 0.8);
+  margin: 0;
   padding: 3px;
   border: none;
   cursor: pointer;

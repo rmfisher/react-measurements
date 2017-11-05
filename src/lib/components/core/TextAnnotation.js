@@ -57,6 +57,9 @@ class TextAnnotation extends PureComponent {
 
   componentDidUpdate() {
     this.updateMask();
+    if (!this.props.text.editable) {
+      this.propagateTextChanges = false;
+    }
   }
 
   render() {
@@ -175,6 +178,10 @@ class TextAnnotation extends PureComponent {
   }
 
   onMouseMove = event => {
+    if ((this.textDragInProgress || this.lineDragInProgress || this.headDragInProgress) && this.props.text.editable) {
+      this.finishEdit();
+    }
+
     if ((this.textDragInProgress || this.lineDragInProgress || this.headDragInProgress) && !this.dragOccurred) {
       this.dragOccurred = true;
       this.toggleDragStyles();
@@ -227,9 +234,6 @@ class TextAnnotation extends PureComponent {
         textY = 1;
       }
       this.props.onChange({ ...this.props.text, arrowX, arrowY, textX, textY });
-    }
-    if (this.textDragInProgress || this.lineDragInProgress || this.headDragInProgress) {
-      this.root.parentElement.focus();
     }
   }
 

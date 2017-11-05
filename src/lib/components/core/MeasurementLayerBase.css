@@ -6,7 +6,7 @@
   height: 100%;
   top: 0px;
   left: 0px;
-  outline: none;  
+  outline: none;
 }
 
 .line-measurement,
@@ -67,7 +67,6 @@
   padding: 1px 4px 2px 4px;
   white-space: pre;
   cursor: default;
-  user-select: none;
   /* Use color transitions rather than opacity, which blurs text for some reason. */
   transition: color 0.3s, background-color 0.3s;
 }

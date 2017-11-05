@@ -75,7 +75,8 @@ class PollenImage extends PureComponent {
       "id": 2,
       "type": "text",
       "arrowX": 0.482,
-      "arrowY": 0.739, "textX": 0.532,
+      "arrowY": 0.739,
+      "textX": 0.532,
       "textY": 0.809,
       "editorState": EditorState.createWithContent(ContentState.createFromText("Pollen Grain")),
     }
