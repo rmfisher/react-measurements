@@ -12585,7 +12585,7 @@ var MeasurementApp = function (_PureComponent) {
           _react2.default.createElement(
             'a',
             { href: 'https://www.npmjs.com/packages/react-measurements' },
-            'v0.2.2'
+            'v0.2.3'
           ),
           _react2.default.createElement(
             'a',
