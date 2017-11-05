@@ -17,17 +17,44 @@ body {
   flex-direction: column;
 }
 
+.title-bar {
+  position: relative;
+  width: 100%;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.title-text {
+  display: none;
+  margin: 0;
+  padding: 0;
+}
+
+.splitter {
+  flex-grow: 1;
+}
+
+a {
+  margin-left: 15px;
+  color: #333;  
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .content {
   position: relative;
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
 }
 
-.measurements-body,
-.title-bar {
+.measurements-body{
   max-width: 500px;
 }
 
@@ -74,19 +101,30 @@ img {
 
 @media all and (min-width: 640px) {
   .container {
-    min-height: 92%;
+    min-height: 90%;
   }
 }
 
 @media all and (min-height: 750px) {
-  .measurements-body,
-  .title-bar {
+  .measurements-body {
     max-width: 600px;
   }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 420px) {
   .content {
+    padding: 0 10px 10px 10px;
+  }
+
+  .title-bar {
     padding: 10px;
+  }
+
+  .title-text {
+    display: block;
+  }
+  
+  a {
+    margin-left: 10px;
   }
 }
