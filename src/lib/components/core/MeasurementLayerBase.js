@@ -28,7 +28,7 @@ class MeasurementLayerBase extends PureComponent {
   render() {
     const className = 'measurement-layer-base' + (this.props.mode ? ' any-mode-on' : '');
     return (
-      <div className={className} ref={e => this.root = e} tabIndex={-1}>
+      <div className={className} ref={e => this.root = e}>
         {this.props.measurements.map(this.createMeasurementComponent)}
       </div>
     );
