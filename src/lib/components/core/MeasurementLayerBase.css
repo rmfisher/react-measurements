@@ -64,7 +64,7 @@
 
 .measurement-text {
   position: relative;
-  padding: 1px 4px 2px 4px;
+  padding: 1px 4px;
   white-space: pre;
   cursor: default;
   /* Use color transitions rather than opacity, which blurs text for some reason. */
@@ -79,7 +79,7 @@
 
 .text-annotation .text {
   position: relative;
-  padding: 1px 4px 2px 4px;
+  padding: 1px 4px;
 }
 
 .line-measurement .grabber-group:hover .line,
