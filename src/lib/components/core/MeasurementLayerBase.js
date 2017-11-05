@@ -176,8 +176,8 @@ class MeasurementLayerBase extends PureComponent {
     if (this.props.mode === 'text') {
       const id = this.getNextId();
       const rect = this.root.getBoundingClientRect();
-      const arrowX = (event.clientX - rect.x) / this.props.width;
-      const arrowY = (event.clientY - rect.y) / this.props.height;
+      const arrowX = (event.clientX - rect.left) / this.props.width;
+      const arrowY = (event.clientY - rect.top) / this.props.height;
       const xOffsetDirection = arrowX < 0.8 ? 1 : -1;
       const yOffsetDirection = arrowY < 0.8 ? 1 : -1;
       const textX = arrowX + xOffsetDirection * 0.05;
