@@ -12697,9 +12697,10 @@ var PollenImage = function (_PureComponent) {
       }, {
         "id": 2,
         "type": "text",
-        "arrowX": 0.482,
-        "arrowY": 0.739, "textX": 0.532,
-        "textY": 0.809,
+        "arrowX": 0.48,
+        "arrowY": 0.74,
+        "textX": 0.51,
+        "textY": 0.82,
         "editorState": _draftJs.EditorState.createWithContent(_draftJs.ContentState.createFromText("Pollen Grain"))
       }];
     };
@@ -14321,7 +14322,7 @@ exports = module.exports = __webpack_require__(30)(undefined);
 
 
 // module
-exports.push([module.i, "/*---------- General Layout ----------*/\r\n\r\n.measurement-layer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  top: 0px;\r\n  left: 0px;\r\n}\r\n\r\n/*---------- Buttons ----------*/\r\n\r\n.measurement-layer .button-bar {\r\n  position: absolute;\r\n  display: flex;\r\n  height: 21px;\r\n  top: 5px;\r\n  right: 5px;\r\n  opacity: 0;\r\n  transition: opacity .2s;\r\n}\r\n\r\n.measurement-layer:hover .button-bar,\r\n.measurement-layer .button-bar.pressed {\r\n  opacity: 1;\r\n}\r\n\r\n.measurement-layer .button-bar button {\r\n  background-color: rgba(0, 0, 0, 0.8);\r\n  padding: 3px;\r\n  border: none;\r\n  cursor: pointer;\r\n  outline: none;\r\n}\r\n\r\n.measurement-layer .button-bar button:hover,\r\n.measurement-layer .button-bar button:focus {\r\n  background-color: rgba(70, 60, 50, 0.9);\r\n}\r\n\r\n.measurement-layer .button-bar button.pressed {\r\n  background-color: rgba(130, 120, 110, 0.9);\r\n}\r\n\r\n.measurement-layer .circle-icon {\r\n  stroke: white;\r\n  fill: none;\r\n  stroke-width: 2;\r\n}\r\n\r\n.measurement-layer .ruler-icon,\r\n.measurement-layer .text-icon {\r\n  stroke: none;\r\n  fill: white;\r\n}", ""]);
+exports.push([module.i, "/*---------- General Layout ----------*/\r\n\r\n.measurement-layer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  top: 0px;\r\n  left: 0px;\r\n}\r\n\r\n/*---------- Buttons ----------*/\r\n\r\n.measurement-layer .button-bar {\r\n  position: absolute;\r\n  display: flex;\r\n  height: 21px;\r\n  top: 5px;\r\n  right: 5px;\r\n  opacity: 0;\r\n  transition: opacity .2s;\r\n}\r\n\r\n.measurement-layer:hover .button-bar,\r\n.measurement-layer .button-bar.pressed {\r\n  opacity: 1;\r\n}\r\n\r\n.measurement-layer .button-bar button {\r\n  position: relative;\r\n  background-color: rgba(0, 0, 0, 0.8);\r\n  padding: 3px;\r\n  border: none;\r\n  cursor: pointer;\r\n  outline: none;\r\n}\r\n\r\n.measurement-layer .button-bar button:hover,\r\n.measurement-layer .button-bar button:focus {\r\n  background-color: rgba(70, 60, 50, 0.9);\r\n}\r\n\r\n.measurement-layer .button-bar button.pressed {\r\n  background-color: rgba(130, 120, 110, 0.9);\r\n}\r\n\r\n.measurement-layer .circle-icon {\r\n  stroke: white;\r\n  fill: none;\r\n  stroke-width: 2;\r\n}\r\n\r\n.measurement-layer .ruler-icon,\r\n.measurement-layer .text-icon {\r\n  stroke: none;\r\n  fill: white;\r\n}", ""]);
 
 // exports
 
