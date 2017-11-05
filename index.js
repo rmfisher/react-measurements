@@ -12577,7 +12577,26 @@ var MeasurementApp = function (_PureComponent) {
       return _react2.default.createElement(
         'div',
         { className: 'container' },
-        _react2.default.createElement(_TitleBar2.default, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'title' },
+          _react2.default.createElement(
+            'span',
+            { className: 'title-text' },
+            'React Measurements'
+          ),
+          _react2.default.createElement('div', { className: 'splitter' }),
+          _react2.default.createElement(
+            'a',
+            { href: 'https://www.npmjs.com/packages/react-measurements' },
+            'v0.2.1'
+          ),
+          _react2.default.createElement(
+            'a',
+            { href: 'https://github.com/rmfisher/react-measurements' },
+            'GitHub'
+          )
+        ),
         _react2.default.createElement(
           'div',
           { className: 'content' },
@@ -14367,7 +14386,7 @@ exports = module.exports = __webpack_require__(21)(undefined);
 
 
 // module
-exports.push([module.i, "html,\nbody,\n.root {\n  height: 100%;\n  min-height: 100%;\n}\n\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans', sans-serif;\n  font-size: 10pt;\n  color: #333;\n  margin: 0;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n}\n\n.content {\n  position: relative;\n  padding: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-grow: 1;\n}\n\n.measurements-body,\n.title-bar {\n  max-width: 500px;\n}\n\n.measurements-body {\n  position: relative;\n  margin: 0 auto;\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.measurements-body p {\n  padding: 10px;\n  font-size: 9pt;\n  text-align: center;\n  margin: 0;\n  width: 100%;\n  box-sizing: border-box;\n  background-color: rgb(235, 238, 240);\n  border-width: 0 1px 1px 1px;\n  border-style: solid;\n  border-color: rgb(207, 211, 214);\n}\n\n/* The goal is that the child div is always square, i.e. the height is equal to the width. */\n.square-parent {\n  position: relative;\n  padding-bottom: 100%;\n  height: 0;\n}\n\n.square-child {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n\nimg {\n  max-width: 100%;\n  max-height: 100%;\n} \n\n@media all and (min-width: 640px) {\n  .container {\n    min-height: 92%;\n  }\n}\n\n@media all and (min-height: 750px) {\n  .measurements-body,\n  .title-bar {\n    max-width: 600px;\n  }\n}\n\n@media all and (max-width: 400px) {\n  .content {\n    padding: 10px;\n  }\n}", ""]);
+exports.push([module.i, "html,\nbody,\n.root {\n  height: 100%;\n  min-height: 100%;\n}\n\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans', sans-serif;\n  font-size: 10pt;\n  color: #333;\n  margin: 0;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n}\n\n.title {\n  position: relative;\n  width: 100%;\n  padding: 15px 20px;\n  box-sizing: border-box;\n  display: flex;\n}\n\n.title-text {\n  display: none;\n  margin: 0;\n  padding: 0;\n}\n\n.title .splitter {\n  flex-grow: 1;\n}\n\n.title a {\n  margin-left: 15px;\n  color: #333;  \n  text-decoration: none;\n}\n\n.title a:hover {\n  text-decoration: underline;\n}\n\n.content {\n  position: relative;\n  padding: 0 20px 20px 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-grow: 1;\n}\n\n.measurements-body{\n  max-width: 500px;\n}\n\n.measurements-body {\n  position: relative;\n  margin: 0 auto;\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.measurements-body p {\n  padding: 10px;\n  font-size: 9pt;\n  text-align: center;\n  margin: 0;\n  width: 100%;\n  box-sizing: border-box;\n  background-color: rgb(235, 238, 240);\n  border-width: 0 1px 1px 1px;\n  border-style: solid;\n  border-color: rgb(207, 211, 214);\n}\n\n/* The goal is that the child div is always square, i.e. the height is equal to the width. */\n.square-parent {\n  position: relative;\n  padding-bottom: 100%;\n  height: 0;\n}\n\n.square-child {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n\nimg {\n  max-width: 100%;\n  max-height: 100%;\n} \n\n@media all and (min-width: 640px) {\n  .container {\n    min-height: 90%;\n  }\n}\n\n@media all and (min-height: 750px) {\n  .measurements-body {\n    max-width: 600px;\n  }\n}\n\n@media all and (max-width: 420px) {\n  .content {\n    padding: 0 10px 10px 10px;\n  }\n\n  .title {\n    padding: 10px;\n  }\n\n  .title-text {\n    display: block;\n  }\n  \n  .title a {\n    margin-left: 10px;\n  }\n}", ""]);
 
 // exports
 
@@ -14381,7 +14400,7 @@ exports = module.exports = __webpack_require__(21)(undefined);
 
 
 // module
-exports.push([module.i, ".title-bar-background {\r\n  position: relative;\r\n  width: 100%;\r\n  padding: 10px 20px;\r\n  background-color: rgb(250, 250, 250);\r\n  border-color: #ebebe8;\r\n  border-width: 0 0 1px 0;\r\n  border-style: solid;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.title-bar {\r\n  position: relative;\r\n  margin: 0 auto;\r\n  width: 100%;\r\n  line-height: 21px;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.title-text {\r\n  padding-left: 7px;\r\n  cursor: default;\r\n}\r\n\r\n.react-measurements-icon-path {\r\n  stroke: none;\r\n  fill: #666666;\r\n}\r\n\r\n.title-links {\r\n  flex-grow: 1;\r\n  display: flex;\r\n  flex-direction: row-reverse;\r\n}\r\n\r\n.title-links a {\r\n  margin-left: 15px;\r\n  color: #333;  \r\n  text-decoration: none;\r\n}\r\n\r\n.title-links a:hover {\r\n  text-decoration: underline;\r\n}\r\n\r\n@media all and (max-width: 400px) {\r\n  .title-bar-background {\r\n    padding: 12px 10px;\r\n  }\r\n\r\n  .title-text {\r\n    padding-left: 5px;\r\n  }\r\n\r\n  .title-links a {\r\n    margin-left: 10px;\r\n  }\r\n}", ""]);
+exports.push([module.i, ".title-bar-background {\r\n  position: relative;\r\n  width: 100%;\r\n  padding: 10px 20px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.title-bar {\r\n  position: relative;\r\n  width: 100%;\r\n  line-height: 21px;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.title-text {\r\n  padding-left: 7px;\r\n  cursor: default;\r\n}\r\n\r\n.react-measurements-icon-path {\r\n  stroke: none;\r\n  fill: #666666;\r\n}\r\n\r\n.title-links {\r\n  flex-grow: 1;\r\n  display: flex;\r\n  flex-direction: row-reverse;\r\n}\r\n\r\n.title-links a {\r\n  margin-left: 15px;\r\n  color: #333;  \r\n  text-decoration: none;\r\n}\r\n\r\n.title-links a:hover {\r\n  text-decoration: underline;\r\n}\r\n\r\n@media all and (max-width: 400px) {\r\n  .title-bar-background {\r\n    padding: 12px 10px;\r\n  }\r\n\r\n  .title-text {\r\n    padding-left: 5px;\r\n  }\r\n\r\n  .title-links a {\r\n    margin-left: 10px;\r\n  }\r\n}", ""]);
 
 // exports
 
