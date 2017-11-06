@@ -57,7 +57,6 @@ class TextAnchor extends PureComponent {
 
   onDeleteButtonDown = event => {
     if (event.button === 0) {
-      console.log("DOWN");
       event.preventDefault();
       event.stopPropagation();
       this.props.onDeleteButtonClick();
