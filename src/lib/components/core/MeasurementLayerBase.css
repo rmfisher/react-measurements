@@ -27,8 +27,7 @@
   stroke: yellow;
 }
 
-.text-annotation .arrow-head,
-.measurement-layer-base .text-anchor .text-box:hover .delete-button:hover .delete-button-background {
+.text-annotation .arrow-head {
   fill: yellow;  
 }
 
@@ -38,13 +37,19 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.measurement-layer-base .text-box:hover .delete-button {
-  background-color: rgb(255, 220, 0);
-  border-color: black;
+.measurement-layer-base .text-anchor.button-showing .delete-button,
+.measurement-layer-base .text-annotation.editable .delete-button {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.measurement-layer-base .text-box:hover .delete-button-graphic {
-  stroke: black;
+.measurement-layer-base .text-anchor.button-showing .delete-button:hover,
+.measurement-layer-base .text-annotation.editable .delete-button:hover {
+  background-color: rgba(70, 60, 50, 0.9);
+}
+
+.measurement-layer-base .text-anchor.button-showing .delete-button-icon,
+.measurement-layer-base .text-annotation.editable .delete-button-icon {
+  stroke: yellow;
 }
 
 /*---------- General Measurement & Text Styling ----------*/
@@ -152,55 +157,44 @@
   display: flex;
 }
 
-.measurement-layer-base .delete-button-box {
+.measurement-layer-base .delete-button {
   position: absolute;
   right: -20px;
   background-color: transparent;
+  border-style: none;  
   width: 20px;
-  height: 100%;
-}
-
-.measurement-layer-base .delete-button,
-.measurement-layer-base.any-dragged .text-box:hover .delete-button,
-.measurement-layer-base.any-mode-on .text-box:hover .delete-button {
-  position: absolute;
-  background-color: transparent;
-  width: 11px;
-  height: 11px;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 1px 1px 1px 0px;
+  height: 20px;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.2s, border-color 0.2s;
 }
 
-.measurement-layer-base .text-box:hover .delete-button {
-  transition-delay: 0.5s;
+.measurement-layer-base .delete-button-svg {
+  width: 15px;
+  height: 15px;
 }
 
-.measurement-layer-base .delete-button-background {
-  stroke: none;
-  fill: transparent;
-  transition: fill 0.2s;
-  width: 100%;
-  height: 100%;
+.measurement-layer-base.any-dragged .delete-button-svg,
+.measurement-layer-base.any-mode-on .delete-button-svg {
+  background-color: transparent;
+  border-color: transparent;
 }
 
-.measurement-layer-base .text-anchor .text-box:hover .delete-button .delete-button-background {
-  fill: transparent;
-}
-
-.measurement-layer-base .delete-button-graphic,
-.measurement-layer-base.any-dragged .text-box:hover .delete-button-graphic,
-.measurement-layer-base.any-mode-on .text-box:hover .delete-button-graphic {
+.measurement-layer-base .delete-button-icon {
   stroke: transparent;
   stroke-width: 2px;
-  stroke-linecap: round;  
+  stroke-linecap: square;  
   fill: none;
   transition: stroke 0.2s;
 }
 
-.measurement-layer-base .text-box:hover .delete-button-graphic {
-  transition-delay: 0.5s;
+.measurement-layer-base.any-dragged .delete-button-icon,
+.measurement-layer-base.any-mode-on .delete-button-icon {
+  stroke: transparent;
 }
 
 /*---------- Cursors ----------*/
@@ -242,7 +236,8 @@
 .text-annotation .arrow-head-grabber,
 .text-annotation .arrow-line-grabber,
 .measurement-layer-base .text-box,
-.measurement-layer-base .text-anchor.button-showing .text-box:hover .delete-button {
+.measurement-layer-base .text-anchor.button-showing .delete-button,
+.measurement-layer-base .text-annotation.editable .delete-button {
   pointer-events: auto;
 }
 
@@ -251,14 +246,12 @@
 .measurement-layer-base.any-dragged .text-annotation .arrow-head-grabber,
 .measurement-layer-base.any-dragged .text-annotation .arrow-line-grabber,
 .measurement-layer-base.any-dragged .text-box,
-.measurement-layer-base.any-dragged .text-box:hover .delete-button,
+.measurement-layer-base.any-dragged .delete-button,
 .measurement-layer-base.any-mode-on .grabber-group,
 .measurement-layer-base.any-mode-on .text-annotation .text,
 .measurement-layer-base.any-mode-on .text-annotation .arrow-head-grabber,
 .measurement-layer-base.any-mode-on .text-annotation .arrow-line-grabber,
 .measurement-layer-base.any-mode-on .text-box,
-.measurement-layer-base.any-mode-on .text-box:hover .delete-button,
-.measurement-layer-base .text-anchor .delete-button,
-.measurement-layer-base .text-anchor .text-box:hover .delete-button {
+.measurement-layer-base .delete-button {
   pointer-events: none;
 }

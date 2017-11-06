@@ -4,13 +4,12 @@ class TextAnchor extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.hover = false;
     this.state = { buttonShowing: false, justCreated: true };
   }
 
   componentDidMount() {
     this.mounted = true;
-    this.textBox.addEventListener('mouseenter', this.onMouseEnter);
+    this.textBox.addEventListener('click', this.onClick);
     this.textBox.addEventListener('mouseleave', this.onMouseLeave);
     this.deleteButton.addEventListener('mousedown', this.onDeleteButtonDown);
 
@@ -42,33 +41,23 @@ class TextAnchor extends PureComponent {
       <div className={className} style={textAnchorStyle}>
         <div className='text-box' ref={e => this.textBox = e}>
           {this.props.children}
-          <div className='delete-button-box'>
-            <svg className='delete-button' ref={e => this.deleteButton = e}>
-              <rect className='delete-button-background' />
-              <path className='delete-button-graphic' d='M 3 3 L 8 8 M 8 3 L 3 8' />
+          <button type='button' className='delete-button' ref={e => this.deleteButton = e}>
+            <svg className='delete-button-svg'>
+              <path className='delete-button-icon' d='M 4 4 L 11 11 M 11 4 L 4 11' />
             </svg>
-          </div>
+          </button>
         </div>
       </div>
     );
   }
 
-  onMouseEnter = event => {
-    this.hover = true;
-    setTimeout(() => {
-      if (this.hover) {
-        this.setState({ ...this.state, buttonShowing: true });
-      }
-    }, 500);
-  }
+  onClick = event => this.setState({ ...this.state, buttonShowing: true });
 
-  onMouseLeave = event => {
-    this.hover = false;
-    this.setState({ ...this.state, buttonShowing: false });
-  }
+  onMouseLeave = event => this.setState({ ...this.state, buttonShowing: false });
 
   onDeleteButtonDown = event => {
     if (event.button === 0) {
+      console.log("DOWN");
       event.preventDefault();
       event.stopPropagation();
       this.props.onDeleteButtonClick();
