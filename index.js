@@ -7918,7 +7918,6 @@ var TextAnchor = function (_PureComponent) {
 
     _this.onDeleteButtonDown = function (event) {
       if (event.button === 0) {
-        console.log("DOWN");
         event.preventDefault();
         event.stopPropagation();
         _this.props.onDeleteButtonClick();
@@ -12578,7 +12577,7 @@ var MeasurementApp = function (_PureComponent) {
           _react2.default.createElement(
             'a',
             { href: 'https://www.npmjs.com/packages/react-measurements' },
-            'v0.2.6'
+            'v0.2.7'
           ),
           _react2.default.createElement(
             'a',
