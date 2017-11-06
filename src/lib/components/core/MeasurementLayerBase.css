@@ -39,7 +39,7 @@
 
 .measurement-layer-base .text-anchor.button-showing .delete-button,
 .measurement-layer-base .text-annotation.editable .delete-button {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(50, 45, 40, 0.9);
 }
 
 .measurement-layer-base .text-anchor.button-showing .delete-button:hover,
@@ -167,13 +167,14 @@
   top: 0;
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: background-color 0.2s, border-color 0.2s;
 }
 
 .measurement-layer-base .delete-button-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 15px;
   height: 15px;
 }
