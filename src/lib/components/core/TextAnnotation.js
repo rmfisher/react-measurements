@@ -102,8 +102,8 @@ class TextAnnotation extends PureComponent {
             </mask>
           </defs>
           <line className='arrow-line-grabber' x1={lineEndX} y1={lineEndY} x2={textX} y2={textY} ref={e => this.lineGrabber = e} />
-          <path className='arrow-head-grabber' d={headGrabber.path} style={headGrabber.style} ref={e => this.headGrabber = e} />
-          <path className='arrow-head' d={head.path} style={head.style} ref={e => this.head = e} />
+          <path className='arrow-head-grabber' d={headGrabber.path} transform={headGrabber.transform} ref={e => this.headGrabber = e} />
+          <path className='arrow-head' d={head.path} transform={head.transform} ref={e => this.head = e} />
           <path className={lineClass} d={linePath} ref={e => this.line = e} mask={lineMask} />
         </svg>
         <TextAnchor x={textX} y={textY} onDeleteButtonClick={this.onDeleteButtonClick}>
@@ -123,9 +123,10 @@ class TextAnnotation extends PureComponent {
   drawHead = (pointX, pointY, w, h, rotate, offset, cos, sin) => {
     const x = pointX + offset * cos;
     const y = pointY + offset * sin;
-    const style = { transform: 'rotate(' + rotate + 'rad)', transformOrigin: x + 'px ' + y + 'px' };
     const path = `M ${x - w} ${y - h} L ${x} ${y} L ${x - w} ${y + h} Z`;
-    return { style, path };
+    const rotateInDegrees = rotate * 180 / Math.PI;
+    const transform = `rotate(${rotateInDegrees} ${x} ${y})`;
+    return { path, transform };
   }
 
   updateMask = () => {
