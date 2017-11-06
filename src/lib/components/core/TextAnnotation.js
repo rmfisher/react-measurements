@@ -265,7 +265,7 @@ class TextAnnotation extends PureComponent {
     }
   }
 
-  didValuesChange = () => true;
+  didValuesChange = () => true; // Fix Me!
 
   toggleDragStyles = () => {
     this.getAnnotationLayerClassList().toggle('any-dragged');
