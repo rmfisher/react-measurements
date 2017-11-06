@@ -13918,9 +13918,10 @@ var TextAnnotation = function (_PureComponent) {
     _this.drawHead = function (pointX, pointY, w, h, rotate, offset, cos, sin) {
       var x = pointX + offset * cos;
       var y = pointY + offset * sin;
-      var style = { transform: 'rotate(' + rotate + 'rad)', transformOrigin: x + 'px ' + y + 'px' };
       var path = 'M ' + (x - w) + ' ' + (y - h) + ' L ' + x + ' ' + y + ' L ' + (x - w) + ' ' + (y + h) + ' Z';
-      return { style: style, path: path };
+      var rotateInDegrees = rotate * 180 / Math.PI;
+      var transform = 'rotate(' + rotateInDegrees + ' ' + x + ' ' + y + ')';
+      return { path: path, transform: transform };
     };
 
     _this.updateMask = function () {
@@ -14251,10 +14252,10 @@ var TextAnnotation = function (_PureComponent) {
           _react2.default.createElement('line', { className: 'arrow-line-grabber', x1: lineEndX, y1: lineEndY, x2: textX, y2: textY, ref: function ref(e) {
               return _this2.lineGrabber = e;
             } }),
-          _react2.default.createElement('path', { className: 'arrow-head-grabber', d: headGrabber.path, style: headGrabber.style, ref: function ref(e) {
+          _react2.default.createElement('path', { className: 'arrow-head-grabber', d: headGrabber.path, transform: headGrabber.transform, ref: function ref(e) {
               return _this2.headGrabber = e;
             } }),
-          _react2.default.createElement('path', { className: 'arrow-head', d: head.path, style: head.style, ref: function ref(e) {
+          _react2.default.createElement('path', { className: 'arrow-head', d: head.path, transform: head.transform, ref: function ref(e) {
               return _this2.head = e;
             } }),
           _react2.default.createElement('path', { className: lineClass, d: linePath, ref: function ref(e) {
