@@ -12577,7 +12577,7 @@ var MeasurementApp = function (_PureComponent) {
           _react2.default.createElement(
             'a',
             { href: 'https://www.npmjs.com/packages/react-measurements' },
-            'v0.2.7'
+            'v0.2.8'
           ),
           _react2.default.createElement(
             'a',
@@ -13675,12 +13675,13 @@ var MeasurementLayerBase = function (_PureComponent) {
     }, _this.onMouseDown = function (event) {
       _this.finishAnyTextEdit();
       if (event.button === 0) {
-        event.preventDefault();
         if (_this.props.mode === 'line') {
+          event.preventDefault();
           _this.lineCreationInProgress = true;
           _this.mouseXAtPress = event.clientX;
           _this.mouseYAtPress = event.clientY;
         } else if (_this.props.mode === 'circle') {
+          event.preventDefault();
           _this.circleCreationInProgress = true;
           _this.mouseXAtPress = event.clientX;
           _this.mouseYAtPress = event.clientY;
