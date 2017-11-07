@@ -84,12 +84,13 @@ class MeasurementLayerBase extends PureComponent {
   onMouseDown = event => {
     this.finishAnyTextEdit();
     if (event.button === 0) {
-      event.preventDefault();
       if (this.props.mode === 'line') {
+        event.preventDefault();
         this.lineCreationInProgress = true;
         this.mouseXAtPress = event.clientX;
         this.mouseYAtPress = event.clientY;
       } else if (this.props.mode === 'circle') {
+        event.preventDefault();
         this.circleCreationInProgress = true;
         this.mouseXAtPress = event.clientX;
         this.mouseYAtPress = event.clientY;

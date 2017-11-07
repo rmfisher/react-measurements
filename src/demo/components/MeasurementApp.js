@@ -10,7 +10,7 @@ class MeasurementApp extends PureComponent {
         <div className='title-bar'>
           <span className='title-text'>React Measurements</span>
           <div className='splitter'></div>
-          <a href='https://www.npmjs.com/packages/react-measurements'>v0.2.7</a>
+          <a href='https://www.npmjs.com/packages/react-measurements'>v0.2.8</a>
           <a href='https://github.com/rmfisher/react-measurements'>GitHub</a>
         </div>
         <div className='content'>
