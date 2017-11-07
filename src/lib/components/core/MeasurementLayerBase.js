@@ -3,6 +3,7 @@ import LineMeasurement from './LineMeasurement';
 import CircleMeasurement from './CircleMeasurement';
 import TextAnnotation from './TextAnnotation';
 import PropTypes from 'prop-types';
+import { EditorState } from 'draft-js';
 import './MeasurementLayerBase.css';
 
 const minRadiusInPixels = 3;
@@ -81,7 +82,7 @@ class MeasurementLayerBase extends PureComponent {
   }
 
   onMouseDown = event => {
-    this.finishAnyTextEditing();
+    this.finishAnyTextEdit();
     if (event.button === 0) {
       event.preventDefault();
       if (this.props.mode === 'line') {
@@ -196,12 +197,18 @@ class MeasurementLayerBase extends PureComponent {
 
   clamp = value => Math.min(1, Math.max(0, value));
 
-  finishAnyTextEditing = () => {
+  finishAnyTextEdit = () => {
     const editable = this.props.measurements.filter(m => m.type === 'text' && m.editable)[0];
     if (editable) {
-      this.props.onChange(this.props.measurements.map(m => m === editable ? { ...m, editable: false } : m));
+      this.props.onChange(this.props.measurements.map(m => m === editable ? this.finishEdit(m) : m));
     }
   }
+
+  finishEdit = text => ({
+    ...text,
+    editorState: EditorState.moveFocusToEnd(EditorState.moveSelectionToEnd(text.editorState)),
+    editable: false,
+  });
 }
 
 MeasurementLayerBase.propTypes = {

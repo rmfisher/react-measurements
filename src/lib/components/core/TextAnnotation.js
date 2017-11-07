@@ -308,18 +308,21 @@ class TextAnnotation extends PureComponent {
 
   startEdit = () => {
     if (!this.props.text.editable) {
-      this.propagateTextChanges = true;
-      const editorState = EditorState.moveSelectionToEnd(this.props.text.editorState);
-      this.props.onChange({ ...this.props.text, editorState, editable: true });
-      this.editor.focus();
+      this.setEditState(true);
     }
   }
 
   finishEdit = () => {
     if (this.props.text.editable) {
-      this.propagateTextChanges = false;
-      this.props.onChange({ ...this.props.text, editable: false });
+      this.setEditState(false);
     }
+  }
+
+  setEditState = editable => {
+    this.propagateTextChanges = editable;
+    // Note: selection change is also important when we finish editing because it clears the selection.
+    const editorState = EditorState.moveFocusToEnd(EditorState.moveSelectionToEnd(this.props.text.editorState));
+    this.props.onChange({ ...this.props.text, editorState, editable });
   }
 
   onDocumentKeyDown = event => {
