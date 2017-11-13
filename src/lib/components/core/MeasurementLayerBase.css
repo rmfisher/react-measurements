@@ -43,12 +43,14 @@
 }
 
 .measurement-layer-base .text-anchor.button-showing .delete-button:hover,
-.measurement-layer-base .text-annotation.editable .delete-button:hover {
+.measurement-layer-base .text-annotation.editable .delete-button:hover,
+.measurement-layer-base .text-anchor .delete-button:focus {
   background-color: rgba(70, 60, 50, 0.9);
 }
 
 .measurement-layer-base .text-anchor.button-showing .delete-button-icon,
-.measurement-layer-base .text-annotation.editable .delete-button-icon {
+.measurement-layer-base .text-annotation.editable .delete-button-icon,
+.measurement-layer-base .text-anchor .delete-button:focus .delete-button-icon {
   stroke: yellow;
 }
 
@@ -143,7 +145,8 @@
 /*---------- Text Anchor & Delete Button ----------*/
 
 .measurement-layer-base .text-anchor {
-  /* Zero-size flexbox allows us to center text without using transforms, which can lead to sub-pixel positioning (blurry lines). */
+  /* Zero-size flexbox allows us to center text without using transforms,
+  which can lead to sub-pixel positioning (blurry lines). */
   position: absolute;
   display: flex;
   align-items: center;
@@ -161,7 +164,8 @@
   position: absolute;
   right: -19px;
   background-color: transparent;
-  border-style: none;  
+  border-style: none;
+  outline: none;
   width: 19px;
   height: 100%;
   top: 0;

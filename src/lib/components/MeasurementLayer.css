@@ -21,7 +21,8 @@
 }
 
 .measurement-layer:hover .button-bar,
-.measurement-layer .button-bar.pressed {
+.measurement-layer .button-bar.pressed,
+.measurement-layer .button-bar:focus-within {
   opacity: 1;
 }
 
