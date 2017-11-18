@@ -13359,7 +13359,7 @@ var LineMeasurement = function (_PureComponent) {
     };
 
     _this.onTouchMove = function (event) {
-      if (event.touches.length === 1 && evebt.changedTouches.length === 1) {
+      if (event.touches.length === 1 && event.changedTouches.length === 1) {
         _this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
       }
     };
