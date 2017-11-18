@@ -164,6 +164,7 @@
   position: absolute;
   right: -19px;
   background-color: transparent;
+  border-radius: 0;
   border-style: none;
   outline: none;
   width: 19px;
