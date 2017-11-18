@@ -99,9 +99,11 @@ class LineMeasurement extends PureComponent {
   }
 
   onStartTouchStart = event => {
-    this.startDragInProgress = true;
-    event.preventDefault();
-    this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+    if (!this.startDragInProgress && !this.midDragInProgress && !this.endDragInProgress) {
+      this.startDragInProgress = true;
+      event.preventDefault();
+      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+    }
   }
 
   onMidMouseDown = event => {
@@ -113,9 +115,11 @@ class LineMeasurement extends PureComponent {
   }
 
   onMidTouchStart = event => {
-    this.midDragInProgress = true;
-    event.preventDefault();
-    this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+    if (!this.startDragInProgress && !this.midDragInProgress && !this.endDragInProgress) {
+      this.midDragInProgress = true;
+      event.preventDefault();
+      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+    }
   }
 
   onEndMouseDown = event => {
@@ -127,9 +131,11 @@ class LineMeasurement extends PureComponent {
   }
 
   onEndTouchStart = event => {
-    this.endDragInProgress = true;
-    event.preventDefault();
-    this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+    if (!this.startDragInProgress && !this.midDragInProgress && !this.endDragInProgress) {
+      this.endDragInProgress = true;
+      event.preventDefault();
+      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+    }
   }
 
   onDragBegin = (eventX, eventY) => {
@@ -144,7 +150,11 @@ class LineMeasurement extends PureComponent {
 
   onMouseMove = event => this.onDrag(event.clientX, event.clientY);
 
-  onTouchMove = event => this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+  onTouchMove = event => {
+    if (event.touches.length === 1 && event.changedTouches.length === 1) {
+      this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+    }
+  }
 
   onDrag = (eventX, eventY) => {
     if ((this.startDragInProgress || this.endDragInProgress || this.midDragInProgress) && !this.dragOccurred) {
