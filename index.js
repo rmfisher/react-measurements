@@ -13305,9 +13305,11 @@ var LineMeasurement = function (_PureComponent) {
     };
 
     _this.onStartTouchStart = function (event) {
-      _this.startDragInProgress = true;
-      event.preventDefault();
-      _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+      if (!_this.startDragInProgress && !_this.midDragInProgress && !_this.endDragInProgress) {
+        _this.startDragInProgress = true;
+        event.preventDefault();
+        _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+      }
     };
 
     _this.onMidMouseDown = function (event) {
@@ -13319,9 +13321,11 @@ var LineMeasurement = function (_PureComponent) {
     };
 
     _this.onMidTouchStart = function (event) {
-      _this.midDragInProgress = true;
-      event.preventDefault();
-      _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+      if (!_this.startDragInProgress && !_this.midDragInProgress && !_this.endDragInProgress) {
+        _this.midDragInProgress = true;
+        event.preventDefault();
+        _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+      }
     };
 
     _this.onEndMouseDown = function (event) {
@@ -13333,9 +13337,11 @@ var LineMeasurement = function (_PureComponent) {
     };
 
     _this.onEndTouchStart = function (event) {
-      _this.endDragInProgress = true;
-      event.preventDefault();
-      _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+      if (!_this.startDragInProgress && !_this.midDragInProgress && !_this.endDragInProgress) {
+        _this.endDragInProgress = true;
+        event.preventDefault();
+        _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+      }
     };
 
     _this.onDragBegin = function (eventX, eventY) {
@@ -13353,7 +13359,7 @@ var LineMeasurement = function (_PureComponent) {
     };
 
     _this.onTouchMove = function (event) {
-      if (event.changedTouches.length === 1) {
+      if (event.touches.length === 1 && evebt.changedTouches.length === 1) {
         _this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
       }
     };
