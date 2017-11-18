@@ -126,6 +126,11 @@
   stroke-linecap: butt;
  }
  
+.line-measurement .grabber.start-grabber,
+.line-measurement .grabber.end-grabber {
+  stroke-linecap: square;
+}
+
 .circle-measurement .stroke-grabber {
   stroke: transparent;
   stroke-width: 11px;
