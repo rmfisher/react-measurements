@@ -111,6 +111,18 @@ img {
   }
 }
 
+@media all and (min-height: 1000px) {
+  .measurements-body {
+    max-width: 700px;
+  }
+}
+
+@media all and (min-height: 1250px) {
+  .measurements-body {
+    max-width: 800px;
+  }
+}
+
 @media all and (max-width: 420px) {
   .content {
     padding: 0 10px 10px 10px;
