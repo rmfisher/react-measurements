@@ -8,17 +8,25 @@ class CircleMeasurement extends PureComponent {
 
   componentDidMount() {
     this.fill.addEventListener('mousedown', this.onFillMouseDown);
+    this.fill.addEventListener('touchstart', this.onFillTouchStart);
     this.stroke.addEventListener('mousedown', this.onStrokeMouseDown);
+    this.stroke.addEventListener('touchstart', this.onStrokeTouchStart);
     document.addEventListener('mousemove', this.onMouseMove);
+    document.addEventListener('touchmove', this.onTouchMove);
     window.addEventListener('mouseup', this.onMouseUp);
+    window.addEventListener('touchend', this.onTouchEnd);
     window.addEventListener('blur', this.endDrag);
   }
 
   componentWillUnmount() {
     this.fill.removeEventListener('mousedown', this.onFillMouseDown);
+    this.fill.removeEventListener('touchstart', this.onFillTouchStart);
     this.stroke.removeEventListener('mousedown', this.onStrokeMouseDown);
+    this.stroke.removeEventListener('touchstart', this.onStrokeTouchStart);
     document.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener('touchmove', this.onTouchMove);
     window.removeEventListener('mouseup', this.onMouseUp);
+    window.removeEventListener('touchend', this.onTouchEnd);
     window.removeEventListener('blur', this.endDrag);
   }
 
@@ -53,11 +61,27 @@ class CircleMeasurement extends PureComponent {
     }
   }
 
+  onStrokeTouchStart = event => {
+    if (!this.strokeDragInProgress && !this.fillDragInProgress) {
+      this.strokeDragInProgress = true;
+      event.preventDefault();
+      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+    }
+  }
+
   onFillMouseDown = event => {
     if (event.button === 0) {
       this.fillDragInProgress = true;
       event.preventDefault();
       this.onDragBegin(event.clientX, event.clientY);
+    }
+  }
+
+  onFillTouchStart = event => {
+    if (!this.strokeDragInProgress && !this.fillDragInProgress) {
+      this.fillDragInProgress = true;
+      event.preventDefault();
+      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
     }
   }
 
@@ -67,10 +91,15 @@ class CircleMeasurement extends PureComponent {
     this.circleAtPress = this.props.circle;
     this.centerXAtPress = this.props.circle.centerX * this.props.parentWidth;
     this.centerYAtPress = this.props.circle.centerY * this.props.parentHeight;
-    this.radiusAtPress = this.props.circle.radius * Math.sqrt(this.props.parentWidth * this.props.parentHeight);
   }
 
   onMouseMove = event => this.onDrag(event.clientX, event.clientY);
+
+  onTouchMove = event => {
+    if (event.touches.length === 1 && event.changedTouches.length === 1) {
+      this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+    }
+  }
 
   onDrag = (eventX, eventY) => {
     if ((this.fillDragInProgress || this.strokeDragInProgress) && !this.dragOccurred) {
@@ -84,7 +113,8 @@ class CircleMeasurement extends PureComponent {
       const centerClientY = this.centerYAtPress + rect.top;
       const deltaX = eventX - centerClientX;
       const deltaY = eventY - centerClientY;
-      let radius = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPixels) / Math.sqrt(this.props.parentWidth * this.props.parentHeight);
+      const radiusInPixels = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPixels);
+      let radius = radiusInPixels / Math.sqrt(this.props.parentWidth * this.props.parentHeight);
 
       if (this.props.circle.centerX + radius > 1) {
         radius = 1 - this.props.circle.centerX;
@@ -119,6 +149,8 @@ class CircleMeasurement extends PureComponent {
   }
 
   onMouseUp = event => this.endDrag();
+
+  onTouchEnd = event => this.endDrag();
 
   endDrag = () => {
     if (this.dragOccurred) {
