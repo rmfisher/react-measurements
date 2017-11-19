@@ -111,15 +111,9 @@ img {
   }
 }
 
-@media all and (min-height: 1000px) {
+@media all and (min-height: 1200px) {
   .measurements-body {
     max-width: 700px;
-  }
-}
-
-@media all and (min-height: 1250px) {
-  .measurements-body {
-    max-width: 800px;
   }
 }
 
