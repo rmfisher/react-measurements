@@ -167,12 +167,12 @@
 
 .measurement-layer-base .delete-button {
   position: absolute;
-  right: -19px;
+  right: -18px;
   background-color: transparent;
   border-radius: 0;
   border-style: none;
   outline: none;
-  width: 19px;
+  width: 18px;
   height: 100%;
   top: 0;
   margin: 0;
