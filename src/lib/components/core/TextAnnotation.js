@@ -29,7 +29,7 @@ class TextAnnotation extends PureComponent {
     this.headGrabber.addEventListener('mouseleave', this.onHeadLeave);
     this.root.addEventListener('dblclick', this.onDoubleClick);
     document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('keydown', this.onDocumentKeyDown);
+    document.addEventListener('keydown', this.onDocumentKeyDown, true);
     window.addEventListener('mouseup', this.onMouseUp);
     window.addEventListener('blur', this.endDrag);
     this.updateMask();
@@ -50,7 +50,7 @@ class TextAnnotation extends PureComponent {
     this.headGrabber.removeEventListener('mouseleave', this.onHeadLeave);
     this.root.removeEventListener('dblclick', this.onDoubleClick);
     document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('keydown', this.onDocumentKeyDown);
+    document.removeEventListener('keydown', this.onDocumentKeyDown, true);
     window.removeEventListener('mouseup', this.onMouseUp);
     window.removeEventListener('blur', this.endDrag);
   }
@@ -326,7 +326,8 @@ class TextAnnotation extends PureComponent {
   }
 
   onDocumentKeyDown = event => {
-    if (this.props.text.editable && event.keyCode === 27) {
+    if (this.props.text.editable && (event.keyCode === 27 || (event.keyCode === 13 && !event.shiftKey))) {
+      event.stopPropagation();
       this.finishEdit();
     }
   }
