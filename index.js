@@ -14012,39 +14012,73 @@ var TextAnnotation = function (_PureComponent) {
       _this.maskRect.setAttribute('height', textBox.height);
     };
 
-    _this.onTextDown = function (event) {
+    _this.onTextMouseDown = function (event) {
       if (_this.props.text.editable) {
         event.stopPropagation();
       } else if (event.button === 0) {
         _this.textDragInProgress = true;
-        _this.onDragBegin(event);
+        event.preventDefault();
+        _this.onDragBegin(event.clientX, event.clientY);
       }
     };
 
-    _this.onLineDown = function (event) {
+    _this.onTextTouchStart = function (event) {
+      if (_this.props.text.editable) {
+        event.stopPropagation();
+      } else if (!_this.textDragInProgress && !_this.lineDragInProgress && !_this.headDragInProgress) {
+        _this.textDragInProgress = true;
+        event.preventDefault();
+        _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+      }
+    };
+
+    _this.onLineMouseDown = function (event) {
       if (event.button === 0) {
         _this.lineDragInProgress = true;
-        _this.onDragBegin(event);
+        event.preventDefault();
+        _this.onDragBegin(event.clientX, event.clientY);
         if (_this.props.text.editable) {
           event.stopPropagation();
         }
       }
     };
 
-    _this.onHeadDown = function (event) {
+    _this.onLineTouchStart = function (event) {
+      if (!_this.textDragInProgress && !_this.lineDragInProgress && !_this.headDragInProgress) {
+        _this.lineDragInProgress = true;
+        event.preventDefault();
+        _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+        if (_this.props.text.editable) {
+          event.stopPropagation();
+        }
+      }
+    };
+
+    _this.onHeadMouseDown = function (event) {
       if (event.button === 0) {
         _this.headDragInProgress = true;
-        _this.onDragBegin(event);
+        event.preventDefault();
+        _this.onDragBegin(event.clientX, event.clientY);
         if (_this.props.text.editable) {
           event.stopPropagation();
         }
       }
     };
 
-    _this.onDragBegin = function (event) {
-      event.preventDefault();
-      _this.mouseXAtPress = event.clientX;
-      _this.mouseYAtPress = event.clientY;
+    _this.onHeadTouchStart = function (event) {
+      if (!_this.textDragInProgress && !_this.lineDragInProgress && !_this.headDragInProgress) {
+        _this.headDragInProgress = true;
+        event.preventDefault();
+        _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+        if (_this.props.text.editable) {
+          event.stopPropagation();
+        }
+      }
+    };
+
+    _this.onDragBegin = function (eventX, eventY) {
+      _this.mouseXAtPress = eventX;
+      _this.mouseYAtPress = eventY;
       _this.arrowXAtPress = _this.props.text.arrowX * _this.props.parentWidth;
       _this.arrowYAtPress = _this.props.text.arrowY * _this.props.parentHeight;
       _this.textXAtPress = _this.props.text.textX * _this.props.parentWidth;
@@ -14052,6 +14086,16 @@ var TextAnnotation = function (_PureComponent) {
     };
 
     _this.onMouseMove = function (event) {
+      return _this.onDrag(event.clientX, event.clientY);
+    };
+
+    _this.onTouchMove = function (event) {
+      if (event.touches.length === 1 && event.changedTouches.length === 1) {
+        _this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+      }
+    };
+
+    _this.onDrag = function (eventX, eventY) {
       if ((_this.textDragInProgress || _this.lineDragInProgress || _this.headDragInProgress) && _this.props.text.editable) {
         _this.finishEdit();
       }
@@ -14061,21 +14105,19 @@ var TextAnnotation = function (_PureComponent) {
         _this.toggleDragStyles();
       }
 
-      var clientX = event.clientX;
-      var clientY = event.clientY;
       if (_this.headDragInProgress) {
-        var arrowX = _this.clamp(_this.getXAfterDrag(_this.arrowXAtPress, clientX));
-        var arrowY = _this.clamp(_this.getYAfterDrag(_this.arrowYAtPress, clientY));
+        var arrowX = _this.clamp(_this.getXAfterDrag(_this.arrowXAtPress, eventX));
+        var arrowY = _this.clamp(_this.getYAfterDrag(_this.arrowYAtPress, eventY));
         _this.props.onChange(_extends({}, _this.props.text, { arrowX: arrowX, arrowY: arrowY }));
       } else if (_this.textDragInProgress) {
-        var textX = _this.clamp(_this.getXAfterDrag(_this.textXAtPress, clientX));
-        var textY = _this.clamp(_this.getYAfterDrag(_this.textYAtPress, clientY));
+        var textX = _this.clamp(_this.getXAfterDrag(_this.textXAtPress, eventX));
+        var textY = _this.clamp(_this.getYAfterDrag(_this.textYAtPress, eventY));
         _this.props.onChange(_extends({}, _this.props.text, { textX: textX, textY: textY }));
       } else if (_this.lineDragInProgress) {
-        var _arrowX = _this.getXAfterDrag(_this.arrowXAtPress, clientX);
-        var _arrowY = _this.getYAfterDrag(_this.arrowYAtPress, clientY);
-        var _textX = _this.getXAfterDrag(_this.textXAtPress, clientX);
-        var _textY = _this.getYAfterDrag(_this.textYAtPress, clientY);
+        var _arrowX = _this.getXAfterDrag(_this.arrowXAtPress, eventX);
+        var _arrowY = _this.getYAfterDrag(_this.arrowYAtPress, eventY);
+        var _textX = _this.getXAfterDrag(_this.textXAtPress, eventX);
+        var _textY = _this.getYAfterDrag(_this.textYAtPress, eventY);
         var deltaX = _textX - _arrowX;
         var deltaY = _textY - _arrowY;
 
@@ -14123,6 +14165,10 @@ var TextAnnotation = function (_PureComponent) {
       return _this.endDrag();
     };
 
+    _this.onTouchEnd = function (event) {
+      return _this.endDrag();
+    };
+
     _this.endDrag = function () {
       if (_this.dragOccurred) {
         _this.toggleDragStyles();
@@ -14162,19 +14208,19 @@ var TextAnnotation = function (_PureComponent) {
       }
     };
 
-    _this.onLineEnter = function (event) {
+    _this.onLineMouseEnter = function (event) {
       return _this.setState(_extends({}, _this.state, { lineHover: true }));
     };
 
-    _this.onLineLeave = function (event) {
+    _this.onLineMouseLeave = function (event) {
       return _this.setState(_extends({}, _this.state, { lineHover: false }));
     };
 
-    _this.onHeadEnter = function (event) {
+    _this.onHeadMouseEnter = function (event) {
       return _this.setState(_extends({}, _this.state, { headHover: true }));
     };
 
-    _this.onHeadLeave = function (event) {
+    _this.onHeadMouseLeave = function (event) {
       return _this.setState(_extends({}, _this.state, { headHover: false }));
     };
 
@@ -14237,17 +14283,22 @@ var TextAnnotation = function (_PureComponent) {
   _createClass(TextAnnotation, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.text.addEventListener('mousedown', this.onTextDown);
-      this.lineGrabber.addEventListener('mousedown', this.onLineDown);
-      this.lineGrabber.addEventListener('mouseenter', this.onLineEnter);
-      this.lineGrabber.addEventListener('mouseleave', this.onLineLeave);
-      this.headGrabber.addEventListener('mousedown', this.onHeadDown);
-      this.headGrabber.addEventListener('mouseenter', this.onHeadEnter);
-      this.headGrabber.addEventListener('mouseleave', this.onHeadLeave);
+      this.text.addEventListener('mousedown', this.onTextMouseDown);
+      this.text.addEventListener('touchstart', this.onTextTouchStart);
+      this.lineGrabber.addEventListener('mousedown', this.onLineMouseDown);
+      this.lineGrabber.addEventListener('touchstart', this.onLineTouchStart);
+      this.lineGrabber.addEventListener('mouseenter', this.onLineMouseEnter);
+      this.lineGrabber.addEventListener('mouseleave', this.onLineMouseLeave);
+      this.headGrabber.addEventListener('mousedown', this.onHeadMouseDown);
+      this.headGrabber.addEventListener('touchstart', this.onHeadTouchStart);
+      this.headGrabber.addEventListener('mouseenter', this.onHeadMouseEnter);
+      this.headGrabber.addEventListener('mouseleave', this.onHeadMouseLeave);
       this.root.addEventListener('dblclick', this.onDoubleClick);
       document.addEventListener('mousemove', this.onMouseMove);
+      document.addEventListener('touchmove', this.onTouchMove);
       document.addEventListener('keydown', this.onDocumentKeyDown, true);
       window.addEventListener('mouseup', this.onMouseUp);
+      window.addEventListener('touchend', this.onTouchEnd);
       window.addEventListener('blur', this.endDrag);
       this.updateMask();
 
@@ -14259,17 +14310,22 @@ var TextAnnotation = function (_PureComponent) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      this.text.removeEventListener('mousedown', this.onTextDown);
-      this.lineGrabber.removeEventListener('mousedown', this.onLineDown);
-      this.lineGrabber.removeEventListener('mouseenter', this.onLineEnter);
-      this.lineGrabber.removeEventListener('mouseleave', this.onLineLeave);
-      this.headGrabber.removeEventListener('mousedown', this.onHeadDown);
-      this.headGrabber.removeEventListener('mouseenter', this.onHeadEnter);
-      this.headGrabber.removeEventListener('mouseleave', this.onHeadLeave);
+      this.text.removeEventListener('mousedown', this.onTextMouseDown);
+      this.text.removeEventListener('touchstart', this.onTextTouchStart);
+      this.lineGrabber.removeEventListener('mousedown', this.onLineMouseDown);
+      this.lineGrabber.removeEventListener('touchstart', this.onLineTouchStart);
+      this.lineGrabber.removeEventListener('mouseenter', this.onLineMouseEnter);
+      this.lineGrabber.removeEventListener('mouseleave', this.onLineMouseLeave);
+      this.headGrabber.removeEventListener('mousedown', this.onHeadMouseDown);
+      this.headGrabber.removeEventListener('touchstart', this.onHeadTouchStart);
+      this.headGrabber.removeEventListener('mouseenter', this.onHeadMouseEnter);
+      this.headGrabber.removeEventListener('mouseleave', this.onHeadMouseLeave);
       this.root.removeEventListener('dblclick', this.onDoubleClick);
       document.removeEventListener('mousemove', this.onMouseMove);
+      document.removeEventListener('touchmove', this.onTouchMove);
       document.removeEventListener('keydown', this.onDocumentKeyDown, true);
       window.removeEventListener('mouseup', this.onMouseUp);
+      window.removeEventListener('touchend', this.onTouchEnd);
       window.removeEventListener('blur', this.endDrag);
     }
   }, {
