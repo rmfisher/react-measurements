@@ -13088,11 +13088,23 @@ var CircleMeasurement = function (_PureComponent) {
         event.preventDefault();
         _this.onDragBegin(event.clientX, event.clientY);
       }
+    }, _this.onStrokeTouchStart = function (event) {
+      if (!_this.strokeDragInProgress && !_this.fillDragInProgress) {
+        _this.strokeDragInProgress = true;
+        event.preventDefault();
+        _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
+      }
     }, _this.onFillMouseDown = function (event) {
       if (event.button === 0) {
         _this.fillDragInProgress = true;
         event.preventDefault();
         _this.onDragBegin(event.clientX, event.clientY);
+      }
+    }, _this.onFillTouchStart = function (event) {
+      if (!_this.strokeDragInProgress && !_this.fillDragInProgress) {
+        _this.fillDragInProgress = true;
+        event.preventDefault();
+        _this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
       }
     }, _this.onDragBegin = function (eventX, eventY) {
       _this.mouseXAtPress = eventX;
@@ -13100,9 +13112,12 @@ var CircleMeasurement = function (_PureComponent) {
       _this.circleAtPress = _this.props.circle;
       _this.centerXAtPress = _this.props.circle.centerX * _this.props.parentWidth;
       _this.centerYAtPress = _this.props.circle.centerY * _this.props.parentHeight;
-      _this.radiusAtPress = _this.props.circle.radius * Math.sqrt(_this.props.parentWidth * _this.props.parentHeight);
     }, _this.onMouseMove = function (event) {
       return _this.onDrag(event.clientX, event.clientY);
+    }, _this.onTouchMove = function (event) {
+      if (event.touches.length === 1 && event.changedTouches.length === 1) {
+        _this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+      }
     }, _this.onDrag = function (eventX, eventY) {
       if ((_this.fillDragInProgress || _this.strokeDragInProgress) && !_this.dragOccurred) {
         _this.dragOccurred = true;
@@ -13115,7 +13130,8 @@ var CircleMeasurement = function (_PureComponent) {
         var centerClientY = _this.centerYAtPress + rect.top;
         var deltaX = eventX - centerClientX;
         var deltaY = eventY - centerClientY;
-        var radius = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPixels) / Math.sqrt(_this.props.parentWidth * _this.props.parentHeight);
+        var radiusInPixels = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPixels);
+        var radius = radiusInPixels / Math.sqrt(_this.props.parentWidth * _this.props.parentHeight);
 
         if (_this.props.circle.centerX + radius > 1) {
           radius = 1 - _this.props.circle.centerX;
@@ -13147,6 +13163,8 @@ var CircleMeasurement = function (_PureComponent) {
         _this.props.onChange(_extends({}, _this.props.circle, { centerX: centerX, centerY: centerY }));
       }
     }, _this.onMouseUp = function (event) {
+      return _this.endDrag();
+    }, _this.onTouchEnd = function (event) {
       return _this.endDrag();
     }, _this.endDrag = function () {
       if (_this.dragOccurred) {
@@ -13186,18 +13204,26 @@ var CircleMeasurement = function (_PureComponent) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.fill.addEventListener('mousedown', this.onFillMouseDown);
+      this.fill.addEventListener('touchstart', this.onFillTouchStart);
       this.stroke.addEventListener('mousedown', this.onStrokeMouseDown);
+      this.stroke.addEventListener('touchstart', this.onStrokeTouchStart);
       document.addEventListener('mousemove', this.onMouseMove);
+      document.addEventListener('touchmove', this.onTouchMove);
       window.addEventListener('mouseup', this.onMouseUp);
+      window.addEventListener('touchend', this.onTouchEnd);
       window.addEventListener('blur', this.endDrag);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.fill.removeEventListener('mousedown', this.onFillMouseDown);
+      this.fill.removeEventListener('touchstart', this.onFillTouchStart);
       this.stroke.removeEventListener('mousedown', this.onStrokeMouseDown);
+      this.stroke.removeEventListener('touchstart', this.onStrokeTouchStart);
       document.removeEventListener('mousemove', this.onMouseMove);
+      document.removeEventListener('touchmove', this.onTouchMove);
       window.removeEventListener('mouseup', this.onMouseUp);
+      window.removeEventListener('touchend', this.onTouchEnd);
       window.removeEventListener('blur', this.endDrag);
     }
   }, {
