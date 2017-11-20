@@ -7916,11 +7916,53 @@ var TextAnchor = function (_PureComponent) {
       return _this.setState(_extends({}, _this.state, { buttonShowing: false }));
     };
 
+    _this.onDocumentTouchStart = function (event) {
+      return _this.setState(_extends({}, _this.state, { buttonShowing: false }));
+    };
+
     _this.onDeleteButtonClick = function (event) {
       if (event.button === 0) {
         event.preventDefault();
         event.stopPropagation();
         _this.props.onDeleteButtonClick();
+      }
+    };
+
+    _this.onDeleteButtonTouch = function (event) {
+      event.stopPropagation();
+      _this.props.onDeleteButtonClick();
+    };
+
+    _this.onTouchStart = function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      _this.touchHoldTimer = setTimeout(_this.onTouchHold, 400);
+      _this.touchIsDown = true;
+    };
+
+    _this.onTouchMove = function (event) {
+      if (_this.touchHoldTimer) {
+        clearTimeout(_this.touchHoldTimer);
+      }
+      if (_this.touchIsDown) {
+        _this.dragOccurred = true;
+      }
+    };
+
+    _this.onTouchEnd = function (event) {
+      if (_this.touchHoldTimer) {
+        clearTimeout(_this.touchHoldTimer);
+      }
+      if (!_this.dragOccurred) {
+        _this.setState(_extends({}, _this.state, { buttonShowing: true }));
+      }
+      _this.dragOccurred = false;
+      _this.touchIsDown = false;
+    };
+
+    _this.onTouchHold = function () {
+      if (_this.props.onTouchHold) {
+        _this.props.onTouchHold();
       }
     };
 
@@ -7936,8 +7978,10 @@ var TextAnchor = function (_PureComponent) {
       this.mounted = true;
       this.textBox.addEventListener('click', this.onClick);
       this.textBox.addEventListener('mouseleave', this.onMouseLeave);
-      // Additional mouse-down listener means delete works cleanly if text is being edited.
-      this.deleteButton.addEventListener('mousedown', this.onDeleteButtonClick);
+      this.textBox.addEventListener('touchstart', this.onTouchStart);
+      this.textBox.addEventListener('touchmove', this.onTouchMove);
+      this.textBox.addEventListener('touchend', this.onTouchEnd);
+      document.addEventListener('touchstart', this.onDocumentTouchStart);
 
       setTimeout(function () {
         if (_this2.mounted) {
@@ -7951,7 +7995,10 @@ var TextAnchor = function (_PureComponent) {
       this.mounted = false;
       this.textBox.removeEventListener('mouseenter', this.onMouseEnter);
       this.textBox.removeEventListener('mouseleave', this.onMouseLeave);
-      this.deleteButton.removeEventListener('mousedown', this.onDeleteButtonClick);
+      this.textBox.removeEventListener('touchstart', this.onTouchStart);
+      this.textBox.removeEventListener('touchmove', this.onTouchMove);
+      this.textBox.removeEventListener('touchend', this.onTouchEnd);
+      document.removeEventListener('touchstart', this.onDocumentTouchStart);
     }
   }, {
     key: 'render',
@@ -7979,7 +8026,10 @@ var TextAnchor = function (_PureComponent) {
             {
               type: 'button',
               className: 'delete-button',
-              onClick: this.onDeleteButtonClick,
+              onClick: this.onDeleteButtonClick
+              // Additional mouse-down handler means delete works cleanly if text is being edited:
+              , onMouseDown: this.onDeleteButtonClick,
+              onTouchStart: this.onDeleteButtonTouch,
               ref: function ref(e) {
                 return _this3.deleteButton = e;
               } },
@@ -14402,7 +14452,7 @@ var TextAnnotation = function (_PureComponent) {
         ),
         _react2.default.createElement(
           _TextAnchor2.default,
-          { x: textX, y: textY, onDeleteButtonClick: this.onDeleteButtonClick },
+          { x: textX, y: textY, onDeleteButtonClick: this.onDeleteButtonClick, onTouchHold: this.startEdit },
           _react2.default.createElement(
             'div',
             { className: 'text', ref: function ref(e) {
