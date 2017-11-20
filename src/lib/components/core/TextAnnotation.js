@@ -21,21 +21,16 @@ class TextAnnotation extends PureComponent {
 
   componentDidMount() {
     this.text.addEventListener('mousedown', this.onTextMouseDown);
-    this.text.addEventListener('touchstart', this.onTextTouchStart);
     this.lineGrabber.addEventListener('mousedown', this.onLineMouseDown);
-    this.lineGrabber.addEventListener('touchstart', this.onLineTouchStart);
     this.lineGrabber.addEventListener('mouseenter', this.onLineMouseEnter);
     this.lineGrabber.addEventListener('mouseleave', this.onLineMouseLeave);
     this.headGrabber.addEventListener('mousedown', this.onHeadMouseDown);
-    this.headGrabber.addEventListener('touchstart', this.onHeadTouchStart);
     this.headGrabber.addEventListener('mouseenter', this.onHeadMouseEnter);
     this.headGrabber.addEventListener('mouseleave', this.onHeadMouseLeave);
     this.root.addEventListener('dblclick', this.onDoubleClick);
     document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('touchmove', this.onTouchMove);
     document.addEventListener('keydown', this.onDocumentKeyDown, true);
     window.addEventListener('mouseup', this.onMouseUp);
-    window.addEventListener('touchend', this.onTouchEnd);
     window.addEventListener('blur', this.endDrag);
     this.updateMask();
 
@@ -47,21 +42,16 @@ class TextAnnotation extends PureComponent {
 
   componentWillUnmount() {
     this.text.removeEventListener('mousedown', this.onTextMouseDown);
-    this.text.removeEventListener('touchstart', this.onTextTouchStart);
     this.lineGrabber.removeEventListener('mousedown', this.onLineMouseDown);
-    this.lineGrabber.removeEventListener('touchstart', this.onLineTouchStart);
     this.lineGrabber.removeEventListener('mouseenter', this.onLineMouseEnter);
     this.lineGrabber.removeEventListener('mouseleave', this.onLineMouseLeave);
     this.headGrabber.removeEventListener('mousedown', this.onHeadMouseDown);
-    this.headGrabber.removeEventListener('touchstart', this.onHeadTouchStart);
     this.headGrabber.removeEventListener('mouseenter', this.onHeadMouseEnter);
     this.headGrabber.removeEventListener('mouseleave', this.onHeadMouseLeave);
     this.root.removeEventListener('dblclick', this.onDoubleClick);
     document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('touchmove', this.onTouchMove);
     document.removeEventListener('keydown', this.onDocumentKeyDown, true);
     window.removeEventListener('mouseup', this.onMouseUp);
-    window.removeEventListener('touchend', this.onTouchEnd);
     window.removeEventListener('blur', this.endDrag);
   }
 
@@ -159,32 +149,11 @@ class TextAnnotation extends PureComponent {
     }
   }
 
-  onTextTouchStart = event => {
-    if (this.props.text.editable) {
-      event.stopPropagation();
-    } else if (!this.textDragInProgress && !this.lineDragInProgress && !this.headDragInProgress) {
-      this.textDragInProgress = true;
-      event.preventDefault();
-      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
-    }
-  }
-
   onLineMouseDown = event => {
     if (event.button === 0) {
       this.lineDragInProgress = true;
       event.preventDefault();
       this.onDragBegin(event.clientX, event.clientY);
-      if (this.props.text.editable) {
-        event.stopPropagation();
-      }
-    }
-  }
-
-  onLineTouchStart = event => {
-    if (!this.textDragInProgress && !this.lineDragInProgress && !this.headDragInProgress) {
-      this.lineDragInProgress = true;
-      event.preventDefault();
-      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
       if (this.props.text.editable) {
         event.stopPropagation();
       }
@@ -202,17 +171,6 @@ class TextAnnotation extends PureComponent {
     }
   }
 
-  onHeadTouchStart = event => {
-    if (!this.textDragInProgress && !this.lineDragInProgress && !this.headDragInProgress) {
-      this.headDragInProgress = true;
-      event.preventDefault();
-      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
-      if (this.props.text.editable) {
-        event.stopPropagation();
-      }
-    }
-  }
-
   onDragBegin = (eventX, eventY) => {
     this.mouseXAtPress = eventX;
     this.mouseYAtPress = eventY;
@@ -223,12 +181,6 @@ class TextAnnotation extends PureComponent {
   }
 
   onMouseMove = event => this.onDrag(event.clientX, event.clientY);
-
-  onTouchMove = event => {
-    if (event.touches.length === 1 && event.changedTouches.length === 1) {
-      this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
-    }
-  }
 
   onDrag = (eventX, eventY) => {
     if ((this.textDragInProgress || this.lineDragInProgress || this.headDragInProgress) && this.props.text.editable) {
@@ -293,8 +245,6 @@ class TextAnnotation extends PureComponent {
   getYAfterDrag = (yAtPress, clientY) => (yAtPress + clientY - this.mouseYAtPress) / this.props.parentHeight;
 
   onMouseUp = event => this.endDrag();
-
-  onTouchEnd = event => this.endDrag();
 
   endDrag = () => {
     if (this.dragOccurred) {

@@ -14,29 +14,21 @@ class LineMeasurement extends PureComponent {
 
   componentDidMount() {
     this.startGrabber.addEventListener('mousedown', this.onStartMouseDown);
-    this.startGrabber.addEventListener('touchstart', this.onStartTouchStart);
     this.midGrabber.addEventListener('mousedown', this.onMidMouseDown);
-    this.midGrabber.addEventListener('touchstart', this.onMidTouchStart);
     this.midGrabber.addEventListener('mouseenter', this.onMidMouseEnter);
     this.midGrabber.addEventListener('mouseleave', this.onMidMouseLeave);
     this.endGrabber.addEventListener('mousedown', this.onEndMouseDown);
-    this.endGrabber.addEventListener('touchstart', this.onEndTouchStart);
     document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('touchmove', this.onTouchMove);
     window.addEventListener('mouseup', this.onMouseUp);
-    window.addEventListener('touchend', this.onTouchEnd);
     window.addEventListener('blur', this.endDrag);
   }
 
   componentWillUnmount() {
     this.startGrabber.removeEventListener('mousedown', this.onStartMouseDown);
-    this.startGrabber.removeEventListener('touchstart', this.onStartTouchStart);
     this.midGrabber.removeEventListener('mousedown', this.onMidMouseDown);
-    this.midGrabber.removeEventListener('touchstart', this.onMidTouchStart);
     this.midGrabber.removeEventListener('mouseenter', this.onMidMouseEnter);
     this.midGrabber.removeEventListener('mouseleave', this.onMidMouseLeave);
     this.endGrabber.removeEventListener('mousedown', this.onEndMouseDown);
-    this.endGrabber.removeEventListener('touchstart', this.onEndTouchStart);
     document.removeEventListener('mousemove', this.onMouseMove);
     window.removeEventListener('mouseup', this.onMouseUp);
     window.removeEventListener('blur', this.endDrag);
@@ -98,14 +90,6 @@ class LineMeasurement extends PureComponent {
     }
   }
 
-  onStartTouchStart = event => {
-    if (!this.startDragInProgress && !this.midDragInProgress && !this.endDragInProgress) {
-      this.startDragInProgress = true;
-      event.preventDefault();
-      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
-    }
-  }
-
   onMidMouseDown = event => {
     if (event.button === 0) {
       this.midDragInProgress = true;
@@ -114,27 +98,11 @@ class LineMeasurement extends PureComponent {
     }
   }
 
-  onMidTouchStart = event => {
-    if (!this.startDragInProgress && !this.midDragInProgress && !this.endDragInProgress) {
-      this.midDragInProgress = true;
-      event.preventDefault();
-      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
-    }
-  }
-
   onEndMouseDown = event => {
     if (event.button === 0) {
       this.endDragInProgress = true;
       event.preventDefault();
       this.onDragBegin(event.clientX, event.clientY);
-    }
-  }
-
-  onEndTouchStart = event => {
-    if (!this.startDragInProgress && !this.midDragInProgress && !this.endDragInProgress) {
-      this.endDragInProgress = true;
-      event.preventDefault();
-      this.onDragBegin(event.touches[0].clientX, event.touches[0].clientY);
     }
   }
 
@@ -149,12 +117,6 @@ class LineMeasurement extends PureComponent {
   }
 
   onMouseMove = event => this.onDrag(event.clientX, event.clientY);
-
-  onTouchMove = event => {
-    if (event.touches.length === 1 && event.changedTouches.length === 1) {
-      this.onDrag(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
-    }
-  }
 
   onDrag = (eventX, eventY) => {
     if ((this.startDragInProgress || this.endDragInProgress || this.midDragInProgress) && !this.dragOccurred) {
@@ -216,8 +178,6 @@ class LineMeasurement extends PureComponent {
   getYAfterDrag = (yAtPress, clientY) => (yAtPress + clientY - this.mouseYAtPress) / this.props.parentHeight;
 
   onMouseUp = event => this.endDrag();
-
-  onTouchEnd = event => this.endDrag();
 
   endDrag = () => {
     if (this.dragOccurred) {

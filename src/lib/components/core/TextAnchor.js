@@ -11,8 +11,6 @@ class TextAnchor extends PureComponent {
     this.mounted = true;
     this.textBox.addEventListener('click', this.onClick);
     this.textBox.addEventListener('mouseleave', this.onMouseLeave);
-    // Additional mouse-down listener means delete works cleanly if text is being edited.
-    this.deleteButton.addEventListener('mousedown', this.onDeleteButtonClick);
 
     setTimeout(() => {
       if (this.mounted) {
@@ -23,9 +21,8 @@ class TextAnchor extends PureComponent {
 
   componentWillUnmount() {
     this.mounted = false;
-    this.textBox.removeEventListener('mouseenter', this.onMouseEnter);
+    this.textBox.removeEventListener('click', this.onClick);
     this.textBox.removeEventListener('mouseleave', this.onMouseLeave);
-    this.deleteButton.removeEventListener('mousedown', this.onDeleteButtonClick);
   }
 
   render() {
@@ -46,6 +43,8 @@ class TextAnchor extends PureComponent {
             type='button'
             className='delete-button'
             onClick={this.onDeleteButtonClick}
+            // Additional mouse-down handler means delete works cleanly if text is being edited:
+            onMouseDown={this.onDeleteButtonClick}
             ref={e => this.deleteButton = e}>
             <svg className='delete-button-svg'>
               <path className='delete-button-icon' d='M 4 4 L 11 11 M 11 4 L 4 11' />
