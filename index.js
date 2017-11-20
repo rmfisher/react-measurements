@@ -12976,7 +12976,7 @@ var MeasurementButtons = function (_PureComponent) {
       event.stopPropagation();
       event.preventDefault();
     }, _this.onRootTouchStart = function (event) {
-      return preventDefault();
+      return event.preventDefault();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
