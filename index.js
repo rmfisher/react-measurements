@@ -7916,54 +7916,11 @@ var TextAnchor = function (_PureComponent) {
       return _this.setState(_extends({}, _this.state, { buttonShowing: false }));
     };
 
-    _this.onDocumentTouchStart = function (event) {
-      return _this.setState(_extends({}, _this.state, { buttonShowing: false }));
-    };
-
     _this.onDeleteButtonClick = function (event) {
       if (event.button === 0) {
         event.preventDefault();
         event.stopPropagation();
         _this.props.onDeleteButtonClick();
-      }
-    };
-
-    _this.onDeleteButtonTouchStart = function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      _this.props.onDeleteButtonClick();
-    };
-
-    _this.onTouchStart = function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      _this.touchHoldTimer = setTimeout(_this.onTouchHold, 400);
-      _this.touchIsDown = true;
-    };
-
-    _this.onTouchMove = function (event) {
-      if (_this.touchHoldTimer) {
-        clearTimeout(_this.touchHoldTimer);
-      }
-      if (_this.touchIsDown) {
-        _this.dragOccurred = true;
-      }
-    };
-
-    _this.onTouchEnd = function (event) {
-      if (_this.touchHoldTimer) {
-        clearTimeout(_this.touchHoldTimer);
-      }
-      if (!_this.dragOccurred) {
-        _this.setState(_extends({}, _this.state, { buttonShowing: true }));
-      }
-      _this.dragOccurred = false;
-      _this.touchIsDown = false;
-    };
-
-    _this.onTouchHold = function () {
-      if (_this.props.onTouchHold) {
-        _this.props.onTouchHold();
       }
     };
 
@@ -7979,11 +7936,6 @@ var TextAnchor = function (_PureComponent) {
       this.mounted = true;
       this.textBox.addEventListener('click', this.onClick);
       this.textBox.addEventListener('mouseleave', this.onMouseLeave);
-      this.textBox.addEventListener('touchstart', this.onTouchStart);
-      this.textBox.addEventListener('touchmove', this.onTouchMove);
-      this.textBox.addEventListener('touchend', this.onTouchEnd);
-      this.deleteButton.addEventListener('touchstart', this.onDeleteButtonTouchStart);
-      document.addEventListener('touchstart', this.onDocumentTouchStart);
 
       setTimeout(function () {
         if (_this2.mounted) {
@@ -7995,13 +7947,8 @@ var TextAnchor = function (_PureComponent) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.mounted = false;
-      this.textBox.removeEventListener('mouseenter', this.onMouseEnter);
+      this.textBox.removeEventListener('click', this.onClick);
       this.textBox.removeEventListener('mouseleave', this.onMouseLeave);
-      this.textBox.removeEventListener('touchstart', this.onTouchStart);
-      this.textBox.removeEventListener('touchmove', this.onTouchMove);
-      this.textBox.removeEventListener('touchend', this.onTouchEnd);
-      this.deleteButton.removeEventListener('touchstart', this.onDeleteButtonTouch);
-      document.removeEventListener('touchstart', this.onDocumentTouchStart);
     }
   }, {
     key: 'render',
@@ -14336,21 +14283,19 @@ var TextAnnotation = function (_PureComponent) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.text.addEventListener('mousedown', this.onTextMouseDown);
-      this.text.addEventListener('touchstart', this.onTextTouchStart);
+      //this.text.addEventListener('touchstart', this.onTextTouchStart);
       this.lineGrabber.addEventListener('mousedown', this.onLineMouseDown);
-      this.lineGrabber.addEventListener('touchstart', this.onLineTouchStart);
+      //this.lineGrabber.addEventListener('touchstart', this.onLineTouchStart);
       this.lineGrabber.addEventListener('mouseenter', this.onLineMouseEnter);
       this.lineGrabber.addEventListener('mouseleave', this.onLineMouseLeave);
       this.headGrabber.addEventListener('mousedown', this.onHeadMouseDown);
-      this.headGrabber.addEventListener('touchstart', this.onHeadTouchStart);
+      //this.headGrabber.addEventListener('touchstart', this.onHeadTouchStart);
       this.headGrabber.addEventListener('mouseenter', this.onHeadMouseEnter);
       this.headGrabber.addEventListener('mouseleave', this.onHeadMouseLeave);
       this.root.addEventListener('dblclick', this.onDoubleClick);
       document.addEventListener('mousemove', this.onMouseMove);
-      document.addEventListener('touchmove', this.onTouchMove);
       document.addEventListener('keydown', this.onDocumentKeyDown, true);
       window.addEventListener('mouseup', this.onMouseUp);
-      window.addEventListener('touchend', this.onTouchEnd);
       window.addEventListener('blur', this.endDrag);
       this.updateMask();
 
@@ -14363,21 +14308,19 @@ var TextAnnotation = function (_PureComponent) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.text.removeEventListener('mousedown', this.onTextMouseDown);
-      this.text.removeEventListener('touchstart', this.onTextTouchStart);
+      //this.text.removeEventListener('touchstart', this.onTextTouchStart);
       this.lineGrabber.removeEventListener('mousedown', this.onLineMouseDown);
-      this.lineGrabber.removeEventListener('touchstart', this.onLineTouchStart);
+      //this.lineGrabber.removeEventListener('touchstart', this.onLineTouchStart);
       this.lineGrabber.removeEventListener('mouseenter', this.onLineMouseEnter);
       this.lineGrabber.removeEventListener('mouseleave', this.onLineMouseLeave);
       this.headGrabber.removeEventListener('mousedown', this.onHeadMouseDown);
-      this.headGrabber.removeEventListener('touchstart', this.onHeadTouchStart);
+      //this.headGrabber.removeEventListener('touchstart', this.onHeadTouchStart);
       this.headGrabber.removeEventListener('mouseenter', this.onHeadMouseEnter);
       this.headGrabber.removeEventListener('mouseleave', this.onHeadMouseLeave);
       this.root.removeEventListener('dblclick', this.onDoubleClick);
       document.removeEventListener('mousemove', this.onMouseMove);
-      document.removeEventListener('touchmove', this.onTouchMove);
       document.removeEventListener('keydown', this.onDocumentKeyDown, true);
       window.removeEventListener('mouseup', this.onMouseUp);
-      window.removeEventListener('touchend', this.onTouchEnd);
       window.removeEventListener('blur', this.endDrag);
     }
   }, {
@@ -14454,7 +14397,7 @@ var TextAnnotation = function (_PureComponent) {
         ),
         _react2.default.createElement(
           _TextAnchor2.default,
-          { x: textX, y: textY, onDeleteButtonClick: this.onDeleteButtonClick, onTouchHold: this.startEdit },
+          { x: textX, y: textY, onDeleteButtonClick: this.onDeleteButtonClick },
           _react2.default.createElement(
             'div',
             { className: 'text', ref: function ref(e) {
