@@ -13178,6 +13178,8 @@ var CircleMeasurement = function (_PureComponent) {
       _this.getAnnotationLayerClassList().toggle('any-dragged');
     }, _this.onDeleteButtonClick = function () {
       return _this.props.onDeleteButtonClick(_this.props.circle);
+    }, _this.onRootTouchStart = function (event) {
+      return event.preventDefault();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -13186,6 +13188,7 @@ var CircleMeasurement = function (_PureComponent) {
     value: function componentDidMount() {
       this.fill.addEventListener('mousedown', this.onFillMouseDown);
       this.stroke.addEventListener('mousedown', this.onStrokeMouseDown);
+      this.root.addEventListener('touchstart', this.onRootTouchStart);
       document.addEventListener('mousemove', this.onMouseMove);
       window.addEventListener('mouseup', this.onMouseUp);
       window.addEventListener('blur', this.endDrag);
@@ -13195,7 +13198,9 @@ var CircleMeasurement = function (_PureComponent) {
     value: function componentWillUnmount() {
       this.fill.removeEventListener('mousedown', this.onFillMouseDown);
       this.stroke.removeEventListener('mousedown', this.onStrokeMouseDown);
+      this.root.removeEventListener('touchstart', this.onRootTouchStart);
       document.removeEventListener('mousemove', this.onMouseMove);
+      document.removeEventListener('touchmove', this.onTouchMove);
       window.removeEventListener('mouseup', this.onMouseUp);
       window.removeEventListener('blur', this.endDrag);
     }
@@ -13462,6 +13467,10 @@ var LineMeasurement = function (_PureComponent) {
       return _this.props.onDeleteButtonClick(_this.props.line);
     };
 
+    _this.onRootTouchStart = function (event) {
+      return event.preventDefault();
+    };
+
     _this.state = { midHover: false };
     return _this;
   }
@@ -13474,6 +13483,7 @@ var LineMeasurement = function (_PureComponent) {
       this.midGrabber.addEventListener('mouseenter', this.onMidMouseEnter);
       this.midGrabber.addEventListener('mouseleave', this.onMidMouseLeave);
       this.endGrabber.addEventListener('mousedown', this.onEndMouseDown);
+      this.root.addEventListener('touchstart', this.onRootTouchStart);
       document.addEventListener('mousemove', this.onMouseMove);
       window.addEventListener('mouseup', this.onMouseUp);
       window.addEventListener('blur', this.endDrag);
@@ -13486,6 +13496,7 @@ var LineMeasurement = function (_PureComponent) {
       this.midGrabber.removeEventListener('mouseenter', this.onMidMouseEnter);
       this.midGrabber.removeEventListener('mouseleave', this.onMidMouseLeave);
       this.endGrabber.removeEventListener('mousedown', this.onEndMouseDown);
+      this.root.addEventListener('touchstart', this.onRootTouchStart);
       document.removeEventListener('mousemove', this.onMouseMove);
       window.removeEventListener('mouseup', this.onMouseUp);
       window.removeEventListener('blur', this.endDrag);
@@ -14164,6 +14175,10 @@ var TextAnnotation = function (_PureComponent) {
       return _this.props.onDeleteButtonClick(_this.props.text);
     };
 
+    _this.onRootTouchStart = function (event) {
+      return event.preventDefault();
+    };
+
     _this.propagateTextChanges = false;
     _this.state = { lineHover: false, headHover: false, lineDragged: false, headDragged: false, textDragged: false };
     return _this;
@@ -14180,6 +14195,7 @@ var TextAnnotation = function (_PureComponent) {
       this.headGrabber.addEventListener('mouseenter', this.onHeadMouseEnter);
       this.headGrabber.addEventListener('mouseleave', this.onHeadMouseLeave);
       this.root.addEventListener('dblclick', this.onDoubleClick);
+      this.root.addEventListener('touchstart', this.onRootTouchStart);
       document.addEventListener('mousemove', this.onMouseMove);
       document.addEventListener('keydown', this.onDocumentKeyDown, true);
       window.addEventListener('mouseup', this.onMouseUp);
@@ -14202,6 +14218,7 @@ var TextAnnotation = function (_PureComponent) {
       this.headGrabber.removeEventListener('mouseenter', this.onHeadMouseEnter);
       this.headGrabber.removeEventListener('mouseleave', this.onHeadMouseLeave);
       this.root.removeEventListener('dblclick', this.onDoubleClick);
+      this.root.removeEventListener('touchstart', this.onRootTouchStart);
       document.removeEventListener('mousemove', this.onMouseMove);
       document.removeEventListener('keydown', this.onDocumentKeyDown, true);
       window.removeEventListener('mouseup', this.onMouseUp);
