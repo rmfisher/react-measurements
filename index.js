@@ -12581,7 +12581,7 @@ var MeasurementApp = function (_PureComponent) {
           _react2.default.createElement(
             'a',
             { href: 'https://www.npmjs.com/packages/react-measurements' },
-            'v0.2.10'
+            'v0.3.0'
           ),
           _react2.default.createElement(
             'a',
@@ -13103,6 +13103,14 @@ var CircleMeasurement = function (_PureComponent) {
       _this.circleAtPress = _this.props.circle;
       _this.centerXAtPress = _this.props.circle.centerX * _this.props.parentWidth;
       _this.centerYAtPress = _this.props.circle.centerY * _this.props.parentHeight;
+
+      var rect = _this.root.getBoundingClientRect();
+      var centerClientX = _this.centerXAtPress + rect.left;
+      var centerClientY = _this.centerYAtPress + rect.top;
+      var radiusAtPress = _this.props.circle.radius * Math.sqrt(_this.props.parentWidth * _this.props.parentHeight);
+      var theta = Math.atan2(_this.mouseYAtPress - centerClientY, _this.mouseXAtPress - centerClientX);
+      _this.pointXAtPress = radiusAtPress * Math.cos(theta);
+      _this.pointYAtPress = radiusAtPress * Math.sin(theta);
     }, _this.onMouseMove = function (event) {
       return _this.onDrag(event.clientX, event.clientY);
     }, _this.onDrag = function (eventX, eventY) {
@@ -13112,12 +13120,9 @@ var CircleMeasurement = function (_PureComponent) {
       }
 
       if (_this.strokeDragInProgress) {
-        var rect = _this.root.getBoundingClientRect();
-        var centerClientX = _this.centerXAtPress + rect.left;
-        var centerClientY = _this.centerYAtPress + rect.top;
-        var deltaX = eventX - centerClientX;
-        var deltaY = eventY - centerClientY;
-        var radiusInPixels = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPixels);
+        var newPointX = _this.pointXAtPress + eventX - _this.mouseXAtPress;
+        var newPointY = _this.pointYAtPress + eventY - _this.mouseYAtPress;
+        var radiusInPixels = Math.max(Math.hypot(newPointX, newPointY), minRadiusInPixels);
         var radius = radiusInPixels / Math.sqrt(_this.props.parentWidth * _this.props.parentHeight);
 
         if (_this.props.circle.centerX + radius > 1) {
