@@ -7924,6 +7924,10 @@ var TextAnchor = function (_PureComponent) {
       }
     };
 
+    _this.onTouchStart = function (event) {
+      return event.preventDefault();
+    };
+
     _this.state = { buttonShowing: false, justCreated: true };
     return _this;
   }
@@ -7936,6 +7940,7 @@ var TextAnchor = function (_PureComponent) {
       this.mounted = true;
       this.textBox.addEventListener('click', this.onClick);
       this.textBox.addEventListener('mouseleave', this.onMouseLeave);
+      this.textBox.addEventListener('touchstart', this.onTouchStart);
 
       setTimeout(function () {
         if (_this2.mounted) {
@@ -7947,8 +7952,9 @@ var TextAnchor = function (_PureComponent) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.mounted = false;
-      this.textBox.removeEventListener('click', this.onClick);
+      this.textBox.removeEventListener('mouseenter', this.onMouseEnter);
       this.textBox.removeEventListener('mouseleave', this.onMouseLeave);
+      this.textBox.removeEventListener('touchstart', this.onTouchStart);
     }
   }, {
     key: 'render',
