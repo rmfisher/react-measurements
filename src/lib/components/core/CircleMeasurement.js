@@ -70,6 +70,14 @@ class CircleMeasurement extends PureComponent {
     this.circleAtPress = this.props.circle;
     this.centerXAtPress = this.props.circle.centerX * this.props.parentWidth;
     this.centerYAtPress = this.props.circle.centerY * this.props.parentHeight;
+
+    const rect = this.root.getBoundingClientRect();
+    const centerClientX = this.centerXAtPress + rect.left;
+    const centerClientY = this.centerYAtPress + rect.top;
+    const radiusAtPress = this.props.circle.radius * Math.sqrt(this.props.parentWidth * this.props.parentHeight);
+    const theta = Math.atan2(this.mouseYAtPress - centerClientY, this.mouseXAtPress - centerClientX);
+    this.pointXAtPress = radiusAtPress * Math.cos(theta);
+    this.pointYAtPress = radiusAtPress * Math.sin(theta);
   }
 
   onMouseMove = event => this.onDrag(event.clientX, event.clientY);
@@ -81,12 +89,9 @@ class CircleMeasurement extends PureComponent {
     }
 
     if (this.strokeDragInProgress) {
-      const rect = this.root.getBoundingClientRect();
-      const centerClientX = this.centerXAtPress + rect.left;
-      const centerClientY = this.centerYAtPress + rect.top;
-      const deltaX = eventX - centerClientX;
-      const deltaY = eventY - centerClientY;
-      const radiusInPixels = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPixels);
+      const newPointX = this.pointXAtPress + eventX - this.mouseXAtPress;
+      const newPointY = this.pointYAtPress + eventY - this.mouseYAtPress;
+      const radiusInPixels = Math.max(Math.hypot(newPointX, newPointY), minRadiusInPixels);
       let radius = radiusInPixels / Math.sqrt(this.props.parentWidth * this.props.parentHeight);
 
       if (this.props.circle.centerX + radius > 1) {
