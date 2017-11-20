@@ -13188,7 +13188,7 @@ var CircleMeasurement = function (_PureComponent) {
     value: function componentDidMount() {
       this.fill.addEventListener('mousedown', this.onFillMouseDown);
       this.stroke.addEventListener('mousedown', this.onStrokeMouseDown);
-      this.root.addEventListener('touchstart', this.onRootTouchStart);
+      //this.root.addEventListener('touchstart', this.onRootTouchStart);
       document.addEventListener('mousemove', this.onMouseMove);
       window.addEventListener('mouseup', this.onMouseUp);
       window.addEventListener('blur', this.endDrag);
@@ -13483,7 +13483,7 @@ var LineMeasurement = function (_PureComponent) {
       this.midGrabber.addEventListener('mouseenter', this.onMidMouseEnter);
       this.midGrabber.addEventListener('mouseleave', this.onMidMouseLeave);
       this.endGrabber.addEventListener('mousedown', this.onEndMouseDown);
-      this.root.addEventListener('touchstart', this.onRootTouchStart);
+      //this.root.addEventListener('touchstart', this.onRootTouchStart);
       document.addEventListener('mousemove', this.onMouseMove);
       window.addEventListener('mouseup', this.onMouseUp);
       window.addEventListener('blur', this.endDrag);
@@ -13643,18 +13643,12 @@ var minRadiusInPixels = 3;
 var MeasurementLayerBase = function (_PureComponent) {
   _inherits(MeasurementLayerBase, _PureComponent);
 
-  function MeasurementLayerBase() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function MeasurementLayerBase(props) {
     _classCallCheck(this, MeasurementLayerBase);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (MeasurementLayerBase.__proto__ || Object.getPrototypeOf(MeasurementLayerBase)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MeasurementLayerBase.__proto__ || Object.getPrototypeOf(MeasurementLayerBase)).call.apply(_ref, [this].concat(args))), _this), _this.createMeasurementComponent = function (measurement) {
+    _this.createMeasurementComponent = function (measurement) {
       if (measurement.type === 'line') {
         return _react2.default.createElement(_LineMeasurement2.default, {
           key: measurement.id,
@@ -13692,7 +13686,9 @@ var MeasurementLayerBase = function (_PureComponent) {
       } else {
         return false;
       }
-    }, _this.onMouseDown = function (event) {
+    };
+
+    _this.onMouseDown = function (event) {
       _this.finishAnyTextEdit();
       if (event.button === 0) {
         if (_this.props.mode === 'line') {
@@ -13707,7 +13703,12 @@ var MeasurementLayerBase = function (_PureComponent) {
           _this.mouseYAtPress = event.clientY;
         }
       }
-    }, _this.onMouseMove = function (event) {
+    };
+
+    _this.onMouseMove = function (event) {
+      if (!_this.state.hasMouse) {
+        _this.setState(_extends({}, _this.state, { hasMouse: true }));
+      }
       if (_this.lineCreationInProgress) {
         var rect = _this.root.getBoundingClientRect();
         var endX = _this.clamp((event.clientX - rect.left) / _this.props.width);
@@ -13745,7 +13746,9 @@ var MeasurementLayerBase = function (_PureComponent) {
           _this.onChange(_extends({}, _circle, { radius: _radius }));
         }
       }
-    }, _this.calculateRadius = function (cursorX, cursorY, centerX, centerY) {
+    };
+
+    _this.calculateRadius = function (cursorX, cursorY, centerX, centerY) {
       var deltaX = cursorX - centerX * _this.props.width;
       var deltaY = cursorY - centerY * _this.props.height;
       var radius = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPixels) / Math.sqrt(_this.props.width * _this.props.height);
@@ -13763,9 +13766,13 @@ var MeasurementLayerBase = function (_PureComponent) {
         radius = centerY;
       }
       return radius;
-    }, _this.onMouseUp = function (event) {
+    };
+
+    _this.onMouseUp = function (event) {
       return _this.endDrag();
-    }, _this.endDrag = function () {
+    };
+
+    _this.endDrag = function () {
       if (_this.lineCreationInProgress) {
         _this.lineCreationInProgress = false;
         if (_this.createdId !== null) {
@@ -13783,7 +13790,9 @@ var MeasurementLayerBase = function (_PureComponent) {
         })[0]);
         _this.createdId = null;
       }
-    }, _this.onClick = function (event) {
+    };
+
+    _this.onClick = function (event) {
       if (_this.props.mode === 'text') {
         var id = _this.getNextId();
         var rect = _this.root.getBoundingClientRect();
@@ -13799,21 +13808,31 @@ var MeasurementLayerBase = function (_PureComponent) {
           return a.id === _this.createdId;
         })[0]);
       }
-    }, _this.getNextId = function () {
+    };
+
+    _this.getNextId = function () {
       return _this.props.measurements.length > 0 ? Math.max.apply(Math, _toConsumableArray(_this.props.measurements.map(function (a) {
         return a.id;
       }))) + 1 : 0;
-    }, _this.onChange = function (m) {
+    };
+
+    _this.onChange = function (m) {
       return _this.props.onChange(_this.props.measurements.map(function (n) {
         return m.id === n.id ? m : n;
       }));
-    }, _this.delete = function (m) {
+    };
+
+    _this.delete = function (m) {
       return _this.props.onChange(_this.props.measurements.filter(function (n) {
         return n.id !== m.id;
       }));
-    }, _this.clamp = function (value) {
+    };
+
+    _this.clamp = function (value) {
       return Math.min(1, Math.max(0, value));
-    }, _this.finishAnyTextEdit = function () {
+    };
+
+    _this.finishAnyTextEdit = function () {
       var editable = _this.props.measurements.filter(function (m) {
         return m.type === 'text' && m.editable;
       })[0];
@@ -13822,12 +13841,17 @@ var MeasurementLayerBase = function (_PureComponent) {
           return m === editable ? _this.finishEdit(m) : m;
         }));
       }
-    }, _this.finishEdit = function (text) {
+    };
+
+    _this.finishEdit = function (text) {
       return _extends({}, text, {
         editorState: _draftJs.EditorState.moveFocusToEnd(_draftJs.EditorState.moveSelectionToEnd(text.editorState)),
         editable: false
       });
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    };
+
+    _this.state = { hasMouse: false };
+    return _this;
   }
 
   _createClass(MeasurementLayerBase, [{
@@ -13853,7 +13877,7 @@ var MeasurementLayerBase = function (_PureComponent) {
     value: function render() {
       var _this2 = this;
 
-      var className = 'measurement-layer-base' + (this.props.mode ? ' any-mode-on' : '');
+      var className = 'measurement-layer-base' + (this.props.mode ? ' any-mode-on' : '') + (this.state.hasMouse ? ' has-mouse' : '');
       return _react2.default.createElement(
         'div',
         { className: className, ref: function ref(e) {
@@ -14195,7 +14219,7 @@ var TextAnnotation = function (_PureComponent) {
       this.headGrabber.addEventListener('mouseenter', this.onHeadMouseEnter);
       this.headGrabber.addEventListener('mouseleave', this.onHeadMouseLeave);
       this.root.addEventListener('dblclick', this.onDoubleClick);
-      this.root.addEventListener('touchstart', this.onRootTouchStart);
+      //this.root.addEventListener('touchstart', this.onRootTouchStart);
       document.addEventListener('mousemove', this.onMouseMove);
       document.addEventListener('keydown', this.onDocumentKeyDown, true);
       window.addEventListener('mouseup', this.onMouseUp);
@@ -14371,7 +14395,7 @@ exports = module.exports = __webpack_require__(30)(undefined);
 
 
 // module
-exports.push([module.i, "/*---------- General Layout ----------*/\n\n.measurement-layer {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n  pointer-events: none;\n}\n\n/*---------- Buttons ----------*/\n\n.measurement-layer .button-bar {\n  position: absolute;\n  display: flex;\n  height: 21px;\n  top: 5px;\n  right: 5px;\n  opacity: 0;\n  transition: opacity .2s;\n}\n\n.measurement-layer:hover .button-bar,\n.measurement-layer .button-bar.pressed,\n.measurement-layer .button-bar:focus-within {\n  opacity: 1;\n}\n\n.measurement-layer .button-bar button {\n  background-color: rgba(0, 0, 0, 0.8);\n  border-radius: 0;\n  margin: 0;\n  padding: 3px;\n  border: none;\n  cursor: pointer;\n  outline: none;\n}\n\n.measurement-layer .button-bar button:hover,\n.measurement-layer .button-bar button:focus {\n  background-color: rgba(70, 60, 50, 0.9);\n}\n\n.measurement-layer .button-bar button.pressed {\n  background-color: rgba(130, 120, 110, 0.9);\n}\n\n.measurement-layer .circle-icon {\n  stroke: white;\n  fill: none;\n  stroke-width: 2;\n}\n\n.measurement-layer .ruler-icon,\n.measurement-layer .text-icon {\n  stroke: none;\n  fill: white;\n}", ""]);
+exports.push([module.i, "/*---------- General Layout ----------*/\n\n.measurement-layer {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n\n/*---------- Buttons ----------*/\n\n.measurement-layer .button-bar {\n  position: absolute;\n  display: flex;\n  height: 21px;\n  top: 5px;\n  right: 5px;\n  opacity: 0;\n  transition: opacity .2s;\n}\n\n.measurement-layer:hover .button-bar,\n.measurement-layer .button-bar.pressed,\n.measurement-layer .button-bar:focus-within {\n  opacity: 1;\n}\n\n.measurement-layer .button-bar button {\n  background-color: rgba(0, 0, 0, 0.8);\n  border-radius: 0;\n  margin: 0;\n  padding: 3px;\n  border: none;\n  cursor: pointer;\n  outline: none;\n}\n\n.measurement-layer .button-bar button:hover,\n.measurement-layer .button-bar button:focus {\n  background-color: rgba(70, 60, 50, 0.9);\n}\n\n.measurement-layer .button-bar button.pressed {\n  background-color: rgba(130, 120, 110, 0.9);\n}\n\n.measurement-layer .circle-icon {\n  stroke: white;\n  fill: none;\n  stroke-width: 2;\n}\n\n.measurement-layer .ruler-icon,\n.measurement-layer .text-icon {\n  stroke: none;\n  fill: white;\n}", ""]);
 
 // exports
 
@@ -14385,7 +14409,7 @@ exports = module.exports = __webpack_require__(30)(undefined);
 
 
 // module
-exports.push([module.i, "/*---------- General Layout ----------*/\n\n.measurement-layer-base {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n  outline: none;\n}\n\n.line-measurement,\n.circle-measurement,\n.text-annotation,\n.measurement-svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n}\n\n/*---------- Colors ----------*/\n\n.line-measurement .line,\n.circle-measurement .circle,\n.text-annotation .arrow-line {\n  stroke: yellow;\n}\n\n.text-annotation .arrow-head {\n  fill: yellow;  \n}\n\n.measurement-text,\n.text-annotation .text {\n  color: yellow;\n  background-color: rgba(0, 0, 0, 0.7);\n}\n\n.measurement-layer-base .text-anchor.button-showing .delete-button,\n.measurement-layer-base .text-annotation.editable .delete-button {\n  background-color: rgba(50, 45, 40, 0.9);\n}\n\n.measurement-layer-base .text-anchor.button-showing .delete-button:hover,\n.measurement-layer-base .text-annotation.editable .delete-button:hover,\n.measurement-layer-base .text-anchor .delete-button:focus {\n  background-color: rgba(70, 60, 50, 0.9);\n}\n\n.measurement-layer-base .text-anchor.button-showing .delete-button-icon,\n.measurement-layer-base .text-annotation.editable .delete-button-icon,\n.measurement-layer-base .text-anchor .delete-button:focus .delete-button-icon {\n  stroke: yellow;\n}\n\n/*---------- General Measurement & Text Styling ----------*/\n\n.line-measurement .line,\n.circle-measurement .circle,\n.text-annotation .arrow-line {\n  stroke-width: 2px;\n  stroke-linecap: butt;\n  pointer-events: none;\n  fill: none;\n}\n\n.text-annotation .arrow-head {\n  stroke: none;\n}\n\n.measurement-text {\n  position: relative;\n  padding: 1px 4px;\n  white-space: pre;\n  cursor: default;\n  /* Use color transitions rather than opacity, which blurs text for some reason. */\n  transition: color 0.3s, background-color 0.3s;\n}\n\n.measurement-layer-base.line-end-dragged .text-anchor.just-created .measurement-text,\n.measurement-layer-base.circle-stroke-dragged .text-anchor.just-created .measurement-text {\n  color: transparent;\n  background-color: transparent;\n}\n\n.text-annotation .text {\n  position: relative;\n  padding: 1px 4px;\n}\n\n.line-measurement .grabber-group:hover .line,\n.line-measurement.mid-hover .grabber-group .line,\n.line-measurement .line.dragged,\n.circle-measurement .grabber-group:hover .circle,\n.circle-measurement .circle.dragged,\n.text-annotation .arrow-line.hover,\n.text-annotation .arrow-line.dragged {\n  stroke-width: 3px;\n}\n\n.text-annotation .public-DraftEditor-content {\n  /* Ensures the blinking cursor is always visible when the text is editable but empty. */\n  min-width: 1px; \n}\n\n.text-annotation .public-DraftStyleDefault-block {\n  white-space: pre;\n  text-align: center;\n}\n\n.text-annotation.no-text .text-anchor {\n  visibility: hidden;\n}\n\n.text-annotation.no-text.editable .text-anchor {\n  visibility: visible;\n}\n\n/*---------- Grabbers ----------*/\n\n.line-measurement .grabber,\n.text-annotation .arrow-line-grabber {\n  stroke: transparent;\n  stroke-width: 11px;\n  stroke-linecap: butt;\n }\n \n.line-measurement .grabber.start-grabber,\n.line-measurement .grabber.end-grabber {\n  stroke-linecap: square;\n}\n\n.circle-measurement .stroke-grabber {\n  stroke: transparent;\n  stroke-width: 11px;\n  fill: none;\n}\n \n.circle-measurement .fill-grabber {\n  fill: transparent;\n  stroke: none;\n}\n\n.text-annotation .arrow-head-grabber {\n  stroke: transparent;\n  fill: transparent;\n}\n\n/*---------- Text Anchor & Delete Button ----------*/\n\n.measurement-layer-base .text-anchor {\n  /* Zero-size flexbox allows us to center text without using transforms,\n  which can lead to sub-pixel positioning (blurry lines). */\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 0px;\n  height: 0px;\n}\n\n.measurement-layer-base .text-box {\n  position: relative;\n  display: flex;\n}\n\n.measurement-layer-base .delete-button {\n  position: absolute;\n  right: -18px;\n  background-color: transparent;\n  border-radius: 0;\n  border-style: none;\n  outline: none;\n  width: 18px;\n  height: 100%;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  transition: background-color 0.2s, border-color 0.2s;\n}\n\n.measurement-layer-base .delete-button-svg {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 15px;\n  height: 15px;\n}\n\n.measurement-layer-base.any-dragged .delete-button-svg,\n.measurement-layer-base.any-mode-on .delete-button-svg {\n  background-color: transparent;\n  border-color: transparent;\n}\n\n.measurement-layer-base .delete-button-icon {\n  stroke: transparent;\n  stroke-width: 2px;\n  stroke-linecap: square;  \n  fill: none;\n  transition: stroke 0.2s;\n}\n\n.measurement-layer-base.any-dragged .delete-button-icon,\n.measurement-layer-base.any-mode-on .delete-button-icon {\n  stroke: transparent;\n}\n\n/*---------- Cursors ----------*/\n\n.line-measurement .mid-grabber,\n.circle-measurement .fill-grabber,\n.text-annotation .arrow-line-grabber,\n.measurement-layer-base.line-mid-dragged,\n.measurement-layer-base.circle-fill-dragged,\n.measurement-layer-base.arrow-line-dragged {\n  cursor: move;\n}\n\n.line-measurement .start-grabber,\n.line-measurement .end-grabber,\n.circle-measurement .stroke-grabber,\n.text-annotation .text,\n.text-annotation .arrow-head-grabber,\n.measurement-layer-base.line-start-dragged,\n.measurement-layer-base.line-end-dragged,\n.measurement-layer-base.circle-stroke-dragged,\n.measurement-layer-base.arrow-head-dragged,\n.measurement-layer-base.text-dragged,\n.measurement-layer-base .delete-button {\n  cursor: pointer;\n}\n\n.text-annotation.editable .text {\n  cursor: text;\n}\n\n/*---------- Pointer Events & Drag ----------*/\n\n.measurement-layer-base .grabber-group {\n  pointer-events: painted;\n}\n\n.text-annotation .text,\n.text-annotation .arrow-head-grabber,\n.text-annotation .arrow-line-grabber,\n.measurement-layer-base .text-box,\n.measurement-layer-base .text-anchor.button-showing .delete-button,\n.measurement-layer-base .text-annotation.editable .delete-button {\n  pointer-events: auto;\n}\n\n.measurement-layer-base.any-dragged .grabber-group,\n.measurement-layer-base.any-dragged .text-annotation .text,\n.measurement-layer-base.any-dragged .text-annotation .arrow-head-grabber,\n.measurement-layer-base.any-dragged .text-annotation .arrow-line-grabber,\n.measurement-layer-base.any-dragged .text-box,\n.measurement-layer-base.any-dragged .delete-button,\n.measurement-layer-base.any-mode-on .grabber-group,\n.measurement-layer-base.any-mode-on .text-annotation .text,\n.measurement-layer-base.any-mode-on .text-annotation .arrow-head-grabber,\n.measurement-layer-base.any-mode-on .text-annotation .arrow-line-grabber,\n.measurement-layer-base.any-mode-on .text-box,\n.measurement-layer-base .delete-button {\n  pointer-events: none;\n}", ""]);
+exports.push([module.i, "/*---------- General Layout ----------*/\n\n.measurement-layer-base {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n  outline: none;\n}\n\n.line-measurement,\n.circle-measurement,\n.text-annotation,\n.measurement-svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n}\n\n/*---------- Colors ----------*/\n\n.line-measurement .line,\n.circle-measurement .circle,\n.text-annotation .arrow-line {\n  stroke: yellow;\n}\n\n.text-annotation .arrow-head {\n  fill: yellow;  \n}\n\n.measurement-text,\n.text-annotation .text {\n  color: yellow;\n  background-color: rgba(0, 0, 0, 0.7);\n}\n\n.measurement-layer-base .text-anchor.button-showing .delete-button,\n.measurement-layer-base .text-annotation.editable .delete-button {\n  background-color: rgba(50, 45, 40, 0.9);\n}\n\n.measurement-layer-base .text-anchor.button-showing .delete-button:hover,\n.measurement-layer-base .text-annotation.editable .delete-button:hover,\n.measurement-layer-base .text-anchor .delete-button:focus {\n  background-color: rgba(70, 60, 50, 0.9);\n}\n\n.measurement-layer-base .text-anchor.button-showing .delete-button-icon,\n.measurement-layer-base .text-annotation.editable .delete-button-icon,\n.measurement-layer-base .text-anchor .delete-button:focus .delete-button-icon {\n  stroke: yellow;\n}\n\n/*---------- General Measurement & Text Styling ----------*/\n\n.line-measurement .line,\n.circle-measurement .circle,\n.text-annotation .arrow-line {\n  stroke-width: 2px;\n  stroke-linecap: butt;\n  pointer-events: none;\n  fill: none;\n}\n\n.text-annotation .arrow-head {\n  stroke: none;\n}\n\n.measurement-text {\n  position: relative;\n  padding: 1px 4px;\n  white-space: pre;\n  cursor: default;\n  /* Use color transitions rather than opacity, which blurs text for some reason. */\n  transition: color 0.3s, background-color 0.3s;\n}\n\n.measurement-layer-base.line-end-dragged .text-anchor.just-created .measurement-text,\n.measurement-layer-base.circle-stroke-dragged .text-anchor.just-created .measurement-text {\n  color: transparent;\n  background-color: transparent;\n}\n\n.text-annotation .text {\n  position: relative;\n  padding: 1px 4px;\n}\n\n.line-measurement .grabber-group:hover .line,\n.line-measurement.mid-hover .grabber-group .line,\n.line-measurement .line.dragged,\n.circle-measurement .grabber-group:hover .circle,\n.circle-measurement .circle.dragged,\n.text-annotation .arrow-line.hover,\n.text-annotation .arrow-line.dragged {\n  stroke-width: 3px;\n}\n\n.text-annotation .public-DraftEditor-content {\n  /* Ensures the blinking cursor is always visible when the text is editable but empty. */\n  min-width: 1px; \n}\n\n.text-annotation .public-DraftStyleDefault-block {\n  white-space: pre;\n  text-align: center;\n}\n\n.text-annotation.no-text .text-anchor {\n  visibility: hidden;\n}\n\n.text-annotation.no-text.editable .text-anchor {\n  visibility: visible;\n}\n\n/*---------- Grabbers ----------*/\n\n.line-measurement .grabber,\n.text-annotation .arrow-line-grabber {\n  stroke: transparent;\n  stroke-width: 11px;\n  stroke-linecap: butt;\n }\n \n.line-measurement .grabber.start-grabber,\n.line-measurement .grabber.end-grabber {\n  stroke-linecap: square;\n}\n\n.circle-measurement .stroke-grabber {\n  stroke: transparent;\n  stroke-width: 11px;\n  fill: none;\n}\n \n.circle-measurement .fill-grabber {\n  fill: transparent;\n  stroke: none;\n}\n\n.text-annotation .arrow-head-grabber {\n  stroke: transparent;\n  fill: transparent;\n}\n\n/*---------- Text Anchor & Delete Button ----------*/\n\n.measurement-layer-base .text-anchor {\n  /* Zero-size flexbox allows us to center text without using transforms,\n  which can lead to sub-pixel positioning (blurry lines). */\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 0px;\n  height: 0px;\n}\n\n.measurement-layer-base .text-box {\n  position: relative;\n  display: flex;\n}\n\n.measurement-layer-base .delete-button {\n  position: absolute;\n  right: -18px;\n  background-color: transparent;\n  border-radius: 0;\n  border-style: none;\n  outline: none;\n  width: 18px;\n  height: 100%;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  transition: background-color 0.2s, border-color 0.2s;\n}\n\n.measurement-layer-base .delete-button-svg {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 15px;\n  height: 15px;\n}\n\n.measurement-layer-base.any-dragged .delete-button-svg,\n.measurement-layer-base.any-mode-on .delete-button-svg {\n  background-color: transparent;\n  border-color: transparent;\n}\n\n.measurement-layer-base .delete-button-icon {\n  stroke: transparent;\n  stroke-width: 2px;\n  stroke-linecap: square;  \n  fill: none;\n  transition: stroke 0.2s;\n}\n\n.measurement-layer-base.any-dragged .delete-button-icon,\n.measurement-layer-base.any-mode-on .delete-button-icon {\n  stroke: transparent;\n}\n\n/*---------- Cursors ----------*/\n\n.line-measurement .mid-grabber,\n.circle-measurement .fill-grabber,\n.text-annotation .arrow-line-grabber,\n.measurement-layer-base.line-mid-dragged,\n.measurement-layer-base.circle-fill-dragged,\n.measurement-layer-base.arrow-line-dragged {\n  cursor: move;\n}\n\n.line-measurement .start-grabber,\n.line-measurement .end-grabber,\n.circle-measurement .stroke-grabber,\n.text-annotation .text,\n.text-annotation .arrow-head-grabber,\n.measurement-layer-base.line-start-dragged,\n.measurement-layer-base.line-end-dragged,\n.measurement-layer-base.circle-stroke-dragged,\n.measurement-layer-base.arrow-head-dragged,\n.measurement-layer-base.text-dragged,\n.measurement-layer-base .delete-button {\n  cursor: pointer;\n}\n\n.text-annotation.editable .text {\n  cursor: text;\n}\n\n/*---------- Pointer Events & Drag ----------*/\n\n.measurement-layer-base.has-mouse .grabber-group {\n  pointer-events: painted;\n}\n\n.measurement-layer-base.has-mouse .text-annotation .text,\n.measurement-layer-base.has-mouse .text-annotation .arrow-head-grabber,\n.measurement-layer-base.has-mouse .text-annotation .arrow-line-grabber,\n.measurement-layer-base.has-mouse .text-box,\n.measurement-layer-base.has-mouse .text-anchor.button-showing .delete-button,\n.measurement-layer-base.has-mouse .text-annotation.editable .delete-button {\n  pointer-events: auto;\n}\n\n.measurement-layer-base.has-mouse.any-dragged .grabber-group,\n.measurement-layer-base.has-mouse.any-dragged .text-annotation .text,\n.measurement-layer-base.has-mouse.any-dragged .text-annotation .arrow-head-grabber,\n.measurement-layer-base.has-mouseany-dragged .text-annotation .arrow-line-grabber,\n.measurement-layer-base.has-mouse.any-dragged .text-box,\n.measurement-layer-base.has-mouse.any-dragged .delete-button,\n.measurement-layer-base.has-mouse.any-mode-on .grabber-group,\n.measurement-layer-base.has-mouse.any-mode-on .text-annotation .text,\n.measurement-layer-base.has-mouse.any-mode-on .text-annotation .arrow-head-grabber,\n.measurement-layer-base.has-mouse.any-mode-on .text-annotation .arrow-line-grabber,\n.measurement-layer-base.has-mouse.any-mode-on .text-box,\n.measurement-layer-base.has-mouse .delete-button {\n  pointer-events: none;\n}", ""]);
 
 // exports
 
