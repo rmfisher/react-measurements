@@ -12972,21 +12972,25 @@ var MeasurementButtons = function (_PureComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MeasurementButtons.__proto__ || Object.getPrototypeOf(MeasurementButtons)).call.apply(_ref, [this].concat(args))), _this), _this.onMouseDown = function (event) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MeasurementButtons.__proto__ || Object.getPrototypeOf(MeasurementButtons)).call.apply(_ref, [this].concat(args))), _this), _this.onRootMouseDown = function (event) {
       event.stopPropagation();
       event.preventDefault();
+    }, _this.onRootTouchStart = function (event) {
+      return preventDefault();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(MeasurementButtons, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.root.addEventListener('mousedown', this.onMouseDown);
+      this.root.addEventListener('mousedown', this.onRootMouseDown);
+      this.root.addEventListener('touchstart', this.onRootTouchStart);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      this.root.addEventListener('mousedown', this.onMouseDown);
+      this.root.addEventListener('mousedown', this.onRootMouseDown);
+      this.root.addEventListener('touchstart', this.onRootTouchStart);
     }
   }, {
     key: 'render',
