@@ -12780,7 +12780,9 @@ var PollenImage = function (_PureComponent) {
         { className: 'square-parent' },
         _react2.default.createElement(
           'div',
-          { className: 'square-child' },
+          { className: 'square-child', onTouchStart: function onTouchStart(e) {
+              return e.preventDefault();
+            } },
           _react2.default.createElement('img', {
             src: _pollen2.default,
             alt: 'Pollen grains',
