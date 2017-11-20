@@ -28,6 +28,7 @@ class TextAnnotation extends PureComponent {
     this.headGrabber.addEventListener('mouseenter', this.onHeadMouseEnter);
     this.headGrabber.addEventListener('mouseleave', this.onHeadMouseLeave);
     this.root.addEventListener('dblclick', this.onDoubleClick);
+    this.root.addEventListener('touchstart', this.onRootTouchStart);
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('keydown', this.onDocumentKeyDown, true);
     window.addEventListener('mouseup', this.onMouseUp);
@@ -49,6 +50,7 @@ class TextAnnotation extends PureComponent {
     this.headGrabber.removeEventListener('mouseenter', this.onHeadMouseEnter);
     this.headGrabber.removeEventListener('mouseleave', this.onHeadMouseLeave);
     this.root.removeEventListener('dblclick', this.onDoubleClick);
+    this.root.removeEventListener('touchstart', this.onRootTouchStart);
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('keydown', this.onDocumentKeyDown, true);
     window.removeEventListener('mouseup', this.onMouseUp);
@@ -335,6 +337,8 @@ class TextAnnotation extends PureComponent {
   }
 
   onDeleteButtonClick = () => this.props.onDeleteButtonClick(this.props.text);
+
+  onRootTouchStart = event => event.preventDefault();
 }
 
 export default TextAnnotation;

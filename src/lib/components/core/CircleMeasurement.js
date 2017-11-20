@@ -9,6 +9,7 @@ class CircleMeasurement extends PureComponent {
   componentDidMount() {
     this.fill.addEventListener('mousedown', this.onFillMouseDown);
     this.stroke.addEventListener('mousedown', this.onStrokeMouseDown);
+    this.root.addEventListener('touchstart', this.onRootTouchStart);
     document.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
     window.addEventListener('blur', this.endDrag);
@@ -17,7 +18,9 @@ class CircleMeasurement extends PureComponent {
   componentWillUnmount() {
     this.fill.removeEventListener('mousedown', this.onFillMouseDown);
     this.stroke.removeEventListener('mousedown', this.onStrokeMouseDown);
+    this.root.removeEventListener('touchstart', this.onRootTouchStart);
     document.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener('touchmove', this.onTouchMove);
     window.removeEventListener('mouseup', this.onMouseUp);
     window.removeEventListener('blur', this.endDrag);
   }
@@ -156,6 +159,8 @@ class CircleMeasurement extends PureComponent {
   }
 
   onDeleteButtonClick = () => this.props.onDeleteButtonClick(this.props.circle);
+
+  onRootTouchStart = event => event.preventDefault();
 }
 
 export default CircleMeasurement;

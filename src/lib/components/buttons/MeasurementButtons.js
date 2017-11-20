@@ -1,14 +1,16 @@
 import React, { PureComponent } from 'react';
-import {RulerIcon, CircleIcon, TextIcon} from './Icons';
+import { RulerIcon, CircleIcon, TextIcon } from './Icons';
 
 class MeasurementButtons extends PureComponent {
 
   componentDidMount() {
-    this.root.addEventListener('mousedown', this.onMouseDown)
+    this.root.addEventListener('mousedown', this.onRootMouseDown);
+    this.root.addEventListener('touchstart', this.onRootTouchStart);
   }
 
   componentWillUnmount() {
-    this.root.addEventListener('mousedown', this.onMouseDown)
+    this.root.addEventListener('mousedown', this.onRootMouseDown);
+    this.root.addEventListener('touchstart', this.onRootTouchStart);
   }
 
   render() {
@@ -32,10 +34,12 @@ class MeasurementButtons extends PureComponent {
     );
   }
 
-  onMouseDown = event => {
+  onRootMouseDown = event => {
     event.stopPropagation();
     event.preventDefault();
   }
+
+  onRootTouchStart = event => event.preventDefault();
 }
 
 export default MeasurementButtons;
