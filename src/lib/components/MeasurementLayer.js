@@ -11,14 +11,14 @@ class MeasurementLayer extends PureComponent {
     super(props);
     this.state = { mode: null, mouseDetected: false };
   }
-  
+
   componentDidMount() {
-    detectMouse(() => this.setState({...this.state, mouseDetected: true}));
+    detectMouse(() => this.setState({ ...this.state, mouseDetected: true }));
   }
 
   render() {
     const hasSize = this.props.width > 0 && this.props.height > 0;
-	const className = 'measurement-layer' + (this.state.mouseDetected ? ' mouse-detected' : '');
+    const className = 'measurement-layer' + (this.state.mouseDetected ? ' mouse-detected' : '');
     return (
       hasSize && <div className={className} ref={e => this.root = e}>
         <MeasurementLayerBase
@@ -31,19 +31,19 @@ class MeasurementLayer extends PureComponent {
           formatDistance={this.props.formatDistance}
           formatArea={this.props.formatArea}
           mode={this.state.mode}
-          onRelease={this.onRelease}
+          onCommit={this.onCommit}
         />
-        <MeasurementButtons mode={this.state.mode} onClick={this.updateMode} />
+        <MeasurementButtons mode={this.state.mode} onClick={this.toggleMode} />
       </div>
     );
   }
 
-  updateMode = mode => this.setState({ mode: mode === this.state.mode ? null : mode });
+  toggleMode = mode => this.setState({ mode: mode === this.state.mode ? null : mode });
 
-  onRelease = measurements => {
+  onCommit = measurement => {
     this.setState({ mode: null });
-    if (this.props.onRelease) {
-      this.props.onRelease(measurements);
+    if (this.props.onCommit) {
+      this.props.onCommit(measurement);
     }
   }
 }
@@ -60,7 +60,7 @@ MeasurementLayer.propTypes = {
   formatArea: PropTypes.func.isRequired,
 
   // Optional:
-  onRelease: PropTypes.func,
+  onCommit: PropTypes.func,
 };
 
 export default MeasurementLayer;

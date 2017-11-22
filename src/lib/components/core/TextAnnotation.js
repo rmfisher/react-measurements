@@ -175,6 +175,7 @@ class TextAnnotation extends PureComponent {
   onDragBegin = (eventX, eventY) => {
     this.mouseXAtPress = eventX;
     this.mouseYAtPress = eventY;
+    this.textAtPress = this.props.text;
     this.arrowXAtPress = this.props.text.arrowX * this.props.parentWidth;
     this.arrowYAtPress = this.props.text.arrowY * this.props.parentHeight;
     this.textXAtPress = this.props.text.textX * this.props.parentWidth;
@@ -264,11 +265,14 @@ class TextAnnotation extends PureComponent {
       this.headDragInProgress = false;
     }
     if (anyDragAttempted && this.didValuesChange()) {
-      this.props.onRelease(this.props.text);
+      this.props.onCommit(this.props.text);
     }
   }
 
-  didValuesChange = () => true; // Fix Me!
+  didValuesChange = () => this.props.text.arrowX !== this.textAtPress.arrowX
+    || this.props.text.arrowY !== this.textAtPress.arrowY
+    || this.props.text.textX !== this.textAtPress.textX
+    || this.props.text.textY !== this.textAtPress.textY
 
   toggleDragStyles = () => {
     this.getAnnotationLayerClassList().toggle('any-dragged');
@@ -311,6 +315,7 @@ class TextAnnotation extends PureComponent {
 
   startEdit = () => {
     if (!this.props.text.editable) {
+      this.contentStateOnEditStart = this.props.text.editorState.getCurrentContent();
       this.setEditState(true);
     }
   }
@@ -318,6 +323,9 @@ class TextAnnotation extends PureComponent {
   finishEdit = () => {
     if (this.props.text.editable) {
       this.setEditState(false);
+      if (this.contentStateOnEditStart !== this.props.text.editorState.getCurrentContent()) {
+        this.props.onCommit(this.props.text);
+      }
     }
   }
 

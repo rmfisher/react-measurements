@@ -195,7 +195,7 @@ class LineMeasurement extends PureComponent {
       this.endDragInProgress = false;
     }
     if (anyDragAttempted && this.didValuesChange()) {
-      this.props.onRelease(this.props.line);
+      this.props.onCommit(this.props.line);
     }
   }
 

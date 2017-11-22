@@ -13,6 +13,7 @@ class MeasurementLayerBase extends PureComponent {
 
   constructor(props) {
     super(props);
+    this.createdId = null;
     this.state = { mouseDetected: false };
   }
 
@@ -22,8 +23,8 @@ class MeasurementLayerBase extends PureComponent {
     document.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
     window.addEventListener('blur', this.endDrag);
-	
-	detectMouse(() => this.setState({...this.state, mouseDetected: true}));
+
+    detectMouse(() => this.setState({ ...this.state, mouseDetected: true }));
   }
 
   componentWillUnmount() {
@@ -36,8 +37,8 @@ class MeasurementLayerBase extends PureComponent {
 
   render() {
     const className = 'measurement-layer-base'
-	  + (this.props.mode ? ' any-mode-on' : '')
-	  + (this.state.mouseDetected ? ' mouse-detected' : '');
+      + (this.props.mode ? ' any-mode-on' : '')
+      + (this.state.mouseDetected ? ' mouse-detected' : '');
     return (
       <div className={className} ref={e => this.root = e}>
         {this.props.measurements.map(this.createMeasurementComponent)}
@@ -56,7 +57,7 @@ class MeasurementLayerBase extends PureComponent {
           measureLine={this.props.measureLine}
           formatDistance={this.props.formatDistance}
           onChange={this.onChange}
-          onRelease={this.props.onRelease}
+          onCommit={this.props.onCommit}
           onDeleteButtonClick={this.delete}
         />
       );
@@ -70,7 +71,7 @@ class MeasurementLayerBase extends PureComponent {
           measureCircle={this.props.measureCircle}
           formatArea={this.props.formatArea}
           onChange={this.onChange}
-          onRelease={this.props.onRelease}
+          onCommit={this.props.onCommit}
           onDeleteButtonClick={this.delete}
         />
       );
@@ -82,7 +83,7 @@ class MeasurementLayerBase extends PureComponent {
           parentWidth={this.props.width}
           parentHeight={this.props.height}
           onChange={this.onChange}
-          onRelease={this.props.onRelease}
+          onCommit={this.props.onCommit}
           onDeleteButtonClick={this.delete}
         />
       );
@@ -179,7 +180,7 @@ class MeasurementLayerBase extends PureComponent {
       }
     }
     if (this.createdId !== null) {
-      this.props.onRelease(this.props.measurements.filter(a => a.id === this.createdId)[0]);
+      this.props.onCommit(this.props.measurements.filter(a => a.id === this.createdId)[0]);
       this.createdId = null;
     }
   }
@@ -196,7 +197,7 @@ class MeasurementLayerBase extends PureComponent {
       const textY = arrowY + yOffsetDirection * 0.07;
       const text = { id, type: 'text', arrowX, arrowY, textX, textY, editorState: null, editable: true };
       this.props.onChange([...this.props.measurements, text]);
-      this.props.onRelease(this.props.measurements.filter(a => a.id === this.createdId)[0]);
+      this.props.onCommit(text);
     }
   }
 
@@ -204,7 +205,10 @@ class MeasurementLayerBase extends PureComponent {
 
   onChange = m => this.props.onChange(this.props.measurements.map(n => m.id === n.id ? m : n));
 
-  delete = m => this.props.onChange(this.props.measurements.filter(n => n.id !== m.id));
+  delete = m => {
+    this.props.onChange(this.props.measurements.filter(n => n.id !== m.id));
+    this.props.onCommit(m);
+  }
 
   clamp = value => Math.min(1, Math.max(0, value));
 
@@ -235,7 +239,7 @@ MeasurementLayerBase.propTypes = {
 
   // Optional:
   mode: PropTypes.string,
-  onRelease: PropTypes.func,
+  onCommit: PropTypes.func,
 };
 
 export default MeasurementLayerBase;

@@ -139,7 +139,7 @@ class CircleMeasurement extends PureComponent {
       this.fillDragInProgress = false;
     }
     if (anyDragAttempted && this.didValuesChange()) {
-      this.props.onRelease(this.props.circle);
+      this.props.onCommit(this.props.circle);
     }
   }
 
