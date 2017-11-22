@@ -239,16 +239,16 @@
 
 /*---------- Pointer Events & Drag ----------*/
 
-.measurement-layer-base .grabber-group {
+.measurement-layer-base.mouse-detected .grabber-group {
   pointer-events: painted;
 }
 
-.text-annotation .text,
-.text-annotation .arrow-head-grabber,
-.text-annotation .arrow-line-grabber,
-.measurement-layer-base .text-box,
-.measurement-layer-base .text-anchor.button-showing .delete-button,
-.measurement-layer-base .text-annotation.editable .delete-button {
+.measurement-layer-base.mouse-detected .text-annotation .text,
+.measurement-layer-base.mouse-detected .text-annotation .arrow-head-grabber,
+.measurement-layer-base.mouse-detected .text-annotation .arrow-line-grabber,
+.measurement-layer-base.mouse-detected .text-box,
+.measurement-layer-base.mouse-detected .text-anchor.button-showing .delete-button,
+.measurement-layer-base.mouse-detected .text-annotation.editable .delete-button {
   pointer-events: auto;
 }
 

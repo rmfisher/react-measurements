@@ -4,11 +4,17 @@ import CircleMeasurement from './CircleMeasurement';
 import TextAnnotation from './TextAnnotation';
 import PropTypes from 'prop-types';
 import { EditorState } from 'draft-js';
+import { detectMouse } from '../../logic/DetectMouse.js';
 import './MeasurementLayerBase.css';
 
 const minRadiusInPixels = 3;
 
 class MeasurementLayerBase extends PureComponent {
+
+  constructor(props) {
+    super(props);
+    this.state = { mouseDetected: false };
+  }
 
   componentDidMount() {
     this.root.addEventListener('mousedown', this.onMouseDown);
@@ -16,6 +22,8 @@ class MeasurementLayerBase extends PureComponent {
     document.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
     window.addEventListener('blur', this.endDrag);
+	
+	detectMouse(() => this.setState({...this.state, mouseDetected: true}));
   }
 
   componentWillUnmount() {
@@ -27,7 +35,9 @@ class MeasurementLayerBase extends PureComponent {
   }
 
   render() {
-    const className = 'measurement-layer-base' + (this.props.mode ? ' any-mode-on' : '');
+    const className = 'measurement-layer-base'
+	  + (this.props.mode ? ' any-mode-on' : '')
+	  + (this.state.mouseDetected ? ' mouse-detected' : '');
     return (
       <div className={className} ref={e => this.root = e}>
         {this.props.measurements.map(this.createMeasurementComponent)}

@@ -18,7 +18,6 @@ class LineMeasurement extends PureComponent {
     this.midGrabber.addEventListener('mouseenter', this.onMidMouseEnter);
     this.midGrabber.addEventListener('mouseleave', this.onMidMouseLeave);
     this.endGrabber.addEventListener('mousedown', this.onEndMouseDown);
-    this.root.addEventListener('touchstart', this.onRootTouchStart);
     document.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
     window.addEventListener('blur', this.endDrag);
@@ -30,7 +29,6 @@ class LineMeasurement extends PureComponent {
     this.midGrabber.removeEventListener('mouseenter', this.onMidMouseEnter);
     this.midGrabber.removeEventListener('mouseleave', this.onMidMouseLeave);
     this.endGrabber.removeEventListener('mousedown', this.onEndMouseDown);
-    this.root.addEventListener('touchstart', this.onRootTouchStart);
     document.removeEventListener('mousemove', this.onMouseMove);
     window.removeEventListener('mouseup', this.onMouseUp);
     window.removeEventListener('blur', this.endDrag);
@@ -233,8 +231,6 @@ class LineMeasurement extends PureComponent {
   }
 
   onDeleteButtonClick = () => this.props.onDeleteButtonClick(this.props.line);
-
-  onRootTouchStart = event => event.preventDefault();
 }
 
 export default LineMeasurement;
