@@ -1,7 +1,7 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
-const config = {
+module.exports = {
   devtool: 'eval',
   entry: './src/demo/index.js',
   output: {
@@ -13,7 +13,7 @@ const config = {
       filename: 'index.html',
       inject: true,
       template: './src/demo/index.html',
-    })
+    }),
   ],
   module: {
     rules: [
@@ -21,34 +21,22 @@ const config = {
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /(node_modules|build)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env', 'react', 'stage-0']
-          }
-        }
+        use: ['babel-loader'],
       },
       {
         test: /\.css$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /(node_modules|build)/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {}
-          }
-        ]
-      }
+        use: ['file-loader'],
+      },
     ]
   },
   devServer: {
     contentBase: 'build',
     port: 3000
   }
-}
-
-module.exports = config
+};

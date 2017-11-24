@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import LineMeasurement from './LineMeasurement';
 import CircleMeasurement from './CircleMeasurement';
 import TextAnnotation from './TextAnnotation';
-import PropTypes from 'prop-types';
 import { EditorState } from 'draft-js';
 import { detectMouse } from '../../logic/DetectMouse.js';
 import './MeasurementLayerBase.css';
@@ -225,21 +224,5 @@ class MeasurementLayerBase extends PureComponent {
     editable: false,
   });
 }
-
-MeasurementLayerBase.propTypes = {
-  // Required:
-  measurements: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  measureLine: PropTypes.func.isRequired,
-  measureCircle: PropTypes.func.isRequired,
-  formatDistance: PropTypes.func.isRequired,
-  formatArea: PropTypes.func.isRequired,
-
-  // Optional:
-  mode: PropTypes.string,
-  onCommit: PropTypes.func,
-};
 
 export default MeasurementLayerBase;

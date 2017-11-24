@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import MeasurementLayerBase from './core/MeasurementLayerBase';
 import MeasurementButtons from './buttons/MeasurementButtons';
-import PropTypes from 'prop-types';
 import { detectMouse } from '../logic/DetectMouse.js';
 import './MeasurementLayer.css';
 
@@ -47,20 +46,5 @@ class MeasurementLayer extends PureComponent {
     }
   }
 }
-
-MeasurementLayer.propTypes = {
-  // Required:
-  measurements: PropTypes.array.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
-  measureLine: PropTypes.func.isRequired,
-  measureCircle: PropTypes.func.isRequired,
-  formatDistance: PropTypes.func.isRequired,
-  formatArea: PropTypes.func.isRequired,
-
-  // Optional:
-  onCommit: PropTypes.func,
-};
 
 export default MeasurementLayer;

@@ -1,7 +1,7 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
-const config = {
+module.exports = {
   devtool: 'source-map',
   entry: './src/demo/index.js',
   output: {
@@ -21,12 +21,7 @@ const config = {
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /(node_modules|build)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env', 'react', 'stage-0'],
-          }
-        }
+        use: ['babel-loader'],
       },
       {
         test: /\.css$/,
@@ -36,12 +31,8 @@ const config = {
       },
       {
         test: /\.(png|jpg|gif)$/,
-        include: path.resolve(__dirname, 'src'),
-        exclude: /(node_modules|build)/,
         use: ['file-loader'],
       },
     ]
   }
-}
-
-module.exports = config
+};

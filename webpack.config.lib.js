@@ -13,19 +13,14 @@ module.exports = {
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /(node_modules|build)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env', 'react', 'stage-0']
-          }
-        }
+        use: ['babel-loader'],
       },
       {
         test: /\.css$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /(node_modules|build)/,
-        use: ['style-loader', 'css-loader']
-      }
+        use: ['style-loader', 'css-loader'],
+      },
     ]
   },
   externals: {
