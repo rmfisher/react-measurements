@@ -117,7 +117,7 @@ img {
   }
 }
 
-@media all and (max-width: 420px) {
+@media all and (max-width: 520px) {
   .content {
     padding: 0 10px 10px 10px;
   }

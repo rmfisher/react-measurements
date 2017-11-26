@@ -1,19 +1,21 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
   entry: './src/demo/index.js',
   output: {
     path: path.resolve(__dirname, 'build/demo'),
-    filename: 'index.js',
+    filename: 'index.min.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
       inject: true,
       template: './src/demo/index.html',
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin({ minimize: true }),
   ],
   module: {
     rules: [
