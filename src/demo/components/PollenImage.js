@@ -1,15 +1,14 @@
 import React, { PureComponent } from 'react';
 import MeasurementLayer from '../../lib/components/MeasurementLayer';
-import { measureLine, measureCircle } from '../../lib/logic/MeasurementUtils';
-import pollenImage from '../images/pollen.jpg';
+import { measureLine, measureCircle } from '../../lib/utils/MeasurementUtils';
 import { EditorState, ContentState } from 'draft-js';
+import pollenImage from '../images/pollen.jpg';
 
 class PollenImage extends PureComponent {
 
   constructor(props) {
     super(props);
     this.state = { measurements: this.createInitialState(), width: 0, height: 0 };
-    this.onChange = measurements => this.setState({ ...this.state, measurements });
   }
 
   componentDidMount() {
@@ -45,6 +44,8 @@ class PollenImage extends PureComponent {
       </div>
     );
   }
+
+  onChange = measurements => this.setState({ ...this.state, measurements });
 
   formatDistance = d => Math.round(d) + ' μm';
 

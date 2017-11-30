@@ -3,18 +3,15 @@ import LineMeasurement from './LineMeasurement';
 import CircleMeasurement from './CircleMeasurement';
 import TextAnnotation from './TextAnnotation';
 import { EditorState } from 'draft-js';
-import { detectMouse } from '../../logic/DetectMouse.js';
+import { detectMouse } from '../../utils/DomUtils.js';
 import './MeasurementLayerBase.css';
 
 const minRadiusInPixels = 3;
 
 class MeasurementLayerBase extends PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.createdId = null;
-    this.state = { mouseDetected: false };
-  }
+  createdId = null;
+  state = { mouseDetected: false };
 
   componentDidMount() {
     this.root.addEventListener('mousedown', this.onMouseDown);

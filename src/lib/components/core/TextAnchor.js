@@ -2,10 +2,7 @@ import React, { PureComponent } from 'react';
 
 class TextAnchor extends PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.state = { buttonShowing: false, justCreated: true };
-  }
+  state = { buttonShowing: false, justCreated: true };
 
   componentDidMount() {
     this.mounted = true;

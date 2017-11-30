@@ -1,15 +1,12 @@
 import React, { PureComponent } from 'react';
 import MeasurementLayerBase from './core/MeasurementLayerBase';
 import MeasurementButtons from './buttons/MeasurementButtons';
-import { detectMouse } from '../logic/DetectMouse.js';
+import { detectMouse } from '../utils/DomUtils.js';
 import './MeasurementLayer.css';
 
 class MeasurementLayer extends PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.state = { mode: null, mouseDetected: false };
-  }
+  state = { mode: null, mouseDetected: false };
 
   componentDidMount() {
     detectMouse(() => this.setState({ ...this.state, mouseDetected: true }));

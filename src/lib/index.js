@@ -1,6 +1,6 @@
 import MeasurementLayer from './components/MeasurementLayer';
 import MeasurementLayerBase from './components/core/MeasurementLayerBase';
-import { measureLine, measureCircle } from './logic/MeasurementUtils';
+import { measureLine, measureCircle } from './utils/MeasurementUtils';
 
 module.exports = {
   MeasurementLayer,

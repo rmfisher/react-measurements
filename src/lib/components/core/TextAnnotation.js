@@ -13,11 +13,8 @@ const headGrabberOffset = 3;
 
 class TextAnnotation extends PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.propagateTextChanges = false;
-    this.state = { lineHover: false, headHover: false, lineDragged: false, headDragged: false, textDragged: false };
-  }
+  propagateTextChanges = false;
+  state = { lineHover: false, headHover: false, lineDragged: false, headDragged: false, textDragged: false };
 
   componentDidMount() {
     this.text.addEventListener('mousedown', this.onTextMouseDown);

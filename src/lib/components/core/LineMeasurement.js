@@ -7,10 +7,7 @@ const quarterCircle = Math.PI / 2;
 
 class LineMeasurement extends PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.state = { midHover: false };
-  }
+  state = { midHover: false };
 
   componentDidMount() {
     this.startGrabber.addEventListener('mousedown', this.onStartMouseDown);
