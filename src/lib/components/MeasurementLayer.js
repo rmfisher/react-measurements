@@ -24,8 +24,6 @@ class MeasurementLayer extends PureComponent {
           height={this.props.height}
           measureLine={this.props.measureLine}
           measureCircle={this.props.measureCircle}
-          formatDistance={this.props.formatDistance}
-          formatArea={this.props.formatArea}
           mode={this.state.mode}
           onCommit={this.onCommit}
         />

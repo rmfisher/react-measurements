@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import MeasurementLayer from '../../lib/components/MeasurementLayer';
-import { measureLine, measureCircle } from '../../lib/utils/MeasurementUtils';
+import { calculateDistance, calculateArea } from '../../lib/utils/MeasurementUtils';
 import { EditorState, ContentState } from 'draft-js';
 import pollenImage from '../images/pollen.jpg';
 
@@ -35,10 +35,8 @@ class PollenImage extends PureComponent {
             width={this.state.width}
             height={this.state.height}
             onChange={this.onChange}
-            measureLine={measureLine(300, 300)}
-            measureCircle={measureCircle(300, 300)}
-            formatDistance={this.formatDistance}
-            formatArea={this.formatArea}
+            measureLine={this.measureLine}
+            measureCircle={this.measureCircle}
           />
         </div>
       </div>
@@ -47,9 +45,9 @@ class PollenImage extends PureComponent {
 
   onChange = measurements => this.setState({ ...this.state, measurements });
 
-  formatDistance = d => Math.round(d) + ' μm';
+  measureLine = line => Math.round(calculateDistance(line, 300, 300)) + ' μm';
 
-  formatArea = a => (Math.round(a / 10) * 10) + ' μm²';
+  measureCircle = circle => Math.round(calculateArea(circle, 300, 300) / 10) * 10 + ' μm²';
 
   onImageBoundsChanged = event => {
     const imageBounds = this.image.getBoundingClientRect();

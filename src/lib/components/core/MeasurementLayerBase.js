@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
 import LineMeasurement from './LineMeasurement';
-import CircleMeasurement from './CircleMeasurement';
+import CircleMeasurement, { minRadiusInPixels } from './CircleMeasurement';
 import TextAnnotation from './TextAnnotation';
 import { EditorState } from 'draft-js';
 import { detectMouse } from '../../utils/DomUtils.js';
 import './MeasurementLayerBase.css';
-
-const minRadiusInPixels = 3;
 
 class MeasurementLayerBase extends PureComponent {
 
@@ -51,7 +49,6 @@ class MeasurementLayerBase extends PureComponent {
           parentWidth={this.props.width}
           parentHeight={this.props.height}
           measureLine={this.props.measureLine}
-          formatDistance={this.props.formatDistance}
           onChange={this.onChange}
           onCommit={this.props.onCommit}
           onDeleteButtonClick={this.delete}
@@ -65,7 +62,6 @@ class MeasurementLayerBase extends PureComponent {
           parentWidth={this.props.width}
           parentHeight={this.props.height}
           measureCircle={this.props.measureCircle}
-          formatArea={this.props.formatArea}
           onChange={this.onChange}
           onCommit={this.props.onCommit}
           onDeleteButtonClick={this.delete}

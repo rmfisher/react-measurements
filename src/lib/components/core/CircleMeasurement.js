@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import TextAnchor from './TextAnchor';
 
+export const minRadiusInPixels = 3;
 const textOffset = 16;
-const minRadiusInPixels = 3;
 
 class CircleMeasurement extends PureComponent {
 
@@ -28,7 +28,7 @@ class CircleMeasurement extends PureComponent {
     const centerY = this.props.circle.centerY * this.props.parentHeight;
     const radius = this.props.circle.radius * Math.sqrt(this.props.parentWidth * this.props.parentHeight);
     const textY = centerY + radius + textOffset;
-    const text = this.props.formatArea(this.props.measureCircle(this.props.circle));
+    const text = this.props.measureCircle(this.props.circle);
 
     return (
       <div className='circle-measurement' ref={e => this.root = e}>

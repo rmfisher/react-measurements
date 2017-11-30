@@ -53,7 +53,7 @@ class LineMeasurement extends PureComponent {
     const textY = centerY + offsetY;
     const textRotate = Math.atan2(offsetY, offsetX) - quarterCircle;
 
-    const text = this.props.formatDistance(this.props.measureLine(this.props.line));
+    const text = this.props.measureLine(this.props.line);
     const rootClassName = 'line-measurement' + (this.state.midHover ? ' mid-hover' : '');
 
     return (
