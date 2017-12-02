@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import LineMeasurement from './LineMeasurement';
-import CircleMeasurement, { minRadiusInPixels } from './CircleMeasurement';
+import CircleMeasurement, { minRadiusInPx } from './CircleMeasurement';
 import TextAnnotation from './TextAnnotation';
 import { EditorState } from 'draft-js';
 import { detectMouse } from '../../utils/DomUtils.js';
@@ -46,8 +46,8 @@ export default class MeasurementLayerBase extends PureComponent {
         <LineMeasurement
           key={measurement.id}
           line={measurement}
-          parentWidth={this.props.width}
-          parentHeight={this.props.height}
+          parentWidth={this.props.widthInPx}
+          parentHeight={this.props.widthInPx}
           measureLine={this.props.measureLine}
           onChange={this.onChange}
           onCommit={this.props.onCommit}
@@ -59,8 +59,8 @@ export default class MeasurementLayerBase extends PureComponent {
         <CircleMeasurement
           key={measurement.id}
           circle={measurement}
-          parentWidth={this.props.width}
-          parentHeight={this.props.height}
+          parentWidth={this.props.widthInPx}
+          parentHeight={this.props.widthInPx}
           measureCircle={this.props.measureCircle}
           onChange={this.onChange}
           onCommit={this.props.onCommit}
@@ -72,8 +72,8 @@ export default class MeasurementLayerBase extends PureComponent {
         <TextAnnotation
           key={measurement.id}
           text={measurement}
-          parentWidth={this.props.width}
-          parentHeight={this.props.height}
+          parentWidth={this.props.widthInPx}
+          parentHeight={this.props.widthInPx}
           onChange={this.onChange}
           onCommit={this.props.onCommit}
           onDeleteButtonClick={this.delete}
@@ -104,12 +104,12 @@ export default class MeasurementLayerBase extends PureComponent {
   onMouseMove = event => {
     if (this.lineCreationInProgress) {
       const rect = this.root.getBoundingClientRect();
-      const endX = this.clamp((event.clientX - rect.left) / this.props.width);
-      const endY = this.clamp((event.clientY - rect.top) / this.props.height);
+      const endX = this.clamp((event.clientX - rect.left) / this.props.widthInPx);
+      const endY = this.clamp((event.clientY - rect.top) / this.props.heightInPx);
       if (this.createdId === null) {
         this.createdId = this.getNextId();
-        const startX = this.clamp((this.mouseXAtPress - rect.left) / this.props.width);
-        const startY = this.clamp((this.mouseYAtPress - rect.top) / this.props.height);
+        const startX = this.clamp((this.mouseXAtPress - rect.left) / this.props.widthInPx);
+        const startY = this.clamp((this.mouseYAtPress - rect.top) / this.props.heightInPx);
         const line = { id: this.createdId, type: 'line', startX, startY, endX, endY };
         this.root.classList.add('line-end-dragged');
         this.props.onChange([...this.props.measurements, line]);
@@ -123,8 +123,8 @@ export default class MeasurementLayerBase extends PureComponent {
       const cursorY = event.clientY - rect.top;
       if (this.createdId === null) {
         this.createdId = this.getNextId();
-        const centerX = this.clamp((this.mouseXAtPress - rect.left) / this.props.width);
-        const centerY = this.clamp((this.mouseYAtPress - rect.top) / this.props.height);
+        const centerX = this.clamp((this.mouseXAtPress - rect.left) / this.props.widthInPx);
+        const centerY = this.clamp((this.mouseYAtPress - rect.top) / this.props.heightInPx);
         const radius = this.calculateRadius(cursorX, cursorY, centerX, centerY);
         const circle = { id: this.createdId, type: 'circle', centerX, centerY, radius };
         this.root.classList.add('circle-stroke-dragged');
@@ -138,9 +138,10 @@ export default class MeasurementLayerBase extends PureComponent {
   }
 
   calculateRadius = (cursorX, cursorY, centerX, centerY) => {
-    const deltaX = cursorX - centerX * this.props.width;
-    const deltaY = cursorY - centerY * this.props.height;
-    let radius = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPixels) / Math.sqrt(this.props.width * this.props.height);
+    const deltaX = cursorX - centerX * this.props.widthInPx;
+    const deltaY = cursorY - centerY * this.props.heightInPx;
+    const radiusInPx = Math.max(Math.hypot(deltaX, deltaY), minRadiusInPx);
+    let radius = radiusInPx / Math.sqrt(this.props.widthInPx * this.props.widthInPx);
 
     if (centerX + radius > 1) {
       radius = 1 - centerX;
@@ -181,8 +182,8 @@ export default class MeasurementLayerBase extends PureComponent {
     if (this.props.mode === 'text') {
       const id = this.getNextId();
       const rect = this.root.getBoundingClientRect();
-      const arrowX = (event.clientX - rect.left) / this.props.width;
-      const arrowY = (event.clientY - rect.top) / this.props.height;
+      const arrowX = (event.clientX - rect.left) / this.props.widthInPx;
+      const arrowY = (event.clientY - rect.top) / this.props.heightInPx;
       const xOffsetDirection = arrowX < 0.8 ? 1 : -1;
       const yOffsetDirection = arrowY < 0.8 ? 1 : -1;
       const textX = arrowX + xOffsetDirection * 0.05;

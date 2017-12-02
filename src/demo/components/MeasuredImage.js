@@ -8,7 +8,7 @@ export default class MeasuredImage extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { measurements: this.createInitialState(), width: 0, height: 0 };
+    this.state = { measurements: this.createInitialState(), widthInPx: 0, heightInPx: 0 };
   }
 
   componentDidMount() {
@@ -32,8 +32,8 @@ export default class MeasuredImage extends PureComponent {
           />
           <MeasurementLayer
             measurements={this.state.measurements}
-            width={this.state.width}
-            height={this.state.height}
+            widthInPx={this.state.widthInPx}
+            heightInPx={this.state.heightInPx}
             onChange={this.onChange}
             measureLine={this.measureLine}
             measureCircle={this.measureCircle}
@@ -51,7 +51,7 @@ export default class MeasuredImage extends PureComponent {
 
   onImageBoundsChanged = event => {
     const imageBounds = this.image.getBoundingClientRect();
-    this.setState({ ...this.state, width: imageBounds.width, height: imageBounds.height });
+    this.setState({ ...this.state, widthInPx: imageBounds.width, heightInPx: imageBounds.height });
   }
 
   createInitialState = () => [

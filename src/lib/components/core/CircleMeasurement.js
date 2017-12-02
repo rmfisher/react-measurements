@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import TextAnchor from './TextAnchor';
 
-export const minRadiusInPixels = 3;
+export const minRadiusInPx = 3;
 const textOffset = 16;
 
 export default class CircleMeasurement extends PureComponent {
@@ -89,7 +89,7 @@ export default class CircleMeasurement extends PureComponent {
     if (this.strokeDragInProgress) {
       const newPointX = this.pointXAtPress + eventX - this.mouseXAtPress;
       const newPointY = this.pointYAtPress + eventY - this.mouseYAtPress;
-      const radiusInPixels = Math.max(Math.hypot(newPointX, newPointY), minRadiusInPixels);
+      const radiusInPixels = Math.max(Math.hypot(newPointX, newPointY), minRadiusInPx);
       let radius = radiusInPixels / Math.sqrt(this.props.parentWidth * this.props.parentHeight);
 
       if (this.props.circle.centerX + radius > 1) {

@@ -13,15 +13,15 @@ export default class MeasurementLayer extends PureComponent {
   }
 
   render() {
-    const hasSize = this.props.width > 0 && this.props.height > 0;
+    const hasSize = this.props.widthInPx > 0 && this.props.widthInPx > 0;
     const className = 'measurement-layer' + (this.state.mouseDetected ? ' mouse-detected' : '');
     return (
       hasSize && <div className={className} ref={e => this.root = e}>
         <MeasurementLayerBase
           measurements={this.props.measurements}
           onChange={this.props.onChange}
-          width={this.props.width}
-          height={this.props.height}
+          widthInPx={this.props.widthInPx}
+          heightInPx={this.props.heightInPx}
           measureLine={this.props.measureLine}
           measureCircle={this.props.measureCircle}
           mode={this.state.mode}
