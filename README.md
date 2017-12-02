@@ -39,7 +39,6 @@ class App extends React.Component {
 
   onChange = measurements => this.setState({ ...this.state, measurements });
 
-  // Suppose our image is 100mm x 100mm.
   measureLine = line => Math.round(calculateDistance(line, 100, 100)) + ' mm';
 
   measureCircle = circle => Math.round(calculateArea(circle, 100, 100)) + ' mm²';
