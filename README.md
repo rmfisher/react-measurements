@@ -47,7 +47,7 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-## Mobile Support
+## Scope
 
 The component is currently read-only on mobile. A mouse is required to create and edit measurements.
 
