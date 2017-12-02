@@ -5,12 +5,10 @@ export default class MeasurementButtons extends PureComponent {
 
   componentDidMount() {
     this.root.addEventListener('mousedown', this.onRootMouseDown);
-    this.root.addEventListener('touchstart', this.onRootTouchStart);
   }
 
   componentWillUnmount() {
     this.root.addEventListener('mousedown', this.onRootMouseDown);
-    this.root.addEventListener('touchstart', this.onRootTouchStart);
   }
 
   render() {
@@ -38,6 +36,4 @@ export default class MeasurementButtons extends PureComponent {
     event.stopPropagation();
     event.preventDefault();
   }
-
-  onRootTouchStart = event => event.preventDefault();
 }
