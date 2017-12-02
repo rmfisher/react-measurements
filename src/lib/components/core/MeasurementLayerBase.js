@@ -6,7 +6,7 @@ import { EditorState } from 'draft-js';
 import { detectMouse } from '../../utils/DomUtils.js';
 import './MeasurementLayerBase.css';
 
-class MeasurementLayerBase extends PureComponent {
+export default class MeasurementLayerBase extends PureComponent {
 
   createdId = null;
   state = { mouseDetected: false };
@@ -217,5 +217,3 @@ class MeasurementLayerBase extends PureComponent {
     editable: false,
   });
 }
-
-export default MeasurementLayerBase;

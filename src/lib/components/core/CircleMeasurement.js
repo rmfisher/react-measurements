@@ -4,7 +4,7 @@ import TextAnchor from './TextAnchor';
 export const minRadiusInPixels = 3;
 const textOffset = 16;
 
-class CircleMeasurement extends PureComponent {
+export default class CircleMeasurement extends PureComponent {
 
   componentDidMount() {
     this.fill.addEventListener('mousedown', this.onFillMouseDown);
@@ -163,5 +163,3 @@ class CircleMeasurement extends PureComponent {
 
   onDeleteButtonClick = () => this.props.onDeleteButtonClick(this.props.circle);
 }
-
-export default CircleMeasurement;

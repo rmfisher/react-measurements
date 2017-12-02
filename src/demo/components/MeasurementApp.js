@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import PollenImage from './PollenImage';
+import MeasuredImage from './MeasuredImage';
 import './MeasurementApp.css';
 
-class MeasurementApp extends PureComponent {
+export default class MeasurementApp extends PureComponent {
 
   render() {
     return (
@@ -16,7 +16,7 @@ class MeasurementApp extends PureComponent {
         <div className='content'>
           <div className='measurements-body'>
             <div>
-              <PollenImage />
+              <MeasuredImage />
             </div>
             <p>Fig. 1: Pollen grains under an electron microscope.</p>
           </div>
@@ -25,5 +25,3 @@ class MeasurementApp extends PureComponent {
     );
   }
 }
-
-export default MeasurementApp;

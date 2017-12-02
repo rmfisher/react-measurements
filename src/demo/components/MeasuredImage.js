@@ -4,7 +4,7 @@ import { calculateDistance, calculateArea } from '../../lib/utils/MeasurementUti
 import { EditorState, ContentState } from 'draft-js';
 import pollenImage from '../images/pollen.jpg';
 
-class PollenImage extends PureComponent {
+export default class MeasuredImage extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -81,5 +81,3 @@ class PollenImage extends PureComponent {
     }
   ];
 }
-
-export default PollenImage;

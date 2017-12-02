@@ -4,7 +4,7 @@ import MeasurementButtons from './buttons/MeasurementButtons';
 import { detectMouse } from '../utils/DomUtils.js';
 import './MeasurementLayer.css';
 
-class MeasurementLayer extends PureComponent {
+export default class MeasurementLayer extends PureComponent {
 
   state = { mode: null, mouseDetected: false };
 
@@ -41,5 +41,3 @@ class MeasurementLayer extends PureComponent {
     }
   }
 }
-
-export default MeasurementLayer;

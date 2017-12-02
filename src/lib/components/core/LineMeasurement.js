@@ -5,7 +5,7 @@ const edgeLength = 15;
 const textOffset = 16;
 const quarterCircle = Math.PI / 2;
 
-class LineMeasurement extends PureComponent {
+export default class LineMeasurement extends PureComponent {
 
   state = { midHover: false };
 
@@ -229,5 +229,3 @@ class LineMeasurement extends PureComponent {
 
   onDeleteButtonClick = () => this.props.onDeleteButtonClick(this.props.line);
 }
-
-export default LineMeasurement;

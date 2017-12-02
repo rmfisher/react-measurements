@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { RulerIcon, CircleIcon, TextIcon } from './Icons';
 
-class MeasurementButtons extends PureComponent {
+export default class MeasurementButtons extends PureComponent {
 
   componentDidMount() {
     this.root.addEventListener('mousedown', this.onRootMouseDown);
@@ -41,5 +41,3 @@ class MeasurementButtons extends PureComponent {
 
   onRootTouchStart = event => event.preventDefault();
 }
-
-export default MeasurementButtons;

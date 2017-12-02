@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-class TextAnchor extends PureComponent {
+export default class TextAnchor extends PureComponent {
 
   state = { buttonShowing: false, justCreated: true };
 
@@ -64,5 +64,3 @@ class TextAnchor extends PureComponent {
     }
   }
 }
-
-export default TextAnchor;

@@ -11,7 +11,7 @@ const headGrabberWidth = 15;
 const headGrabberHeight = 9;
 const headGrabberOffset = 3;
 
-class TextAnnotation extends PureComponent {
+export default class TextAnnotation extends PureComponent {
 
   propagateTextChanges = false;
   state = { lineHover: false, headHover: false, lineDragged: false, headDragged: false, textDragged: false };
@@ -342,5 +342,3 @@ class TextAnnotation extends PureComponent {
 
   onDeleteButtonClick = () => this.props.onDeleteButtonClick(this.props.text);
 }
-
-export default TextAnnotation;
