@@ -1,9 +1,11 @@
 # react-measurements
 A React component for measuring &amp; annotating images.
 
+## Demo
+
 Check out the demo [here](https://rmfisher.github.io/react-measurements).
 
-### Usage
+## Usage
 
 ```javascript
 import React from 'react';
@@ -45,3 +47,11 @@ class App extends React.Component {
 
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
+
+## Limitations
+
+The component is currently read-only on mobile. A mouse is required to create and edit measurements.
+
+## License
+
+MIT
