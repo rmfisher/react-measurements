@@ -9,7 +9,6 @@ Check out the demo [here](https://rmfisher.github.io/react-measurements).
 
 ```javascript
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { MeasurementLayer, calculateDistance, calculateArea } from 'react-measurements';
 
 class App extends React.Component {
@@ -43,8 +42,6 @@ class App extends React.Component {
 
   measureCircle = circle => Math.round(calculateArea(circle, 100, 100)) + ' mm²';
 }
-
-ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 ## Scope
