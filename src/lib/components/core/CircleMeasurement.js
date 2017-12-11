@@ -152,10 +152,12 @@ export default class CircleMeasurement extends PureComponent {
   toggleDragStyles = () => {
     if (this.strokeDragInProgress) {
       this.circle.classList.toggle('dragged');
+      this.stroke.classList.toggle('dragged');
       this.getAnnotationLayerClassList().toggle('circle-stroke-dragged');
     }
     if (this.fillDragInProgress) {
       this.circle.classList.toggle('dragged');
+      this.fill.classList.toggle('dragged');
       this.getAnnotationLayerClassList().toggle('circle-fill-dragged');
     }
     this.getAnnotationLayerClassList().toggle('any-dragged');

@@ -212,16 +212,21 @@ export default class LineMeasurement extends PureComponent {
   toggleDragStyles = () => {
     if (this.startDragInProgress) {
       this.startLine.classList.toggle('dragged');
+      this.startGrabber.classList.toggle('dragged');
       this.getAnnotationLayerClassList().toggle('line-start-dragged');
     }
     if (this.midDragInProgress) {
       this.startLine.classList.toggle('dragged');
       this.midLine.classList.toggle('dragged');
       this.endLine.classList.toggle('dragged');
+      this.startGrabber.classList.toggle('dragged');
+      this.midGrabber.classList.toggle('dragged');
+      this.endGrabber.classList.toggle('dragged');
       this.getAnnotationLayerClassList().toggle('line-mid-dragged');
     }
     if (this.endDragInProgress) {
       this.endLine.classList.toggle('dragged');
+      this.endGrabber.classList.toggle('dragged');
       this.getAnnotationLayerClassList().toggle('line-end-dragged');
     }
     this.getAnnotationLayerClassList().toggle('any-dragged');

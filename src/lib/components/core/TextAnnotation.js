@@ -90,6 +90,9 @@ export default class TextAnnotation extends PureComponent {
     const lineMaskId = `lineMask${this.props.text.id}`;
     const lineMask = textVisible ? 'url(#' + lineMaskId + ')' : '';
 
+    const lineGrabberClass = 'arrow-line-grabber' + (this.state.lineDragged ? ' dragged' : '');
+    const headGrabberClass = 'arrow-head-grabber' + (this.state.headDragged ? ' dragged' : '');
+
     return (
       <div className={rootClass} ref={e => this.root = e}>
         <svg className='measurement-svg'>
@@ -99,8 +102,8 @@ export default class TextAnnotation extends PureComponent {
               <rect fill='black' ref={e => this.maskRect = e} />
             </mask>
           </defs>
-          <line className='arrow-line-grabber' x1={lineEndX} y1={lineEndY} x2={textX} y2={textY} ref={e => this.lineGrabber = e} />
-          <path className='arrow-head-grabber' d={headGrabber.path} transform={headGrabber.transform} ref={e => this.headGrabber = e} />
+          <line className={lineGrabberClass} x1={lineEndX} y1={lineEndY} x2={textX} y2={textY} ref={e => this.lineGrabber = e} />
+          <path className={headGrabberClass} d={headGrabber.path} transform={headGrabber.transform} ref={e => this.headGrabber = e} />
           <path className='arrow-head' d={head.path} transform={head.transform} ref={e => this.head = e} />
           <path className={lineClass} d={linePath} ref={e => this.line = e} mask={lineMask} />
         </svg>

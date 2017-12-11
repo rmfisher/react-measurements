@@ -244,25 +244,32 @@
   pointer-events: painted;
 }
 
-.measurement-layer-base.mouse-detected .text-annotation .text,
-.measurement-layer-base.mouse-detected .text-annotation .arrow-head-grabber,
-.measurement-layer-base.mouse-detected .text-annotation .arrow-line-grabber,
+.measurement-layer-base.mouse-detected .text,
+.measurement-layer-base.mouse-detected .arrow-head-grabber,
+.measurement-layer-base.mouse-detected .arrow-line-grabber,
 .measurement-layer-base.mouse-detected .text-box,
 .measurement-layer-base.mouse-detected .text-anchor.button-showing .delete-button,
-.measurement-layer-base.mouse-detected .text-annotation.editable .delete-button {
+.measurement-layer-base.mouse-detected .editable .delete-button,
+.measurement-layer-base.mouse-detected.any-dragged .grabber-group .start-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged .grabber-group .mid-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged .grabber-group .end-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged .grabber-group .fill-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged .grabber-group .stroke-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged .arrow-head-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged .arrow-line-grabber.dragged {
   pointer-events: auto;
 }
 
 .measurement-layer-base.any-dragged .grabber-group,
-.measurement-layer-base.any-dragged .text-annotation .text,
-.measurement-layer-base.any-dragged .text-annotation .arrow-head-grabber,
-.measurement-layer-base.any-dragged .text-annotation .arrow-line-grabber,
+.measurement-layer-base.any-dragged .text,
+.measurement-layer-base.any-dragged .arrow-head-grabber,
+.measurement-layer-base.any-dragged .arrow-line-grabber,
 .measurement-layer-base.any-dragged .text-box,
 .measurement-layer-base.any-dragged .delete-button,
 .measurement-layer-base.any-mode-on .grabber-group,
-.measurement-layer-base.any-mode-on .text-annotation .text,
-.measurement-layer-base.any-mode-on .text-annotation .arrow-head-grabber,
-.measurement-layer-base.any-mode-on .text-annotation .arrow-line-grabber,
+.measurement-layer-base.any-mode-on .text,
+.measurement-layer-base.any-mode-on .arrow-head-grabber,
+.measurement-layer-base.any-mode-on .arrow-line-grabber,
 .measurement-layer-base.any-mode-on .text-box,
 .measurement-layer-base .delete-button {
   pointer-events: none;
