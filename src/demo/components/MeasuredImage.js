@@ -28,7 +28,7 @@ export default class MeasuredImage extends PureComponent {
             src={pollenImage}
             alt='Pollen grains'
             ref={e => this.image = e}
-            onLoad={this.onImageBoundsChanged}
+            onLoad={this.onLoad}
           />
           <MeasurementLayer
             measurements={this.state.measurements}
@@ -52,6 +52,11 @@ export default class MeasuredImage extends PureComponent {
   onImageBoundsChanged = event => {
     const imageBounds = this.image.getBoundingClientRect();
     this.setState({ ...this.state, widthInPx: imageBounds.width, heightInPx: imageBounds.height });
+  }
+
+  onLoad = () => {
+    this.onImageBoundsChanged();
+    this.props.onImageLoaded();
   }
 
   createInitialState = () => [

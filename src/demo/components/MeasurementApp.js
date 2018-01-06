@@ -4,6 +4,8 @@ import './MeasurementApp.css';
 
 export default class MeasurementApp extends PureComponent {
 
+  state = { loaded: false };
+
   render() {
     return (
       <div className='container'>
@@ -14,9 +16,9 @@ export default class MeasurementApp extends PureComponent {
           <a href='https://github.com/rmfisher/react-measurements'>GitHub</a>
         </div>
         <div className='content'>
-          <div className='measurements-body'>
+          <div className={'measurements-body' + (this.state.loaded ? ' loaded' : '')}  >
             <div>
-              <MeasuredImage />
+              <MeasuredImage onImageLoaded={this.onImageLoaded} />
             </div>
             <p>Fig. 1: Pollen grains under an electron microscope.</p>
           </div>
@@ -24,4 +26,6 @@ export default class MeasurementApp extends PureComponent {
       </div>
     );
   }
+
+  onImageLoaded = () => this.setState({ ...this.state, loaded: true });
 }

@@ -54,16 +54,18 @@ a:hover {
   flex-grow: 1;
 }
 
-.measurements-body{
-  max-width: 500px;
-}
-
 .measurements-body {
   position: relative;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 500px;
+  visibility: hidden;
+}
+
+.measurements-body.loaded {
+  visibility: visible;
 }
 
 .measurements-body p {
