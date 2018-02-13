@@ -33,13 +33,13 @@
   },
   "scripts": {
     "build": "npm run build:lib && npm run build:demo",
-    "build:lib": "cross-env NODE_ENV=production webpack --config webpack.config.lib.js",
-    "build:demo": "cross-env NODE_ENV=production webpack --config webpack.config.demo.js",
+    "build:lib":
+      "cross-env NODE_ENV=production webpack --config webpack.config.lib.js",
+    "build:demo":
+      "cross-env NODE_ENV=production webpack --config webpack.config.demo.js",
     "deploy": "gh-pages -d build/demo",
     "start": "webpack-dev-server --hot --inline --config webpack.config.dev.js",
     "test": ""
   },
-  "files": [
-    "build/lib/index.js"
-  ]
+  "files": ["build/lib/index.js"]
 }

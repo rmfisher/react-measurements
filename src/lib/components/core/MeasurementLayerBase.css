@@ -29,7 +29,7 @@
 }
 
 .text-annotation .arrow-head {
-  fill: yellow;  
+  fill: yellow;
 }
 
 .measurement-text,
@@ -79,8 +79,12 @@
   transition: color 0.3s, background-color 0.3s;
 }
 
-.measurement-layer-base.line-end-dragged .text-anchor.just-created .measurement-text,
-.measurement-layer-base.circle-stroke-dragged .text-anchor.just-created .measurement-text {
+.measurement-layer-base.line-end-dragged
+  .text-anchor.just-created
+  .measurement-text,
+.measurement-layer-base.circle-stroke-dragged
+  .text-anchor.just-created
+  .measurement-text {
   color: transparent;
   background-color: transparent;
 }
@@ -102,7 +106,7 @@
 
 .text-annotation .public-DraftEditor-content {
   /* Ensures the blinking cursor is always visible when the text is editable but empty. */
-  min-width: 1px; 
+  min-width: 1px;
 }
 
 .text-annotation .public-DraftStyleDefault-block {
@@ -125,8 +129,8 @@
   stroke: transparent;
   stroke-width: 11px;
   stroke-linecap: butt;
- }
- 
+}
+
 .line-measurement .grabber.start-grabber,
 .line-measurement .grabber.end-grabber {
   stroke-linecap: square;
@@ -137,7 +141,7 @@
   stroke-width: 11px;
   fill: none;
 }
- 
+
 .circle-measurement .fill-grabber {
   fill: transparent;
   stroke: none;
@@ -199,7 +203,7 @@
 .measurement-layer-base .delete-button-icon {
   stroke: transparent;
   stroke-width: 2px;
-  stroke-linecap: square;  
+  stroke-linecap: square;
   fill: none;
   transition: stroke 0.2s;
 }
@@ -248,13 +252,25 @@
 .measurement-layer-base.mouse-detected .arrow-head-grabber,
 .measurement-layer-base.mouse-detected .arrow-line-grabber,
 .measurement-layer-base.mouse-detected .text-box,
-.measurement-layer-base.mouse-detected .text-anchor.button-showing .delete-button,
+.measurement-layer-base.mouse-detected
+  .text-anchor.button-showing
+  .delete-button,
 .measurement-layer-base.mouse-detected .editable .delete-button,
-.measurement-layer-base.mouse-detected.any-dragged .grabber-group .start-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged .grabber-group .mid-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged .grabber-group .end-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged .grabber-group .fill-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged .grabber-group .stroke-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged
+  .grabber-group
+  .start-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged
+  .grabber-group
+  .mid-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged
+  .grabber-group
+  .end-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged
+  .grabber-group
+  .fill-grabber.dragged,
+.measurement-layer-base.mouse-detected.any-dragged
+  .grabber-group
+  .stroke-grabber.dragged,
 .measurement-layer-base.mouse-detected.any-dragged .arrow-head-grabber.dragged,
 .measurement-layer-base.mouse-detected.any-dragged .arrow-line-grabber.dragged {
   pointer-events: auto;

@@ -1,34 +1,33 @@
-import React, { PureComponent } from 'react';
-import TextAnchor from './TextAnchor';
+import React, { PureComponent } from "react";
+import TextAnchor from "./TextAnchor";
 
 const edgeLength = 15;
 const textOffset = 16;
 const quarterCircle = Math.PI / 2;
 
 export default class LineMeasurement extends PureComponent {
-
   state = { midHover: false };
 
   componentDidMount() {
-    this.startGrabber.addEventListener('mousedown', this.onStartMouseDown);
-    this.midGrabber.addEventListener('mousedown', this.onMidMouseDown);
-    this.midGrabber.addEventListener('mouseenter', this.onMidMouseEnter);
-    this.midGrabber.addEventListener('mouseleave', this.onMidMouseLeave);
-    this.endGrabber.addEventListener('mousedown', this.onEndMouseDown);
-    document.addEventListener('mousemove', this.onMouseMove);
-    window.addEventListener('mouseup', this.onMouseUp);
-    window.addEventListener('blur', this.endDrag);
+    this.startGrabber.addEventListener("mousedown", this.onStartMouseDown);
+    this.midGrabber.addEventListener("mousedown", this.onMidMouseDown);
+    this.midGrabber.addEventListener("mouseenter", this.onMidMouseEnter);
+    this.midGrabber.addEventListener("mouseleave", this.onMidMouseLeave);
+    this.endGrabber.addEventListener("mousedown", this.onEndMouseDown);
+    document.addEventListener("mousemove", this.onMouseMove);
+    window.addEventListener("mouseup", this.onMouseUp);
+    window.addEventListener("blur", this.endDrag);
   }
 
   componentWillUnmount() {
-    this.startGrabber.removeEventListener('mousedown', this.onStartMouseDown);
-    this.midGrabber.removeEventListener('mousedown', this.onMidMouseDown);
-    this.midGrabber.removeEventListener('mouseenter', this.onMidMouseEnter);
-    this.midGrabber.removeEventListener('mouseleave', this.onMidMouseLeave);
-    this.endGrabber.removeEventListener('mousedown', this.onEndMouseDown);
-    document.removeEventListener('mousemove', this.onMouseMove);
-    window.removeEventListener('mouseup', this.onMouseUp);
-    window.removeEventListener('blur', this.endDrag);
+    this.startGrabber.removeEventListener("mousedown", this.onStartMouseDown);
+    this.midGrabber.removeEventListener("mousedown", this.onMidMouseDown);
+    this.midGrabber.removeEventListener("mouseenter", this.onMidMouseEnter);
+    this.midGrabber.removeEventListener("mouseleave", this.onMidMouseLeave);
+    this.endGrabber.removeEventListener("mousedown", this.onEndMouseDown);
+    document.removeEventListener("mousemove", this.onMouseMove);
+    window.removeEventListener("mouseup", this.onMouseUp);
+    window.removeEventListener("blur", this.endDrag);
   }
 
   render() {
@@ -54,26 +53,76 @@ export default class LineMeasurement extends PureComponent {
     const textRotate = Math.atan2(offsetY, offsetX) - quarterCircle;
 
     const text = this.props.measureLine(this.props.line);
-    const rootClassName = 'line-measurement' + (this.state.midHover ? ' mid-hover' : '');
+    const rootClassName =
+      "line-measurement" + (this.state.midHover ? " mid-hover" : "");
 
     return (
-      <div className={rootClassName} ref={e => this.root = e}>
-        <svg className='measurement-svg'>
-          <g className='grabber-group'>
-            <line className='grabber mid-grabber' x1={startX} y1={startY} x2={endX} y2={endY} ref={e => this.midGrabber = e} />
-            <line className='line mid-line' x1={startX} y1={startY} x2={endX} y2={endY} ref={e => this.midLine = e} />
+      <div className={rootClassName} ref={e => (this.root = e)}>
+        <svg className="measurement-svg">
+          <g className="grabber-group">
+            <line
+              className="grabber mid-grabber"
+              x1={startX}
+              y1={startY}
+              x2={endX}
+              y2={endY}
+              ref={e => (this.midGrabber = e)}
+            />
+            <line
+              className="line mid-line"
+              x1={startX}
+              y1={startY}
+              x2={endX}
+              y2={endY}
+              ref={e => (this.midLine = e)}
+            />
           </g>
-          <g className='grabber-group'>
-            <line className='grabber start-grabber' x1={startX - edgeX} y1={startY + edgeY} x2={startX + edgeX} y2={startY - edgeY} ref={e => this.startGrabber = e} />
-            <line className='line start-line' x1={startX - edgeX} y1={startY + edgeY} x2={startX + edgeX} y2={startY - edgeY} ref={e => this.startLine = e} />
+          <g className="grabber-group">
+            <line
+              className="grabber start-grabber"
+              x1={startX - edgeX}
+              y1={startY + edgeY}
+              x2={startX + edgeX}
+              y2={startY - edgeY}
+              ref={e => (this.startGrabber = e)}
+            />
+            <line
+              className="line start-line"
+              x1={startX - edgeX}
+              y1={startY + edgeY}
+              x2={startX + edgeX}
+              y2={startY - edgeY}
+              ref={e => (this.startLine = e)}
+            />
           </g>
-          <g className='grabber-group'>
-            <line className='grabber end-grabber' x1={endX - edgeX} y1={endY + edgeY} x2={endX + edgeX} y2={endY - edgeY} ref={e => this.endGrabber = e} />
-            <line className='line end-line' x1={endX - edgeX} y1={endY + edgeY} x2={endX + edgeX} y2={endY - edgeY} ref={e => this.endLine = e} />
+          <g className="grabber-group">
+            <line
+              className="grabber end-grabber"
+              x1={endX - edgeX}
+              y1={endY + edgeY}
+              x2={endX + edgeX}
+              y2={endY - edgeY}
+              ref={e => (this.endGrabber = e)}
+            />
+            <line
+              className="line end-line"
+              x1={endX - edgeX}
+              y1={endY + edgeY}
+              x2={endX + edgeX}
+              y2={endY - edgeY}
+              ref={e => (this.endLine = e)}
+            />
           </g>
         </svg>
-        <TextAnchor x={textX} y={textY} rotate={textRotate} onDeleteButtonClick={this.onDeleteButtonClick}>
-          <div className='measurement-text' ref={e => this.text = e}>{text}</div>
+        <TextAnchor
+          x={textX}
+          y={textY}
+          rotate={textRotate}
+          onDeleteButtonClick={this.onDeleteButtonClick}
+        >
+          <div className="measurement-text" ref={e => (this.text = e)}>
+            {text}
+          </div>
         </TextAnchor>
       </div>
     );
@@ -85,7 +134,7 @@ export default class LineMeasurement extends PureComponent {
       event.preventDefault();
       this.onDragBegin(event.clientX, event.clientY);
     }
-  }
+  };
 
   onMidMouseDown = event => {
     if (event.button === 0) {
@@ -93,7 +142,7 @@ export default class LineMeasurement extends PureComponent {
       event.preventDefault();
       this.onDragBegin(event.clientX, event.clientY);
     }
-  }
+  };
 
   onEndMouseDown = event => {
     if (event.button === 0) {
@@ -101,7 +150,7 @@ export default class LineMeasurement extends PureComponent {
       event.preventDefault();
       this.onDragBegin(event.clientX, event.clientY);
     }
-  }
+  };
 
   onDragBegin = (eventX, eventY) => {
     this.mouseXAtPress = eventX;
@@ -111,12 +160,17 @@ export default class LineMeasurement extends PureComponent {
     this.startYAtPress = this.props.line.startY * this.props.parentHeight;
     this.endXAtPress = this.props.line.endX * this.props.parentWidth;
     this.endYAtPress = this.props.line.endY * this.props.parentHeight;
-  }
+  };
 
   onMouseMove = event => this.onDrag(event.clientX, event.clientY);
 
   onDrag = (eventX, eventY) => {
-    if ((this.startDragInProgress || this.endDragInProgress || this.midDragInProgress) && !this.dragOccurred) {
+    if (
+      (this.startDragInProgress ||
+        this.endDragInProgress ||
+        this.midDragInProgress) &&
+      !this.dragOccurred
+    ) {
       this.dragOccurred = true;
       this.toggleDragStyles();
     }
@@ -168,11 +222,13 @@ export default class LineMeasurement extends PureComponent {
       }
       this.props.onChange({ ...this.props.line, startX, startY, endX, endY });
     }
-  }
+  };
 
-  getXAfterDrag = (xAtPress, clientX) => (xAtPress + clientX - this.mouseXAtPress) / this.props.parentWidth;
+  getXAfterDrag = (xAtPress, clientX) =>
+    (xAtPress + clientX - this.mouseXAtPress) / this.props.parentWidth;
 
-  getYAfterDrag = (yAtPress, clientY) => (yAtPress + clientY - this.mouseYAtPress) / this.props.parentHeight;
+  getYAfterDrag = (yAtPress, clientY) =>
+    (yAtPress + clientY - this.mouseYAtPress) / this.props.parentHeight;
 
   onMouseUp = event => this.endDrag();
 
@@ -181,7 +237,10 @@ export default class LineMeasurement extends PureComponent {
       this.toggleDragStyles();
       this.dragOccurred = false;
     }
-    const anyDragAttempted = this.startDragInProgress || this.midDragInProgress || this.endDragInProgress;
+    const anyDragAttempted =
+      this.startDragInProgress ||
+      this.midDragInProgress ||
+      this.endDragInProgress;
     if (this.startDragInProgress) {
       this.startDragInProgress = false;
     }
@@ -194,12 +253,13 @@ export default class LineMeasurement extends PureComponent {
     if (anyDragAttempted && this.didValuesChange()) {
       this.props.onCommit(this.props.line);
     }
-  }
+  };
 
-  didValuesChange = () => this.props.line.startX !== this.lineAtPress.startX
-    || this.props.line.startY !== this.lineAtPress.startY
-    || this.props.line.endX !== this.lineAtPress.endX
-    || this.props.line.endY !== this.lineAtPress.endY
+  didValuesChange = () =>
+    this.props.line.startX !== this.lineAtPress.startX ||
+    this.props.line.startY !== this.lineAtPress.startY ||
+    this.props.line.endX !== this.lineAtPress.endX ||
+    this.props.line.endY !== this.lineAtPress.endY;
 
   onMidMouseEnter = event => this.setState({ ...this.state, midHover: true });
 
@@ -211,26 +271,26 @@ export default class LineMeasurement extends PureComponent {
 
   toggleDragStyles = () => {
     if (this.startDragInProgress) {
-      this.startLine.classList.toggle('dragged');
-      this.startGrabber.classList.toggle('dragged');
-      this.getAnnotationLayerClassList().toggle('line-start-dragged');
+      this.startLine.classList.toggle("dragged");
+      this.startGrabber.classList.toggle("dragged");
+      this.getAnnotationLayerClassList().toggle("line-start-dragged");
     }
     if (this.midDragInProgress) {
-      this.startLine.classList.toggle('dragged');
-      this.midLine.classList.toggle('dragged');
-      this.endLine.classList.toggle('dragged');
-      this.startGrabber.classList.toggle('dragged');
-      this.midGrabber.classList.toggle('dragged');
-      this.endGrabber.classList.toggle('dragged');
-      this.getAnnotationLayerClassList().toggle('line-mid-dragged');
+      this.startLine.classList.toggle("dragged");
+      this.midLine.classList.toggle("dragged");
+      this.endLine.classList.toggle("dragged");
+      this.startGrabber.classList.toggle("dragged");
+      this.midGrabber.classList.toggle("dragged");
+      this.endGrabber.classList.toggle("dragged");
+      this.getAnnotationLayerClassList().toggle("line-mid-dragged");
     }
     if (this.endDragInProgress) {
-      this.endLine.classList.toggle('dragged');
-      this.endGrabber.classList.toggle('dragged');
-      this.getAnnotationLayerClassList().toggle('line-end-dragged');
+      this.endLine.classList.toggle("dragged");
+      this.endGrabber.classList.toggle("dragged");
+      this.getAnnotationLayerClassList().toggle("line-end-dragged");
     }
-    this.getAnnotationLayerClassList().toggle('any-dragged');
-  }
+    this.getAnnotationLayerClassList().toggle("any-dragged");
+  };
 
   onDeleteButtonClick = () => this.props.onDeleteButtonClick(this.props.line);
 }

@@ -1,48 +1,73 @@
-import React, { PureComponent } from 'react';
-import TextAnchor from './TextAnchor';
+import React, { PureComponent } from "react";
+import TextAnchor from "./TextAnchor";
 
 export const minRadiusInPx = 3;
 const textOffset = 16;
 
 export default class CircleMeasurement extends PureComponent {
-
   componentDidMount() {
-    this.fill.addEventListener('mousedown', this.onFillMouseDown);
-    this.stroke.addEventListener('mousedown', this.onStrokeMouseDown);
-    document.addEventListener('mousemove', this.onMouseMove);
-    window.addEventListener('mouseup', this.onMouseUp);
-    window.addEventListener('blur', this.endDrag);
+    this.fill.addEventListener("mousedown", this.onFillMouseDown);
+    this.stroke.addEventListener("mousedown", this.onStrokeMouseDown);
+    document.addEventListener("mousemove", this.onMouseMove);
+    window.addEventListener("mouseup", this.onMouseUp);
+    window.addEventListener("blur", this.endDrag);
   }
 
   componentWillUnmount() {
-    this.fill.removeEventListener('mousedown', this.onFillMouseDown);
-    this.stroke.removeEventListener('mousedown', this.onStrokeMouseDown);
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('touchmove', this.onTouchMove);
-    window.removeEventListener('mouseup', this.onMouseUp);
-    window.removeEventListener('blur', this.endDrag);
+    this.fill.removeEventListener("mousedown", this.onFillMouseDown);
+    this.stroke.removeEventListener("mousedown", this.onStrokeMouseDown);
+    document.removeEventListener("mousemove", this.onMouseMove);
+    document.removeEventListener("touchmove", this.onTouchMove);
+    window.removeEventListener("mouseup", this.onMouseUp);
+    window.removeEventListener("blur", this.endDrag);
   }
 
   render() {
     const centerX = this.props.circle.centerX * this.props.parentWidth;
     const centerY = this.props.circle.centerY * this.props.parentHeight;
-    const radius = this.props.circle.radius * Math.sqrt(this.props.parentWidth * this.props.parentHeight);
+    const radius =
+      this.props.circle.radius *
+      Math.sqrt(this.props.parentWidth * this.props.parentHeight);
     const textY = centerY + radius + textOffset;
     const text = this.props.measureCircle(this.props.circle);
 
     return (
-      <div className='circle-measurement' ref={e => this.root = e}>
-        <TextAnchor x={centerX} y={textY} onDeleteButtonClick={this.onDeleteButtonClick}>
-          <div className='measurement-text' ref={e => this.text = e}>{text}</div>
+      <div className="circle-measurement" ref={e => (this.root = e)}>
+        <TextAnchor
+          x={centerX}
+          y={textY}
+          onDeleteButtonClick={this.onDeleteButtonClick}
+        >
+          <div className="measurement-text" ref={e => (this.text = e)}>
+            {text}
+          </div>
         </TextAnchor>
-        <svg className='measurement-svg'>
-          <g className='grabber-group'>
-            <circle className='fill-grabber' cx={centerX} cy={centerY} r={radius} ref={e => this.fill = e} />
-            <circle className='stroke-grabber' cx={centerX} cy={centerY} r={radius} ref={e => this.stroke = e} />
-            <circle className='circle' cx={centerX} cy={centerY} r={radius} ref={e => this.circle = e} />
+        <svg className="measurement-svg">
+          <g className="grabber-group">
+            <circle
+              className="fill-grabber"
+              cx={centerX}
+              cy={centerY}
+              r={radius}
+              ref={e => (this.fill = e)}
+            />
+            <circle
+              className="stroke-grabber"
+              cx={centerX}
+              cy={centerY}
+              r={radius}
+              ref={e => (this.stroke = e)}
+            />
+            <circle
+              className="circle"
+              cx={centerX}
+              cy={centerY}
+              r={radius}
+              ref={e => (this.circle = e)}
+            />
           </g>
         </svg>
-      </div >
+      </div>
     );
   }
 
@@ -52,7 +77,7 @@ export default class CircleMeasurement extends PureComponent {
       event.preventDefault();
       this.onDragBegin(event.clientX, event.clientY);
     }
-  }
+  };
 
   onFillMouseDown = event => {
     if (event.button === 0) {
@@ -60,7 +85,7 @@ export default class CircleMeasurement extends PureComponent {
       event.preventDefault();
       this.onDragBegin(event.clientX, event.clientY);
     }
-  }
+  };
 
   onDragBegin = (eventX, eventY) => {
     this.mouseXAtPress = eventX;
@@ -72,16 +97,24 @@ export default class CircleMeasurement extends PureComponent {
     const rect = this.root.getBoundingClientRect();
     const centerClientX = this.centerXAtPress + rect.left;
     const centerClientY = this.centerYAtPress + rect.top;
-    const radiusAtPress = this.props.circle.radius * Math.sqrt(this.props.parentWidth * this.props.parentHeight);
-    const theta = Math.atan2(this.mouseYAtPress - centerClientY, this.mouseXAtPress - centerClientX);
+    const radiusAtPress =
+      this.props.circle.radius *
+      Math.sqrt(this.props.parentWidth * this.props.parentHeight);
+    const theta = Math.atan2(
+      this.mouseYAtPress - centerClientY,
+      this.mouseXAtPress - centerClientX
+    );
     this.pointXAtPress = radiusAtPress * Math.cos(theta);
     this.pointYAtPress = radiusAtPress * Math.sin(theta);
-  }
+  };
 
   onMouseMove = event => this.onDrag(event.clientX, event.clientY);
 
   onDrag = (eventX, eventY) => {
-    if ((this.fillDragInProgress || this.strokeDragInProgress) && !this.dragOccurred) {
+    if (
+      (this.fillDragInProgress || this.strokeDragInProgress) &&
+      !this.dragOccurred
+    ) {
       this.dragOccurred = true;
       this.toggleDragStyles();
     }
@@ -89,8 +122,13 @@ export default class CircleMeasurement extends PureComponent {
     if (this.strokeDragInProgress) {
       const newPointX = this.pointXAtPress + eventX - this.mouseXAtPress;
       const newPointY = this.pointYAtPress + eventY - this.mouseYAtPress;
-      const radiusInPixels = Math.max(Math.hypot(newPointX, newPointY), minRadiusInPx);
-      let radius = radiusInPixels / Math.sqrt(this.props.parentWidth * this.props.parentHeight);
+      const radiusInPixels = Math.max(
+        Math.hypot(newPointX, newPointY),
+        minRadiusInPx
+      );
+      let radius =
+        radiusInPixels /
+        Math.sqrt(this.props.parentWidth * this.props.parentHeight);
 
       if (this.props.circle.centerX + radius > 1) {
         radius = 1 - this.props.circle.centerX;
@@ -105,10 +143,13 @@ export default class CircleMeasurement extends PureComponent {
         radius = this.props.circle.centerY;
       }
       this.props.onChange({ ...this.props.circle, radius });
-
     } else if (this.fillDragInProgress) {
-      let centerX = (this.centerXAtPress + eventX - this.mouseXAtPress) / this.props.parentWidth;
-      let centerY = (this.centerYAtPress + eventY - this.mouseYAtPress) / this.props.parentHeight;
+      let centerX =
+        (this.centerXAtPress + eventX - this.mouseXAtPress) /
+        this.props.parentWidth;
+      let centerY =
+        (this.centerYAtPress + eventY - this.mouseYAtPress) /
+        this.props.parentHeight;
 
       if (centerX + this.props.circle.radius > 1) {
         centerX = 1 - this.props.circle.radius;
@@ -122,7 +163,7 @@ export default class CircleMeasurement extends PureComponent {
       }
       this.props.onChange({ ...this.props.circle, centerX, centerY });
     }
-  }
+  };
 
   onMouseUp = event => this.endDrag();
 
@@ -131,7 +172,8 @@ export default class CircleMeasurement extends PureComponent {
       this.toggleDragStyles();
       this.dragOccurred = false;
     }
-    const anyDragAttempted = this.strokeDragInProgress || this.fillDragInProgress;
+    const anyDragAttempted =
+      this.strokeDragInProgress || this.fillDragInProgress;
     if (this.strokeDragInProgress) {
       this.strokeDragInProgress = false;
     }
@@ -141,27 +183,28 @@ export default class CircleMeasurement extends PureComponent {
     if (anyDragAttempted && this.didValuesChange()) {
       this.props.onCommit(this.props.circle);
     }
-  }
+  };
 
-  didValuesChange = () => this.props.circle.centerX !== this.circleAtPress.centerX
-    || this.props.circle.centerY !== this.circleAtPress.centerY
-    || this.props.circle.radius !== this.circleAtPress.radius;
+  didValuesChange = () =>
+    this.props.circle.centerX !== this.circleAtPress.centerX ||
+    this.props.circle.centerY !== this.circleAtPress.centerY ||
+    this.props.circle.radius !== this.circleAtPress.radius;
 
   getAnnotationLayerClassList = () => this.root.parentElement.classList;
 
   toggleDragStyles = () => {
     if (this.strokeDragInProgress) {
-      this.circle.classList.toggle('dragged');
-      this.stroke.classList.toggle('dragged');
-      this.getAnnotationLayerClassList().toggle('circle-stroke-dragged');
+      this.circle.classList.toggle("dragged");
+      this.stroke.classList.toggle("dragged");
+      this.getAnnotationLayerClassList().toggle("circle-stroke-dragged");
     }
     if (this.fillDragInProgress) {
-      this.circle.classList.toggle('dragged');
-      this.fill.classList.toggle('dragged');
-      this.getAnnotationLayerClassList().toggle('circle-fill-dragged');
+      this.circle.classList.toggle("dragged");
+      this.fill.classList.toggle("dragged");
+      this.getAnnotationLayerClassList().toggle("circle-fill-dragged");
     }
-    this.getAnnotationLayerClassList().toggle('any-dragged');
-  }
+    this.getAnnotationLayerClassList().toggle("any-dragged");
+  };
 
   onDeleteButtonClick = () => this.props.onDeleteButtonClick(this.props.circle);
 }

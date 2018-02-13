@@ -6,7 +6,7 @@ body,
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans", sans-serif;
   font-size: 10pt;
   color: #333;
   margin: 0;
@@ -37,7 +37,7 @@ body {
 
 a {
   margin-left: 15px;
-  color: #333;  
+  color: #333;
   text-decoration: none;
 }
 
@@ -99,7 +99,7 @@ a:hover {
 img {
   max-width: 100%;
   max-height: 100%;
-} 
+}
 
 @media all and (min-width: 640px) {
   .container {
@@ -131,7 +131,7 @@ img {
   .title-text {
     display: block;
   }
-  
+
   a {
     margin-left: 10px;
   }

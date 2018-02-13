@@ -17,7 +17,7 @@
   top: 5px;
   right: 5px;
   opacity: 0;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 
 .measurement-layer:hover .button-bar,
