@@ -23,6 +23,19 @@ body {
   padding: 15px 20px;
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
+}
+
+.title-bar-inner {
+  width: 100%;
+  display: flex;
+}
+
+.mobile-readonly-message {
+  font-size: 9pt;
+  display: none;
+  margin: 3px 0 5px 0;
+  color: rgb(120, 120, 120);
 }
 
 .title-text {
@@ -134,5 +147,9 @@ img {
 
   a {
     margin-left: 10px;
+  }
+
+  body:not(.mouse-detected) .mobile-readonly-message {
+    display: block;
   }
 }

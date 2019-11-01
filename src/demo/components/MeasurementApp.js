@@ -9,10 +9,17 @@ export default class MeasurementApp extends PureComponent {
     return (
       <div className="container">
         <div className="title-bar">
-          <span className="title-text">React Measurements</span>
-          <div className="splitter" />
-          <a href="https://www.npmjs.com/packages/react-measurements">v0.6.4</a>
-          <a href="https://github.com/rmfisher/react-measurements">GitHub</a>
+          <div className="title-bar-inner">
+            <span className="title-text">React Measurements</span>
+            <div className="splitter" />
+            <a href="https://www.npmjs.com/package/react-measurements">
+              v0.6.5
+            </a>
+            <a href="https://github.com/rmfisher/react-measurements">GitHub</a>
+          </div>
+          <div className="mobile-readonly-message">
+            A mouse is required for editing, sorry!
+          </div>
         </div>
         <div className="content">
           <div

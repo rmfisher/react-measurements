@@ -12,7 +12,7 @@ export default class MeasurementLayer extends PureComponent {
   }
 
   render() {
-    const hasSize = this.props.widthInPx > 0 && this.props.widthInPx > 0;
+    const hasSize = this.props.widthInPx > 0 && this.props.heightInPx > 0;
     const className =
       "measurement-layer" + (this.state.mouseDetected ? " mouse-detected" : "");
     return (

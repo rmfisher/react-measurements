@@ -17,7 +17,10 @@ export default class MeasurementLayerBase extends PureComponent {
     window.addEventListener("mouseup", this.onMouseUp);
     window.addEventListener("blur", this.endDrag);
 
-    detectMouse(() => this.setState({ ...this.state, mouseDetected: true }));
+    detectMouse(() => {
+      this.setState({ ...this.state, mouseDetected: true });
+      document.body.classList.add("mouse-detected");
+    });
   }
 
   componentWillUnmount() {
@@ -263,8 +266,8 @@ export default class MeasurementLayerBase extends PureComponent {
     )[0];
     if (editable) {
       this.props.onChange(
-        this.props.measurements.map(
-          m => (m === editable ? this.finishEdit(m) : m)
+        this.props.measurements.map(m =>
+          m === editable ? this.finishEdit(m) : m
         )
       );
     }
