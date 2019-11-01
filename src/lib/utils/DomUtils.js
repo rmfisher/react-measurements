@@ -27,6 +27,7 @@ export const detectMouse = callback => {
     document.removeEventListener("touchstart", clearTimer);
     document.removeEventListener("touchmove", clearTimer);
     document.removeEventListener("touchend", clearTimer);
+    document.removeEventListener("contextmenu", clearTimer);
     document.removeEventListener("click", clearTimer);
   };
 
@@ -34,5 +35,6 @@ export const detectMouse = callback => {
   document.addEventListener("touchstart", clearTimer);
   document.addEventListener("touchmove", clearTimer);
   document.addEventListener("touchend", clearTimer);
+  document.addEventListener("contextmenu", clearTimer);
   document.addEventListener("click", clearTimer);
 };
