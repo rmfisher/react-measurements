@@ -6,7 +6,8 @@ export default class TextAnchor extends PureComponent {
   componentDidMount() {
     this.mounted = true;
     this.textBox.addEventListener("click", this.onClick);
-    this.textBox.addEventListener("mouseleave", this.onMouseLeave);
+    document.addEventListener("mousedown", this.onDocumentMouseDown);
+    document.addEventListener("keydown", this.onDocumentKeyDown);
 
     setTimeout(() => {
       if (this.mounted) {
@@ -18,7 +19,8 @@ export default class TextAnchor extends PureComponent {
   componentWillUnmount() {
     this.mounted = false;
     this.textBox.removeEventListener("click", this.onClick);
-    this.textBox.removeEventListener("mouseleave", this.onMouseLeave);
+    document.removeEventListener("mousedown", this.onDocumentMouseDown);
+    document.removeEventListener("keydown", this.onDocumentKeyDown);
   }
 
   render() {
@@ -59,10 +61,19 @@ export default class TextAnchor extends PureComponent {
     );
   }
 
-  onClick = event => this.setState({ ...this.state, buttonShowing: true });
+  onClick = () => this.setState({ ...this.state, buttonShowing: true });
 
-  onMouseLeave = event =>
-    this.setState({ ...this.state, buttonShowing: false });
+  onDocumentMouseDown = e => {
+    if (!this.textBox.contains(e.target)) {
+      this.setState({ ...this.state, buttonShowing: false });
+    }
+  };
+
+  onDocumentKeyDown = e => {
+    if (e.key === "Escape" || e.keyCode === 27) {
+      this.setState({ ...this.state, buttonShowing: false });
+    }
+  };
 
   onDeleteButtonClick = event => {
     if (event.button === 0) {

@@ -191,7 +191,7 @@ export default class TextAnnotation extends PureComponent {
     const x = pointX + offset * cos;
     const y = pointY + offset * sin;
     const path = `M ${x - w} ${y - h} L ${x} ${y} L ${x - w} ${y + h} Z`;
-    const rotateInDegrees = rotate * 180 / Math.PI;
+    const rotateInDegrees = (rotate * 180) / Math.PI;
     const transform = `rotate(${rotateInDegrees} ${x} ${y})`;
     return { path, transform };
   };
