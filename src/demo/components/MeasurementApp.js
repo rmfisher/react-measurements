@@ -13,7 +13,7 @@ export default class MeasurementApp extends PureComponent {
             <span className="title-text">React Measurements</span>
             <div className="splitter" />
             <a href="https://www.npmjs.com/package/react-measurements">
-              v0.6.6
+              v0.6.7
             </a>
             <a href="https://github.com/rmfisher/react-measurements">GitHub</a>
           </div>
