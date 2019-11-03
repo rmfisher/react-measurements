@@ -17,7 +17,6 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  pointer-events: none;
 }
 
 /*---------- Colors ----------*/
@@ -62,7 +61,6 @@
 .text-annotation .arrow-line {
   stroke-width: 2px;
   stroke-linecap: butt;
-  pointer-events: none;
   fill: none;
 }
 
@@ -244,35 +242,33 @@
 
 /*---------- Pointer Events & Drag ----------*/
 
-.measurement-layer-base.mouse-detected .grabber-group {
+.line-measurement,
+.line-measurement .line,
+.circle-measurement,
+.circle-measurement .circle,
+.text-annotation,
+.text-annotation .arrow-line,
+.measurement-svg {
+  pointer-events: none;
+}
+
+.measurement-layer-base .grabber-group {
   pointer-events: painted;
 }
 
-.measurement-layer-base.mouse-detected .text,
-.measurement-layer-base.mouse-detected .arrow-head-grabber,
-.measurement-layer-base.mouse-detected .arrow-line-grabber,
-.measurement-layer-base.mouse-detected .text-box,
-.measurement-layer-base.mouse-detected
-  .text-anchor.button-showing
-  .delete-button,
-.measurement-layer-base.mouse-detected .editable .delete-button,
-.measurement-layer-base.mouse-detected.any-dragged
-  .grabber-group
-  .start-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged
-  .grabber-group
-  .mid-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged
-  .grabber-group
-  .end-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged
-  .grabber-group
-  .fill-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged
-  .grabber-group
-  .stroke-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged .arrow-head-grabber.dragged,
-.measurement-layer-base.mouse-detected.any-dragged .arrow-line-grabber.dragged {
+.measurement-layer-base .text,
+.measurement-layer-base .arrow-head-grabber,
+.measurement-layer-base .arrow-line-grabber,
+.measurement-layer-base .text-box,
+.measurement-layer-base .text-anchor.button-showing .delete-button,
+.measurement-layer-base .editable .delete-button,
+.measurement-layer-base.any-dragged .grabber-group .start-grabber.dragged,
+.measurement-layer-base.any-dragged .grabber-group .mid-grabber.dragged,
+.measurement-layer-base.any-dragged .grabber-group .end-grabber.dragged,
+.measurement-layer-base.any-dragged .grabber-group .fill-grabber.dragged,
+.measurement-layer-base.any-dragged .grabber-group .stroke-grabber.dragged,
+.measurement-layer-base.any-dragged .arrow-head-grabber.dragged,
+.measurement-layer-base.any-dragged .arrow-line-grabber.dragged {
   pointer-events: auto;
 }
 

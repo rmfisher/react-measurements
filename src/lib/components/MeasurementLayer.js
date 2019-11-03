@@ -1,23 +1,16 @@
 import React, { PureComponent } from "react";
 import MeasurementLayerBase from "./core/MeasurementLayerBase";
 import MeasurementButtons from "./buttons/MeasurementButtons";
-import { detectMouse } from "../utils/DomUtils.js";
 import "./MeasurementLayer.css";
 
 export default class MeasurementLayer extends PureComponent {
-  state = { mode: null, mouseDetected: false };
-
-  componentDidMount() {
-    detectMouse(() => this.setState({ ...this.state, mouseDetected: true }));
-  }
+  state = { mode: null };
 
   render() {
     const hasSize = this.props.widthInPx > 0 && this.props.heightInPx > 0;
-    const className =
-      "measurement-layer" + (this.state.mouseDetected ? " mouse-detected" : "");
     return (
       hasSize && (
-        <div className={className} ref={e => (this.root = e)}>
+        <div className="measurement-layer" ref={e => (this.root = e)}>
           <MeasurementLayerBase
             measurements={this.props.measurements}
             onChange={this.props.onChange}

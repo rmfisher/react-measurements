@@ -3,12 +3,10 @@ import LineMeasurement from "./LineMeasurement";
 import CircleMeasurement, { minRadiusInPx } from "./CircleMeasurement";
 import TextAnnotation from "./TextAnnotation";
 import { EditorState } from "draft-js";
-import { detectMouse } from "../../utils/DomUtils.js";
 import "./MeasurementLayerBase.css";
 
 export default class MeasurementLayerBase extends PureComponent {
   createdId = null;
-  state = { mouseDetected: false };
 
   componentDidMount() {
     this.root.addEventListener("mousedown", this.onMouseDown);
@@ -16,11 +14,6 @@ export default class MeasurementLayerBase extends PureComponent {
     document.addEventListener("mousemove", this.onMouseMove);
     window.addEventListener("mouseup", this.onMouseUp);
     window.addEventListener("blur", this.endDrag);
-
-    detectMouse(() => {
-      this.setState({ ...this.state, mouseDetected: true });
-      document.body.classList.add("mouse-detected");
-    });
   }
 
   componentWillUnmount() {
@@ -33,9 +26,7 @@ export default class MeasurementLayerBase extends PureComponent {
 
   render() {
     const className =
-      "measurement-layer-base" +
-      (this.props.mode ? " any-mode-on" : "") +
-      (this.state.mouseDetected ? " mouse-detected" : "");
+      "measurement-layer-base" + (this.props.mode ? " any-mode-on" : "");
     return (
       <div className={className} ref={e => (this.root = e)}>
         {this.props.measurements.map(this.createMeasurementComponent)}

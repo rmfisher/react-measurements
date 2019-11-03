@@ -1,6 +1,6 @@
 {
   "name": "react-measurements",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "description": "A React component for measuring & annotating images.",
   "main": "build/lib/index.js",
   "author": "Robert Fisher",

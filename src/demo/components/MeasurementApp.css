@@ -32,10 +32,8 @@ body {
 }
 
 .mobile-readonly-message {
-  font-size: 9pt;
   display: none;
-  margin: 3px 0 5px 0;
-  color: rgb(120, 120, 120);
+  margin: -15px 0 15px 0;
 }
 
 .title-text {
@@ -149,7 +147,32 @@ img {
     margin-left: 10px;
   }
 
-  body:not(.mouse-detected) .mobile-readonly-message {
+  .mobile-readonly-message {
+    font-size: 9pt;
+    margin: 3px 0 5px 0;
+    color: rgb(120, 120, 120);
+  }
+}
+
+/*---------- Read-only if no mouse, DraftJS doesn't support touch yet. ----------*/
+
+@media not all and (pointer: fine) {
+  .mobile-readonly-message {
     display: block;
+  }
+
+  .measurement-layer .button-bar {
+    display: none;
+  }
+
+  .measurement-layer,
+  .measurement-layer-base .text,
+  .measurement-layer-base .text-box,
+  .measurement-layer-base .grabber-group,
+  .measurement-layer-base .arrow-head-grabber,
+  .measurement-layer-base .arrow-line-grabber,
+  .measurement-layer-base .text-anchor.button-showing .delete-button,
+  .measurement-layer-base .editable .delete-button {
+    pointer-events: none;
   }
 }

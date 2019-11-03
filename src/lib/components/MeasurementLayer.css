@@ -56,13 +56,3 @@
   stroke: none;
   fill: white;
 }
-
-/*---------- Pointer Events ----------*/
-
-.measurement-layer {
-  pointer-events: none;
-}
-
-.measurement-layer.mouse-detected {
-  pointer-events: inherit;
-}
